@@ -265,35 +265,19 @@ function generateImgOrText(imgURL, displayText) {
 }
 
 function generateNotesSection(certData) {
-    const notesSections = [];
-
-    for (const [key, value] of Object.entries(certData)) {
-        if (/Notes$/i.test(key) && value) {
-            let label = key.replace(/Notes$/i, '');
-
-            if (label.toLowerCase() === 'authenticators') {
-                label = "Authenticator's";
-            } else if (label.toLowerCase() === 'graders') {
-                label = "Grader's";
-            } else {
-                label = camelToTitleCase(label);
-            }
-
-            notesSections.push({
-                label: `${label} Notes`,
-                content: value
-            });
-        }
+    const notes = []
+    for (const [key, val] of Object.entries(certData)) {
+        if (!/Notes$/i.test(key) || !val) continue
+        let adj = camelToTitleCase(key.replace(/Notes$/i, ''))
+        if (adj.endsWith('s')) adj = adj.slice(0, -1) + `'s`
+        notes.push({ label: `${adj} Notes`, content: val })
     }
-
-    if (!notesSections.length) return ''
-
-    return notesSections.map(note => `
+    return !notes.length ? '' : notes.map(n => `
         <div class="notes-section">
-            <div class="notes-label">${note.label}</div>
-            <div class="notes-content">${note.content}</div>
+            <div class="notes-label">${n.label}</div>
+            <div class="notes-content">${n.content}</div>
         </div>
-    `).join('');
+    `).join('')
 }
 
 function generatePageTitle(certID, certData) {
