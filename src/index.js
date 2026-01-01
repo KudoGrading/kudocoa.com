@@ -612,7 +612,7 @@ function generateCertificateScript(certID) {
 function minify(html) {
 
     // Extract scripts to preserve from minification
-    const scriptsToPreserve = [], scriptRegex = /<script\b[^>]*>([\s\S]+?)<\/script>/gi
+    const scriptsToPreserve = [], scriptRegex = /<script\b[^>]*>[\s\S]+?<\/script>/gi
     let match
     while ((match = scriptRegex.exec(html)) != null) scriptsToPreserve.push(match[0])
 
