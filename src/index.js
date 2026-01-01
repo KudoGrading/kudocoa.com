@@ -1,5 +1,5 @@
 import * as string from './lib/string.js'
-import css from './styles/global.css'
+import css from './styles/css/global.min.css'
 
 export default {
     async fetch(req, env) {

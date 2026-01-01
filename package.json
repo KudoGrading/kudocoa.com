@@ -6,10 +6,12 @@
     "lint:all": "eslint .",
     "lint:fix": "eslint . --fix --cache",
     "lint:fix-all": "eslint . --fix",
+    "build:css": "scss-to-css src/styles/global.scss",
     "dev": "wrangler dev",
     "deploy": "wrangler deploy"
   },
   "devDependencies": {
+    "@adamlui/scss-to-css": "^1.11.1",
     "@eslint/css": "^0.14.1",
     "@eslint/json": "^0.14.0",
     "@eslint/markdown": "^7.5.1",
