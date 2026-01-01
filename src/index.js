@@ -272,10 +272,10 @@ function generateNotesSection(certData) {
         if (adj.endsWith('s')) adj = adj.slice(0, -1) + `'s`
         notes.push({ label: `${adj} Notes`, content: val })
     }
-    return !notes.length ? '' : notes.map(n => `
+    return !notes.length ? '' : notes.map(note => `
         <div class="notes-section">
-            <div class="notes-label">${n.label}</div>
-            <div class="notes-content">${n.content}</div>
+            <div class="notes-label">${note.label}</div>
+            <div class="notes-content">${note.content}</div>
         </div>
     `).join('')
 }
