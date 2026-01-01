@@ -47,7 +47,7 @@ input { -moz-appearance:textfield ; appearance:textfield }
 .certificate-image-container { margin-top:1rem ; cursor: zoom-in }
 .certificate-image { max-width: 150px ; height:auto ; border:1px solid #fff ; padding:10px }
 .dynamic-image { height: 71px ; width: auto ; display:block }
-.name-text { font-size:1.3rem ; font-weight:bold ; text-transform:uppercase ; word-break:break-word }
+.name-text { font-size:1.3rem ; font-weight:bold ; text-transform:uppercase ; overflow-wrap:break-word }
 .nav-arrows { 
     position:fixed ; top:50% ; left:0 ; width:100% ; transform: translateY(-50%) ; 
     z-index:1000 ; display:flex ; justify-content:space-between ; padding:0 20px ;
@@ -67,7 +67,7 @@ input { -moz-appearance:textfield ; appearance:textfield }
     display:flex ; align-items:center ; margin-bottom:1.5rem ; border-bottom:1px solid #333 ; padding-bottom:1rem }
 .detail-row:last-child { border-bottom: none }
 .detail-label { width:300px ; min-width:200px ; color:#aaa ; font-size:1.1rem ; text-transform:uppercase ; letter-spacing:1px ; font-weight:600 }
-.detail-value { flex:1 ; font-size:1.3rem ; font-weight:bold ; text-transform:uppercase ; word-break:break-word }
+.detail-value { flex:1 ; font-size:1.3rem ; font-weight:bold ; text-transform:uppercase ; overflow-wrap:break-word }
 .detail-value img[src*="/publishers/"] { margin: -15px 0 -11px } /* tighten publisher logo y-spacing */
 .detail-value img[src*="/signatures/"] { opacity: 0.8 ; margin-top: 6px ; width: 176px ; height: auto }
 .signature-with-icon { display:flex ; flex-direction:column ; gap:0.5rem ; align-items:flex-start }
@@ -152,3 +152,11 @@ footer {
     .nav-arrow { width:40px ; height:100px ; font-size:35px }
     .error-message { font-size:1.5rem ; padding:2rem }
 }
+
+/* Non-baseline features */
+@supports (cursor: pointer) { .highlight-on-hover:hover, .toggle .track, .chatgptjs-logo { cursor: pointer }}
+@supports (overflow: clip) { body { overflow: clip }}
+@supports selector(:has(> input.slider)) { div.menu-entry:has(> input.slider) { flex-wrap: wrap ; padding-top: 2px }}
+@supports selector(:has(> .chatgptjs-logo)) {
+    footer > span:has(> .chatgptjs-logo) { display: flex ; align-items: center ; flex-grow: 1 ; padding-left: 2px }}
+@supports (user-select: none) { body, button, input, select, textarea { user-select: none }}
