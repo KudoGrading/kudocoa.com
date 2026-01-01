@@ -2,6 +2,8 @@ import * as string from './lib/string.js'
 import * as header from './templates/header.js'
 import * as footer from './templates/footer.js'
 import * as comicPages from './components/comic-pages.js'
+import * as notesSection from './components/notes-section.js'
+import * as verificationBadge from './components/verification-badge.js'
 import css from './styles/css/global.min.css'
 
 export default {
@@ -193,7 +195,7 @@ async function generateCertContent(certID, certData) {
                             PDF</button>
                     </div>
                 </div>
-                ${generateVerificationBadge(certData)}
+                ${verificationBadge.generate(certData)}
             </div>
         </div>
         
@@ -202,7 +204,7 @@ async function generateCertContent(certID, certData) {
             <div class="cert-details">${generateDetailRows()}</div>
         </div>
 
-        ${generateNotesSection(certData)}
+        ${notesSection.generate(certData)}
         ${comicPagesHTML}
     `;
 }
@@ -412,73 +414,10 @@ function generateNav(certID) {
     return { navArrowsHTML, prevCert, nextCert }
 }
 
-function generateNotesSection(certData) {
-    const notes = []
-    for (const [key, val] of Object.entries(certData)) {
-        if (!/Notes$/i.test(key) || !val) continue
-        let adj = string.camelToTitleCase(key.replace(/Notes$/i, ''))
-        if (adj.endsWith('s')) adj = adj.slice(0, -1) + `'s`
-        notes.push({ label: `${adj} Notes`, content: val })
-    }
-    return !notes.length ? '' : notes.map(note => `
-        <div class="notes-section">
-            <div class="notes-label">${note.label}</div>
-            <div class="notes-content">${note.content}</div>
-        </div>
-    `).join('')
-}
-
 function generatePageTitle(certID, certData) {
     const yearMatch = (certData?.coverDate || certData?.publishDate)?.match(/\d{4}/),
           year = yearMatch ? ` (${yearMatch[0]})` : ''
     return `Kudo COA #${parseInt(certID)} / ${certData?.item || ''}${year} / Kudo Grading + Authentication`
-}
-
-function generateVerificationBadge(certData) {
-    const cnts = { art: 0, sig: 0 }
-
-    for (const [key, val] of Object.entries(certData)) {
-        const label = key.toLowerCase()
-        let valStr = val.toString().toLowerCase()
-
-        if (/artwork|painted/i.test(label)) {
-            cnts.art++ ; valStr = valStr.replace(/&/g, '+')
-            cnts.comma = (valStr.match(/,/g) || []).length
-            cnts.plus = (valStr.match(/\+/g) || []).length
-            cnts.art += cnts.comma + cnts.plus
-        }
-
-        if (/signed|signature|sign/.test(label)) {
-            cnts.sig++
-            valStr = valStr.replace(/&/g, '+')
-            cnts.comma = (valStr.match(/,/g) || []).length
-            cnts.plus = (valStr.match(/\+/g) || []).length
-            cnts.sig += cnts.comma + cnts.plus
-        }
-    }
-
-    let badgeText = '' ; let totalChecks = 0
-    if (cnts.art > 0 && cnts.sig > 0) {
-        totalChecks = cnts.art + cnts.sig
-        const sigText = cnts.sig == 1 ? 'SIGNATURE' : cnts.sig + 'X SIGNATURES'
-        badgeText = 'ARTWORK + ' + sigText + ' VERIFIED'
-    } else if (cnts.art > 0) {
-        totalChecks = cnts.art
-        badgeText = 'ARTWORK VERIFIED'
-    } else if (cnts.sig > 0) {
-        totalChecks = cnts.sig
-        badgeText = cnts.sig == 1 ? 'SIGNATURE VERIFIED' : cnts.sig + 'X SIGNATURES VERIFIED';
-    } else {
-        totalChecks = 1
-        badgeText = 'VERIFIED'
-    }
-
-    const checkmarks = '✓'.repeat(Math.min(totalChecks, 10))
-    return `
-        <div class="status-badge">
-            <span class="checkmarks">${checkmarks}</span>
-            <span class="status-text">${badgeText}</span>
-        </div>`
 }
 
 function minify(html) {
