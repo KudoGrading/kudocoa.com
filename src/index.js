@@ -22,7 +22,7 @@ export default {
                         </div>
                         <script>${generateBaseScript()}</script>
                     </body>
-                </html>`            
+                </html>`
             return new Response(minify(html), { headers: { 'Content-Type': 'text/html' }})
         } else if (url.hostname != 'kudocoa.com')
             return new Response('Not found', { status: 404 })
@@ -64,7 +64,7 @@ export default {
     </body>
 </html>`
                 return new Response(minify(html), { headers: { 'Content-Type': 'text/html' }, status: 404  })
-            }            
+            }
             const certData = JSON.parse(certDataRaw),
                   content = await generateCertContent(certID, certData),
                   html = `
@@ -90,7 +90,7 @@ export default {
 </html>`
             return new Response(minify(html), {
                 headers: { 'Content-Type': 'text/html', 'Cache-Control': 'public, max-age=300' }})
-            
+
         } catch (err) { console.error('Error:', err) ; return new Response('System error', { status: 500 }) }
     }
 }
@@ -114,33 +114,33 @@ function formatDate(dateStr) {
                 year: 'numeric', month: 'long'
             }).toUpperCase()
         }
-        
+
         const date = new Date(dateStr)
         return date.toLocaleDateString('en-US', {
-            year: 'numeric', month: 'long', day: 'numeric' 
+            year: 'numeric', month: 'long', day: 'numeric'
         }).toUpperCase()
-    } catch { 
-        return dateStr.toUpperCase() 
+    } catch {
+        return dateStr.toUpperCase()
     }
 }
 
 async function generateComicPages(certData) {
     const { interiorURL } = certData
     if (!interiorURL || !interiorURL.includes('readallcomics.com')) return ''
-    
+
     try {
         const pagesHTML = await (await fetch(interiorURL)).text()
         const imgPattern = /<img[^>]+src="([^"]+)"[^>]*>/gi
         const matches = []
         let match
-        
+
         // Collect ALL image URLs
         while ((match = imgPattern.exec(pagesHTML)) != null) {
             matches.push(match[1])
         }
-        
+
         if (!matches.length) return ''
-        
+
         // Find most common domain (using last 2 segments to handle subdomains)
         const domainCounts = {}
         matches.forEach(src => {
@@ -149,13 +149,13 @@ async function generateComicPages(certData) {
                 const hostname = url.hostname
                 // Extract domain without subdomain (last 2 segments)
                 const parts = hostname.split('.')
-                const domain = parts.length >= 2 
+                const domain = parts.length >= 2
                     ? parts.slice(-2).join('.')  // Get last 2 parts like "blogspot.com"
                     : hostname
                 domainCounts[domain] = (domainCounts[domain] || 0) + 1
             } catch {}
         })
-        
+
         // Get domain with most images
         let mostCommonDomain = ''
         let maxCount = 0
@@ -174,10 +174,10 @@ async function generateComicPages(certData) {
                 const url = new URL(src)
                 const hostname = url.hostname
                 const domainParts = hostname.split('.')
-                const domain = domainParts.length >= 2 
+                const domain = domainParts.length >= 2
                     ? domainParts.slice(-2).join('.')
                     : hostname
-                return domain == mostCommonDomain && 
+                return domain == mostCommonDomain &&
                        !src.includes('/avatar-') &&
                        !src.includes('logo-') &&
                        !src.includes('icon.')
@@ -203,18 +203,18 @@ async function generateComicPages(certData) {
 
 function generateVerificationBadge(certData) {
     const cnts = { art: 0, sig: 0 }
-    
+
     for (const [key, val] of Object.entries(certData)) {
         const label = key.toLowerCase()
         let valStr = val.toString().toLowerCase()
-        
+
         if (/artwork|painted/i.test(label)) {
             cnts.art++ ; valStr = valStr.replace(/&/g, '+')
             cnts.comma = (valStr.match(/,/g) || []).length
             cnts.plus = (valStr.match(/\+/g) || []).length
             cnts.art += cnts.comma + cnts.plus
         }
-        
+
         if (/signed|signature|sign/.test(label)) {
             cnts.sig++
             valStr = valStr.replace(/&/g, '+')
@@ -223,7 +223,7 @@ function generateVerificationBadge(certData) {
             cnts.sig += cnts.comma + cnts.plus
         }
     }
-    
+
     let badgeText = '' ; let totalChecks = 0
     if (cnts.art > 0 && cnts.sig > 0) {
         totalChecks = cnts.art + cnts.sig
@@ -239,7 +239,7 @@ function generateVerificationBadge(certData) {
         totalChecks = 1
         badgeText = 'VERIFIED'
     }
-    
+
     const checkmarks = '✓'.repeat(Math.min(totalChecks, 10))
     return `
         <div class="status-badge">
@@ -266,11 +266,11 @@ function generateImgOrText(imgURL, displayText) {
 
 function generateNotesSection(certData) {
     const notesSections = [];
-    
+
     for (const [key, value] of Object.entries(certData)) {
         if (/Notes$/i.test(key) && value) {
             let label = key.replace(/Notes$/i, '');
-            
+
             if (label.toLowerCase() === 'authenticators') {
                 label = "Authenticator's";
             } else if (label.toLowerCase() === 'graders') {
@@ -278,16 +278,16 @@ function generateNotesSection(certData) {
             } else {
                 label = camelToTitleCase(label);
             }
-            
+
             notesSections.push({
                 label: `${label} Notes`,
                 content: value
             });
         }
     }
-    
+
     if (!notesSections.length) return ''
-    
+
     return notesSections.map(note => `
         <div class="notes-section">
             <div class="notes-label">${note.label}</div>
@@ -300,7 +300,7 @@ function generatePageTitle(certID, certData) {
     // Remove leading zeros and convert to number
     const certNum = parseInt(certID)
     let year = ''
-    
+
     // Check for year in coverDate or publishDate
     if (certData?.coverDate) {
         const match = certData.coverDate.match(/\d{4}/)
@@ -309,7 +309,7 @@ function generatePageTitle(certID, certData) {
         const match = certData.publishDate.match(/\d{4}/)
         if (match) year = ` (${match[0]})`
     }
-    
+
     const itemPart = ` / ${certData?.item}${year}`
     return `Kudo COA #${certNum}${itemPart} / Kudo Grading + Authentication`
 }
@@ -346,7 +346,7 @@ function generateFooter() {
 function generateNav(certID) {
     const certNum = parseInt(certID),
           prevCert = certNum > 1 ? String(certNum - 1).padStart(10, '0') : null,
-          nextCert = String(certNum + 1).padStart(10, '0')    
+          nextCert = String(certNum + 1).padStart(10, '0')
     let navArrowsHTML = '<div class="nav-arrows">'
     if (prevCert)
         navArrowsHTML += `<a href="https://kudocoa.com/${prevCert}" class="nav-arrow left" title="Previous Certificate">&lt;</a>`
@@ -362,10 +362,10 @@ async function generateCertContent(certID, certData) {
         const rows = [];
         for (const [key, val] of Object.entries(certData)) {
             if (/(?:Notes|interiorURL)$/i.test(key)) continue
-            
+ 
             const label = camelToTitleCase(key);
             let displayVal = /date/i.test(key) ? formatDate(val) : val.toString().toUpperCase();
-                        
+
             if (/By$/i.test(key)) {
                 displayVal = displayVal.replace(/[,&]/g, ' +')
                 if (/(?:authenticated|graded)by$/i.test(key)) {
@@ -375,14 +375,14 @@ async function generateCertContent(certID, certData) {
                     displayVal = generateImgOrText(imgURL, displayVal)
                 }
             }
-            
+
             if (/^publisher$/i.test(key)) {
                 const publisherSlug = val.toString().toLowerCase()
                     .replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
                 const logoUrl = `https://cdn.jsdelivr.net/gh/KudoComics/assets/images/logos/publishers/${publisherSlug}/white.png`;
                 displayVal = generateImgOrText(logoUrl, displayVal);
             }
-            
+
             if (/^coa/i.test(key) && /certificate/i.test(displayVal)) {
                 displayVal = `
                     <div class="cert-type-with-icon">
@@ -396,7 +396,7 @@ async function generateCertContent(certID, certData) {
                     </div>
                 `;
             }
-            
+
             rows.push(`
                 <div class="detail-row">
                     <div class="detail-label">${label}:</div>
@@ -404,10 +404,10 @@ async function generateCertContent(certID, certData) {
                 </div>
             `);
         }
-        
+
         return rows.join('');
     }
-    
+
     // Generate comic pages if they exist
     const comicPagesHTML = await generateComicPages(certData)
     return `
@@ -641,7 +641,7 @@ function minify(html) {
 
     // Extract scripts to preserve from minification
     const scriptsToPreserve = [], scriptRegex = /<script\b[^>]*>([\s\S]+?)<\/script>/gi
-    let match    
+    let match
     while ((match = scriptRegex.exec(html)) != null) scriptsToPreserve.push(match[0])
 
     // Temp replace scripts w/ placeholders
@@ -657,7 +657,7 @@ function minify(html) {
 
     // Restore scripts
     let finalHTML = minifiedHTML
-    scriptsToPreserve.forEach((script, idx) => 
+    scriptsToPreserve.forEach((script, idx) =>
         finalHTML = finalHTML.replace(`<!-- SCRIPT_PLACEHOLDER_${idx} -->`, script))
 
     return finalHTML
