@@ -281,21 +281,9 @@ function generateNotesSection(certData) {
 }
 
 function generatePageTitle(certID, certData) {
-    // Remove leading zeros and convert to number
-    const certNum = parseInt(certID)
-    let year = ''
-
-    // Check for year in coverDate or publishDate
-    if (certData?.coverDate) {
-        const match = certData.coverDate.match(/\d{4}/)
-        if (match) year = ` (${match[0]})`
-    } else if (certData?.publishDate) {
-        const match = certData.publishDate.match(/\d{4}/)
-        if (match) year = ` (${match[0]})`
-    }
-
-    const itemPart = ` / ${certData?.item}${year}`
-    return `Kudo COA #${certNum}${itemPart} / Kudo Grading + Authentication`
+    const yearMatch = (certData?.coverDate || certData?.publishDate)?.match(/\d{4}/),
+          year = yearMatch ? ` (${yearMatch[0]})` : ''
+    return `Kudo COA #${parseInt(certID)} / ${certData?.item || ''}${year} / Kudo Grading + Authentication`
 }
 
 function generateHeader(certID = '') {
