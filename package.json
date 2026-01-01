@@ -2,6 +2,10 @@
   "homepage": "https://kudocoa.com",
   "scripts": {
     "prepare": "husky",
+    "lint": "eslint . --cache",
+    "lint:all": "eslint .",
+    "lint:fix": "eslint . --fix --cache",
+    "lint:fix-all": "eslint . --fix",
     "dev": "wrangler dev",
     "deploy": "wrangler deploy"
   },
