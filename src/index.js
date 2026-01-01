@@ -331,7 +331,7 @@ function generateHeader(certID = '') {
 function generateFooter() {
     return `
         <footer>
-            <div>© ${new Date().getFullYear()} KUDO GRADING & AUTHENTICATION SERVICES</div>
+            <div>© 2025—${new Date().getFullYear()} KUDO GRADING & AUTHENTICATION SERVICES</div>
             <div class="footer-links">
                 <a href="https://www.kudocoa.com">Home</a>
                 <span class="footer-separator"></span>
