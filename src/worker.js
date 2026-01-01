@@ -2,6 +2,7 @@ import * as string from './lib/string.js'
 import * as header from './templates/header.js'
 import * as footer from './templates/footer.js'
 import * as comicPages from './components/comic-pages.js'
+import * as navArrows from './components/nav-arrows.js'
 import * as noteBoxes from './components/note-boxes.js'
 import * as verificationBadge from './components/verification-badge.js'
 import css from './styles/css/global.min.css'
@@ -210,7 +211,7 @@ async function generateCertContent(certID, certData) {
 }
 
 function generateCertScript(certID) {
-    const { navArrowsHTML, prevCert, nextCert } = generateNav(certID)
+    const { navArrowsHTML, prevCert, nextCert } = navArrows.generate(certID)
     return `
         document.addEventListener('DOMContentLoaded', () => {
 
@@ -398,20 +399,6 @@ function generateImgOrText(imgURL, displayText) {
                  style="display:none">
         </div>
     `;
-}
-
-function generateNav(certID) {
-    const certNum = parseInt(certID),
-          prevCert = certNum > 1 ? String(certNum - 1).padStart(10, '0') : null,
-          nextCert = String(certNum + 1).padStart(10, '0')
-    let navArrowsHTML = '<div class="nav-arrows">'
-    if (prevCert)
-        navArrowsHTML += `<a href="https://kudocoa.com/${prevCert}" class="nav-arrow left" title="Previous Certificate">&lt;</a>`
-    else
-        navArrowsHTML += '<span class="nav-arrow left disabled" title="No Previous Certificate">&lt;</span>'
-    navArrowsHTML += `<a href="https://kudocoa.com/${nextCert}" class="nav-arrow right" title="Next Certificate">&lt;</a>`
-    navArrowsHTML += '</div>'
-    return { navArrowsHTML, prevCert, nextCert }
 }
 
 function generatePageTitle(certID, certData) {
