@@ -2,7 +2,7 @@ import * as string from './lib/string.js'
 import * as header from './templates/header.js'
 import * as footer from './templates/footer.js'
 import * as comicPages from './components/comic-pages.js'
-import * as notesSection from './components/notes-section.js'
+import * as noteBoxes from './components/note-boxes.js'
 import * as verificationBadge from './components/verification-badge.js'
 import css from './styles/css/global.min.css'
 
@@ -204,7 +204,7 @@ async function generateCertContent(certID, certData) {
             <div class="cert-details">${generateDetailRows()}</div>
         </div>
 
-        ${notesSection.generate(certData)}
+        ${noteBoxes.generate(certData)}
         ${comicPagesHTML}
     `;
 }
