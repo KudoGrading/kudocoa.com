@@ -24,8 +24,7 @@ export default {
                     </body>
                 </html>`
             return new Response(minify(html), { headers: { 'Content-Type': 'text/html' }})
-        } else if (url.hostname != 'kudocoa.com')
-            return new Response('Not found', { status: 404 })
+        }
 
         // Validate cert #
         const certInput = url.pathname.split('/')[1]
