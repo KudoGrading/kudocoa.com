@@ -334,7 +334,7 @@ async function generateCertContent(certID, certData) {
         const rows = [];
         for (const [key, val] of Object.entries(certData)) {
             if (/(?:Notes|interiorURL)$/i.test(key)) continue
- 
+
             const label = camelToTitleCase(key);
             let displayVal = /date/i.test(key) ? formatDate(val) : val.toString().toUpperCase();
 
