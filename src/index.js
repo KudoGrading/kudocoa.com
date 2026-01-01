@@ -5,8 +5,8 @@ export default {
     async fetch(req, env) {
         const url = new URL(req.url)
 
-        // Render homepage or 404 for non-kudocoa.com req's
-        if (/^\/?$/.test(url.pathname)) { // homepage
+        // Render homepage
+        if (/^\/?$/.test(url.pathname)) {
             const html = `
                 <!DOCTYPE html>
                 <html lang="en">
