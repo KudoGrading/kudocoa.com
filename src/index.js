@@ -60,7 +60,7 @@ export default {
             ${errorContent}
             ${generateFooter()}
         </div>
-        <script>${generateCertificateScript(certID)}</script>
+        <script>${generateCertScript(certID)}</script>
     </body>
 </html>`
                 return new Response(minify(html), { headers: { 'Content-Type': 'text/html' }, status: 404  })
@@ -85,7 +85,7 @@ export default {
             ${generateFooter()}
         </div>
         
-        <script>${generateCertificateScript(certID)}</script>
+        <script>${generateCertScript(certID)}</script>
     </body>
 </html>`
             return new Response(minify(html), {
@@ -124,209 +124,27 @@ function formatDate(dateStr) {
     }
 }
 
-async function generateComicPages(certData) {
-    const { interiorURL } = certData
-    if (!interiorURL || !interiorURL.includes('readallcomics.com')) return ''
-
-    try {
-        const pagesHTML = await (await fetch(interiorURL)).text()
-        const imgPattern = /<img[^>]+src="([^"]+)"[^>]*>/gi
-        const matches = []
-        let match
-
-        // Collect ALL image URLs
-        while ((match = imgPattern.exec(pagesHTML)) != null) {
-            matches.push(match[1])
+function generateBaseScript() {
+    return `document.addEventListener('DOMContentLoaded', () => {
+        const input = document.getElementById('certNumber'),
+              button = document.getElementById('verifyBtn')
+        button.onclick = verify
+        input.addEventListener('keydown', ({ key }) => key == 'Enter' && verify())
+        function verify() {
+            const certNumber = input.value.trim()
+            if (!certNumber)
+                return alert('Please enter a certificate number')
+            if (!/^\\d+$/.test(certNumber))
+                return alert('Certificate number must contain only digits')
+            button.disabled = true ; button.textContent = 'Retrieving...'
+            location.href = 'https://kudocoa.com/' + certNumber
         }
-
-        if (!matches.length) return ''
-
-        // Find most common domain (using last 2 segments to handle subdomains)
-        const domainCounts = {}
-        matches.forEach(src => {
-            try {
-                const url = new URL(src)
-                const hostname = url.hostname
-                // Extract domain without subdomain (last 2 segments)
-                const parts = hostname.split('.')
-                const domain = parts.length >= 2
-                    ? parts.slice(-2).join('.')  // Get last 2 parts like "blogspot.com"
-                    : hostname
-                domainCounts[domain] = (domainCounts[domain] || 0) + 1
-            } catch {}
+        input.focus() ; const val = input.value ; input.value = '' ; input.value = val
+        addEventListener('pageshow', () => {
+            button.disabled = false ; button.textContent = 'Verify Certificate'
+            input.focus() ; const val = input.value ; input.value = '' ; input.value = val
         })
-
-        // Get domain with most images
-        let mostCommonDomain = ''
-        let maxCount = 0
-        for (const [domain, count] of Object.entries(domainCounts)) {
-            if (count > maxCount) {
-                maxCount = count
-                mostCommonDomain = domain
-            }
-        }
-
-        console.log('Most common domain:', mostCommonDomain, 'count:', maxCount)
-
-        // Filter images from the most common domain (check if ends with the domain)
-        const comicImages = matches.filter(src => {
-            try {
-                const url = new URL(src)
-                const hostname = url.hostname
-                const domainParts = hostname.split('.')
-                const domain = domainParts.length >= 2
-                    ? domainParts.slice(-2).join('.')
-                    : hostname
-                return domain == mostCommonDomain &&
-                       !src.includes('/avatar-') &&
-                       !src.includes('logo-') &&
-                       !src.includes('icon.')
-            } catch { return false }
-        })
-
-        // Skip first image (cover)
-        const interiorPages = comicImages.slice(1)
-        console.log('Found', interiorPages.length, 'interior pages')
-        return !interiorPages.length ? '' : `
-            <div class="comic-pages">
-                <div class="comic-title">INTERIOR PAGES (OF REFERENCE COPY)</div>
-                ${interiorPages.map((src, idx) => `
-                    <div class="comic-page">
-                        <img src="${src}" loading="lazy">
-                        <div class="page-number">PAGE ${ idx +1 }</div>
-                    </div>
-                `).join('')}
-            </div>
-        `
-    } catch (err) { console.error('Error fetching comic pages:', err) ; return '' }
-}
-
-function generateVerificationBadge(certData) {
-    const cnts = { art: 0, sig: 0 }
-
-    for (const [key, val] of Object.entries(certData)) {
-        const label = key.toLowerCase()
-        let valStr = val.toString().toLowerCase()
-
-        if (/artwork|painted/i.test(label)) {
-            cnts.art++ ; valStr = valStr.replace(/&/g, '+')
-            cnts.comma = (valStr.match(/,/g) || []).length
-            cnts.plus = (valStr.match(/\+/g) || []).length
-            cnts.art += cnts.comma + cnts.plus
-        }
-
-        if (/signed|signature|sign/.test(label)) {
-            cnts.sig++
-            valStr = valStr.replace(/&/g, '+')
-            cnts.comma = (valStr.match(/,/g) || []).length
-            cnts.plus = (valStr.match(/\+/g) || []).length
-            cnts.sig += cnts.comma + cnts.plus
-        }
-    }
-
-    let badgeText = '' ; let totalChecks = 0
-    if (cnts.art > 0 && cnts.sig > 0) {
-        totalChecks = cnts.art + cnts.sig
-        const sigText = cnts.sig == 1 ? 'SIGNATURE' : cnts.sig + 'X SIGNATURES'
-        badgeText = 'ARTWORK + ' + sigText + ' VERIFIED'
-    } else if (cnts.art > 0) {
-        totalChecks = cnts.art
-        badgeText = 'ARTWORK VERIFIED'
-    } else if (cnts.sig > 0) {
-        totalChecks = cnts.sig
-        badgeText = cnts.sig == 1 ? 'SIGNATURE VERIFIED' : cnts.sig + 'X SIGNATURES VERIFIED';
-    } else {
-        totalChecks = 1
-        badgeText = 'VERIFIED'
-    }
-
-    const checkmarks = '✓'.repeat(Math.min(totalChecks, 10))
-    return `
-        <div class="status-badge">
-            <span class="checkmarks">${checkmarks}</span>
-            <span class="status-text">${badgeText}</span>
-        </div>`
-}
-
-function generateImgOrText(imgURL, displayText) {
-    const id = 'img_' + Date.now() + Math.random().toString(36).substr(2, 9);
-    return `
-        <div style="margin: -15px 0 -11px">
-            <span class="name-text" id="name_${id}">${displayText}</span>
-            <img src="${imgURL}" 
-                 alt="${displayText}" 
-                 class="dynamic-image"
-                 id="img_${id}"
-                 onload="document.getElementById('img_${id}').style.display='block'; document.getElementById('name_${id}').style.display='none'"
-                 onerror="this.style.display='none'"
-                 style="display:none">
-        </div>
-    `;
-}
-
-function generateNotesSection(certData) {
-    const notes = []
-    for (const [key, val] of Object.entries(certData)) {
-        if (!/Notes$/i.test(key) || !val) continue
-        let adj = camelToTitleCase(key.replace(/Notes$/i, ''))
-        if (adj.endsWith('s')) adj = adj.slice(0, -1) + `'s`
-        notes.push({ label: `${adj} Notes`, content: val })
-    }
-    return !notes.length ? '' : notes.map(note => `
-        <div class="notes-section">
-            <div class="notes-label">${note.label}</div>
-            <div class="notes-content">${note.content}</div>
-        </div>
-    `).join('')
-}
-
-function generatePageTitle(certID, certData) {
-    const yearMatch = (certData?.coverDate || certData?.publishDate)?.match(/\d{4}/),
-          year = yearMatch ? ` (${yearMatch[0]})` : ''
-    return `Kudo COA #${parseInt(certID)} / ${certData?.item || ''}${year} / Kudo Grading + Authentication`
-}
-
-function generateHeader(certID = '') {
-    return `
-        <div class="hero">
-            <div class="hero-big">KUDO</div>
-            <div class="hero-small">GRADING + AUTHENTICATION</div>
-        </div>
-        
-        <div class="search-bar">
-            <input type="number" id="certNumber" placeholder="Enter certificate number" autofocus value="${certID}">
-            <button class="search-btn" id="verifyBtn">Verify Certificate</button>
-        </div>
-    `;
-}
-
-function generateFooter() {
-    return `
-        <footer>
-            <div>© 2025—${new Date().getFullYear()} KUDO GRADING & AUTHENTICATION SERVICES</div>
-            <div class="footer-links">
-                <a href="https://www.kudocoa.com">Home</a>
-                <span class="footer-separator"></span>
-                <a href="https://github.com/KudoGrading" target="_blank" rel="noopener">GitHub</a>
-                <span class="footer-separator"></span>
-                <a href="mailto:support@kudocoa.com">Contact</a>
-            </div>
-        </footer>
-    `;
-}
-
-function generateNav(certID) {
-    const certNum = parseInt(certID),
-          prevCert = certNum > 1 ? String(certNum - 1).padStart(10, '0') : null,
-          nextCert = String(certNum + 1).padStart(10, '0')
-    let navArrowsHTML = '<div class="nav-arrows">'
-    if (prevCert)
-        navArrowsHTML += `<a href="https://kudocoa.com/${prevCert}" class="nav-arrow left" title="Previous Certificate">&lt;</a>`
-    else
-        navArrowsHTML += '<span class="nav-arrow left disabled" title="No Previous Certificate">&lt;</span>'
-    navArrowsHTML += `<a href="https://kudocoa.com/${nextCert}" class="nav-arrow right" title="Next Certificate">&lt;</a>`
-    navArrowsHTML += '</div>'
-    return { navArrowsHTML, prevCert, nextCert }
+    })`
 }
 
 async function generateCertContent(certID, certData) {
@@ -411,30 +229,7 @@ async function generateCertContent(certID, certData) {
     `;
 }
 
-function generateBaseScript() {
-    return `document.addEventListener('DOMContentLoaded', () => {
-        const input = document.getElementById('certNumber'),
-              button = document.getElementById('verifyBtn')
-        button.onclick = verify
-        input.addEventListener('keydown', ({ key }) => key == 'Enter' && verify())
-        function verify() {
-            const certNumber = input.value.trim()
-            if (!certNumber)
-                return alert('Please enter a certificate number')
-            if (!/^\\d+$/.test(certNumber))
-                return alert('Certificate number must contain only digits')
-            button.disabled = true ; button.textContent = 'Retrieving...'
-            location.href = 'https://kudocoa.com/' + certNumber
-        }
-        input.focus() ; const val = input.value ; input.value = '' ; input.value = val
-        addEventListener('pageshow', () => {
-            button.disabled = false ; button.textContent = 'Verify Certificate'
-            input.focus() ; const val = input.value ; input.value = '' ; input.value = val
-        })
-    })`
-}
-
-function generateCertificateScript(certID) {
+function generateCertScript(certID) {
     const { navArrowsHTML, prevCert, nextCert } = generateNav(certID)
     return `
         document.addEventListener('DOMContentLoaded', () => {
@@ -607,6 +402,211 @@ function generateCertificateScript(certID) {
                 zoomedImg.style.transform = 'scale(1) translateY(0)'
             }, 10)
     }`
+}
+
+async function generateComicPages(certData) {
+    const { interiorURL } = certData
+    if (!interiorURL || !interiorURL.includes('readallcomics.com')) return ''
+
+    try {
+        const pagesHTML = await (await fetch(interiorURL)).text()
+        const imgPattern = /<img[^>]+src="([^"]+)"[^>]*>/gi
+        const matches = []
+        let match
+
+        // Collect ALL image URLs
+        while ((match = imgPattern.exec(pagesHTML)) != null) {
+            matches.push(match[1])
+        }
+
+        if (!matches.length) return ''
+
+        // Find most common domain (using last 2 segments to handle subdomains)
+        const domainCounts = {}
+        matches.forEach(src => {
+            try {
+                const url = new URL(src)
+                const hostname = url.hostname
+                // Extract domain without subdomain (last 2 segments)
+                const parts = hostname.split('.')
+                const domain = parts.length >= 2
+                    ? parts.slice(-2).join('.')  // Get last 2 parts like "blogspot.com"
+                    : hostname
+                domainCounts[domain] = (domainCounts[domain] || 0) + 1
+            } catch {}
+        })
+
+        // Get domain with most images
+        let mostCommonDomain = ''
+        let maxCount = 0
+        for (const [domain, count] of Object.entries(domainCounts)) {
+            if (count > maxCount) {
+                maxCount = count
+                mostCommonDomain = domain
+            }
+        }
+
+        console.log('Most common domain:', mostCommonDomain, 'count:', maxCount)
+
+        // Filter images from the most common domain (check if ends with the domain)
+        const comicImages = matches.filter(src => {
+            try {
+                const url = new URL(src)
+                const hostname = url.hostname
+                const domainParts = hostname.split('.')
+                const domain = domainParts.length >= 2
+                    ? domainParts.slice(-2).join('.')
+                    : hostname
+                return domain == mostCommonDomain &&
+                       !src.includes('/avatar-') &&
+                       !src.includes('logo-') &&
+                       !src.includes('icon.')
+            } catch { return false }
+        })
+
+        // Skip first image (cover)
+        const interiorPages = comicImages.slice(1)
+        console.log('Found', interiorPages.length, 'interior pages')
+        return !interiorPages.length ? '' : `
+            <div class="comic-pages">
+                <div class="comic-title">INTERIOR PAGES (OF REFERENCE COPY)</div>
+                ${interiorPages.map((src, idx) => `
+                    <div class="comic-page">
+                        <img src="${src}" loading="lazy">
+                        <div class="page-number">PAGE ${ idx +1 }</div>
+                    </div>
+                `).join('')}
+            </div>
+        `
+    } catch (err) { console.error('Error fetching comic pages:', err) ; return '' }
+}
+
+function generateFooter() {
+    return `
+        <footer>
+            <div>© 2025—${new Date().getFullYear()} KUDO GRADING & AUTHENTICATION SERVICES</div>
+            <div class="footer-links">
+                <a href="https://www.kudocoa.com">Home</a>
+                <span class="footer-separator"></span>
+                <a href="https://github.com/KudoGrading" target="_blank" rel="noopener">GitHub</a>
+                <span class="footer-separator"></span>
+                <a href="mailto:support@kudocoa.com">Contact</a>
+            </div>
+        </footer>
+    `;
+}
+
+function generateHeader(certID = '') {
+    return `
+        <div class="hero">
+            <div class="hero-big">KUDO</div>
+            <div class="hero-small">GRADING + AUTHENTICATION</div>
+        </div>
+        
+        <div class="search-bar">
+            <input type="number" id="certNumber" placeholder="Enter certificate number" autofocus value="${certID}">
+            <button class="search-btn" id="verifyBtn">Verify Certificate</button>
+        </div>
+    `;
+}
+
+function generateImgOrText(imgURL, displayText) {
+    const id = 'img_' + Date.now() + Math.random().toString(36).substr(2, 9);
+    return `
+        <div style="margin: -15px 0 -11px">
+            <span class="name-text" id="name_${id}">${displayText}</span>
+            <img src="${imgURL}" 
+                 alt="${displayText}" 
+                 class="dynamic-image"
+                 id="img_${id}"
+                 onload="document.getElementById('img_${id}').style.display='block'; document.getElementById('name_${id}').style.display='none'"
+                 onerror="this.style.display='none'"
+                 style="display:none">
+        </div>
+    `;
+}
+
+function generateNav(certID) {
+    const certNum = parseInt(certID),
+          prevCert = certNum > 1 ? String(certNum - 1).padStart(10, '0') : null,
+          nextCert = String(certNum + 1).padStart(10, '0')
+    let navArrowsHTML = '<div class="nav-arrows">'
+    if (prevCert)
+        navArrowsHTML += `<a href="https://kudocoa.com/${prevCert}" class="nav-arrow left" title="Previous Certificate">&lt;</a>`
+    else
+        navArrowsHTML += '<span class="nav-arrow left disabled" title="No Previous Certificate">&lt;</span>'
+    navArrowsHTML += `<a href="https://kudocoa.com/${nextCert}" class="nav-arrow right" title="Next Certificate">&lt;</a>`
+    navArrowsHTML += '</div>'
+    return { navArrowsHTML, prevCert, nextCert }
+}
+
+function generateNotesSection(certData) {
+    const notes = []
+    for (const [key, val] of Object.entries(certData)) {
+        if (!/Notes$/i.test(key) || !val) continue
+        let adj = camelToTitleCase(key.replace(/Notes$/i, ''))
+        if (adj.endsWith('s')) adj = adj.slice(0, -1) + `'s`
+        notes.push({ label: `${adj} Notes`, content: val })
+    }
+    return !notes.length ? '' : notes.map(note => `
+        <div class="notes-section">
+            <div class="notes-label">${note.label}</div>
+            <div class="notes-content">${note.content}</div>
+        </div>
+    `).join('')
+}
+
+function generatePageTitle(certID, certData) {
+    const yearMatch = (certData?.coverDate || certData?.publishDate)?.match(/\d{4}/),
+          year = yearMatch ? ` (${yearMatch[0]})` : ''
+    return `Kudo COA #${parseInt(certID)} / ${certData?.item || ''}${year} / Kudo Grading + Authentication`
+}
+
+function generateVerificationBadge(certData) {
+    const cnts = { art: 0, sig: 0 }
+
+    for (const [key, val] of Object.entries(certData)) {
+        const label = key.toLowerCase()
+        let valStr = val.toString().toLowerCase()
+
+        if (/artwork|painted/i.test(label)) {
+            cnts.art++ ; valStr = valStr.replace(/&/g, '+')
+            cnts.comma = (valStr.match(/,/g) || []).length
+            cnts.plus = (valStr.match(/\+/g) || []).length
+            cnts.art += cnts.comma + cnts.plus
+        }
+
+        if (/signed|signature|sign/.test(label)) {
+            cnts.sig++
+            valStr = valStr.replace(/&/g, '+')
+            cnts.comma = (valStr.match(/,/g) || []).length
+            cnts.plus = (valStr.match(/\+/g) || []).length
+            cnts.sig += cnts.comma + cnts.plus
+        }
+    }
+
+    let badgeText = '' ; let totalChecks = 0
+    if (cnts.art > 0 && cnts.sig > 0) {
+        totalChecks = cnts.art + cnts.sig
+        const sigText = cnts.sig == 1 ? 'SIGNATURE' : cnts.sig + 'X SIGNATURES'
+        badgeText = 'ARTWORK + ' + sigText + ' VERIFIED'
+    } else if (cnts.art > 0) {
+        totalChecks = cnts.art
+        badgeText = 'ARTWORK VERIFIED'
+    } else if (cnts.sig > 0) {
+        totalChecks = cnts.sig
+        badgeText = cnts.sig == 1 ? 'SIGNATURE VERIFIED' : cnts.sig + 'X SIGNATURES VERIFIED';
+    } else {
+        totalChecks = 1
+        badgeText = 'VERIFIED'
+    }
+
+    const checkmarks = '✓'.repeat(Math.min(totalChecks, 10))
+    return `
+        <div class="status-badge">
+            <span class="checkmarks">${checkmarks}</span>
+            <span class="status-text">${badgeText}</span>
+        </div>`
 }
 
 function minify(html) {
