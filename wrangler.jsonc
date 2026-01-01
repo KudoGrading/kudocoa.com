@@ -1,0 +1,17 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "kudo-coa-verify",
+  "main": "src/index.js",
+  "compatibility_date": "2025-12-31",
+  "workers_dev": false,
+  "route": {
+    "pattern": "kudocoa.com/*",
+    "zone_name": "kudocoa.com"
+  },
+  "kv_namespaces": [
+    {
+      "binding": "COAS_KV",
+      "id": "e6a02eddd0a0446bb7f7ef8a74c88d31"
+    }
+  ]
+}
