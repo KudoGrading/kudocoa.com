@@ -1,3 +1,5 @@
+import * as string from './lib/string.js'
+
 export default {
     async fetch(req, env) {
         const url = new URL(req.url)
@@ -96,33 +98,6 @@ export default {
 
 // FUNCTIONS
 
-function camelToTitleCase(str) {
-    return str
-        .replace(/([A-Z])/g, ' $1')
-        .replace(/^./, str => str.toUpperCase())
-        .replace(/\bAnd\b/gi, '/')
-}
-
-function formatDate(dateStr) {
-    if (!dateStr) return 'NOT SPECIFIED'
-    try {
-        if (/^\d{4}-\d{1,2}$/.test(dateStr)) {
-            const [year, month] = dateStr.split('-').map(Number)
-            const date = new Date(year, month - 1, 1)
-            return date.toLocaleDateString('en-US', {
-                year: 'numeric', month: 'long'
-            }).toUpperCase()
-        }
-
-        const date = new Date(dateStr)
-        return date.toLocaleDateString('en-US', {
-            year: 'numeric', month: 'long', day: 'numeric'
-        }).toUpperCase()
-    } catch {
-        return dateStr.toUpperCase()
-    }
-}
-
 function generateBaseScript() {
     return `document.addEventListener('DOMContentLoaded', () => {
         const input = document.getElementById('certNumber'),
@@ -152,8 +127,8 @@ async function generateCertContent(certID, certData) {
         for (const [key, val] of Object.entries(certData)) {
             if (/(?:Notes|interiorURL)$/i.test(key)) continue
 
-            const label = camelToTitleCase(key);
-            let displayVal = /date/i.test(key) ? formatDate(val) : val.toString().toUpperCase();
+            const label = string.camelToTitleCase(key)
+            let displayVal = /date/i.test(key) ? string.formatDate(val) : val.toString().toUpperCase()
 
             if (/By$/i.test(key)) {
                 displayVal = displayVal.replace(/[,&]/g, ' +')
@@ -543,7 +518,7 @@ function generateNotesSection(certData) {
     const notes = []
     for (const [key, val] of Object.entries(certData)) {
         if (!/Notes$/i.test(key) || !val) continue
-        let adj = camelToTitleCase(key.replace(/Notes$/i, ''))
+        let adj = string.camelToTitleCase(key.replace(/Notes$/i, ''))
         if (adj.endsWith('s')) adj = adj.slice(0, -1) + `'s`
         notes.push({ label: `${adj} Notes`, content: val })
     }
