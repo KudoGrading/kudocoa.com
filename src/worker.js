@@ -39,7 +39,6 @@ export default {
                 headers: { 'Content-Type': 'text/html', 'Cache-Control': 'public, max-age=300' }})
 
         } catch (err) {
-            console.error('Error:', err)
             const html = errPage.generate('', 'System error')
             return new Response(minify(html), { status: 500 })
         }

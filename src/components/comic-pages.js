@@ -40,8 +40,6 @@ export async function generate(certData) {
             }
         }
 
-        console.log('Most common domain:', mostCommonDomain, 'count:', maxCount)
-
         // Filter images from the most common domain (check if ends with the domain)
         const comicImages = matches.filter(src => {
             try {
@@ -60,7 +58,6 @@ export async function generate(certData) {
 
         // Skip first image (cover)
         const interiorPages = comicImages.slice(1)
-        console.log('Found', interiorPages.length, 'interior pages')
         return !interiorPages.length ? '' : `
             <div class="comic-pages">
                 <div class="comic-title">INTERIOR PAGES (OF REFERENCE COPY)</div>
