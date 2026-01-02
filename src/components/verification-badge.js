@@ -1,27 +1,17 @@
 export function generate(certData) {
+
+    // Count verifications
     const cnts = { art: 0, sig: 0 }
+    Object.entries(certData).forEach(([key, val]) => {
+        const label = key.toLowerCase(),
+              valStr = val.toString().toLowerCase().replace(/&/g, '+'),
+              commasAndPluses = ((valStr.match(/,/g) || []).length + (valStr.match(/\+/g) || []).length)
+        if (/artwork|painted/i.test(label)) cnts.art += 1 + commasAndPluses
+        if (/signed|signature|sign/i.test(label)) cnts.sig += 1 + commasAndPluses
+    })
 
-    for (const [key, val] of Object.entries(certData)) {
-        const label = key.toLowerCase()
-        let valStr = val.toString().toLowerCase()
-
-        if (/artwork|painted/i.test(label)) {
-            cnts.art++ ; valStr = valStr.replace(/&/g, '+')
-            cnts.comma = (valStr.match(/,/g) || []).length
-            cnts.plus = (valStr.match(/\+/g) || []).length
-            cnts.art += cnts.comma + cnts.plus
-        }
-
-        if (/signed|signature|sign/.test(label)) {
-            cnts.sig++
-            valStr = valStr.replace(/&/g, '+')
-            cnts.comma = (valStr.match(/,/g) || []).length
-            cnts.plus = (valStr.match(/\+/g) || []).length
-            cnts.sig += cnts.comma + cnts.plus
-        }
-    }
-
-    let badgeText = '' ; let totalChecks = 0
+    // Build label
+    let badgeText = '', totalChecks = 0
     if (cnts.art > 0 && cnts.sig > 0) {
         totalChecks = cnts.art + cnts.sig
         const sigText = cnts.sig == 1 ? 'SIGNATURE' : cnts.sig + 'X SIGNATURES'
@@ -36,8 +26,8 @@ export function generate(certData) {
         totalChecks = 1
         badgeText = 'VERIFIED'
     }
-
     const checkmarks = '✓'.repeat(Math.min(totalChecks, 10))
+
     return `
         <div class="status-badge">
             <span class="checkmarks">${checkmarks}</span>
