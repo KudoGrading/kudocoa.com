@@ -7,7 +7,7 @@ export function generate() {
     const title = 'Kudo Grading + Authentication'
     const description = 'Verify certificate authenticity with Kudo Grading & Authentication Services'
     const bodyContent = `
-        ${header.generate('')}
+        ${header.generate()}
         ${footer.generate()}
         <script>${baseScript.generate()}</script>
     `
