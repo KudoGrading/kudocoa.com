@@ -28,7 +28,7 @@ export async function generate(certData) {
             if (cnt > maxCnt) { maxCnt = cnt ; mostCommonDomain = domain }
 
         // Extract comic page URLs
-        const comicPageURLs = imgURLs.filter(src => {
+        const interiorPageURLs = imgURLs.filter(src => {
             try {
                 const url = new URL(src), hostname = url.hostname, domainParts = hostname.split('.')
                 const domain = domainParts.length >= 2 ? domainParts.slice(-2).join('.') : hostname
@@ -36,10 +36,10 @@ export async function generate(certData) {
             } catch (err) { return false }
         }).slice(1) // skip 1st img (cover)
 
-        return !comicPageURLs.length ? '' : `
+        return !interiorPageURLs.length ? '' : `
             <div class="comic-pages">
                 <div class="comic-title">INTERIOR PAGES (OF REFERENCE COPY)</div>
-                ${comicPageURLs.map((src, idx) => `
+                ${interiorPageURLs.map((src, idx) => `
                     <div class="comic-page">
                         <img src="${src}" loading="lazy">
                         <div class="page-number">PAGE ${ idx +1 }</div>
