@@ -17,7 +17,7 @@ export default {
         const certID = certInput.padStart(10, '0')
         if (certID.length > 10)
             return new Response('Certificate ID too long (max 10 digits!)', { status: 400 })
-        if (certInput != certID)
+        if (certInput != certID) // redir e.g. /1 to /0000000001
             return Response.redirect('https://kudocoa.com/' + certID, 301)
 
         // Render cert page
