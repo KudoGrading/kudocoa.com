@@ -6,6 +6,7 @@ import * as certDataRows from '../components/cert-data-rows.js'
 import * as comicPages from '../components/comic-pages.js'
 import * as noteBoxes from '../components/note-boxes.js'
 import * as verificationBadge from '../components/verification-badge.js'
+import * as ytEmbed from '../components/youtube-embed.js'
 import * as certScript from '../scripts/cert.js'
 
 export async function generate({ certID, certData }) {
@@ -36,6 +37,7 @@ export async function generate({ certID, certData }) {
             <div class="cert-details">${certDataRows.generate({ certID, certData })}</div>
         </div>
         ${noteBoxes.generate(certData)}
+        ${await ytEmbed.generate(certData)}
         ${await comicPages.generate(certData)}
         ${footer.generate()}
         <script>${certScript.generate(certID)}</script>
