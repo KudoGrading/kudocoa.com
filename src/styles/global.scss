@@ -54,21 +54,21 @@ input { -moz-appearance:textfield ; appearance:textfield }
 .checkmarks { font-size:1.88rem ; letter-spacing:-0.2em ; margin-right:0.2rem }
 .status-text { white-space:nowrap }
 .cert-body { display:flex ; gap:4rem ; margin-bottom:3rem ; flex-wrap:wrap }
-.cert-details, .cert-image { flex:1 ; min-width:300px }
-.cert-image { display:flex ; align-items:center ; justify-content:center }
-.cert-image img { 
+.cert-details, .item-shot { flex: 1 ; min-width: 300px }
+.item-shot { display:flex ; align-items:center ; justify-content:center }
+.item-shot img { 
     max-width:100% ; max-height:600px ; border:3px solid #fff ; padding:10px ; 
     box-shadow:0 0 20px rgba(255,255,255,0.1) ; display:block ; cursor:crosshair ; 
     transition:transform 0.3s ease ; object-fit:contain ; background:#000 ;
     box-sizing:content-box ; /* border/padding outside image dims */
 }
+.item-shot img:hover { transform: scale(1.5) }
 .zoom-container { display:inline-block ; line-height:0 ; background:#000 }
 .zoom-container img { margin:0 }
-.cert-image img:hover { transform: scale(1.5) }
 .cert-type-with-icon { display:flex ; flex-direction:column ; gap:0.5rem ; align-items:flex-start }
-.certificate-image-container { margin-top:1rem ; cursor: zoom-in }
-.certificate-image { max-width: 150px ; height:auto ; border:1px solid #fff ; padding:10px }
-.dynamic-img { height: 71px ; width: auto ; display:block }
+.coa-img-container { margin-top:1rem ; cursor: zoom-in }
+.coa-img { max-width: 150px ; height: auto ; border: 1px solid #fff ; padding: 10px }
+.dynamic-img { height: 71px ; width: auto ; display: block }
 .name-text { font-size:1.3rem ; font-weight:bold ; text-transform:uppercase ; overflow-wrap:break-word }
 .nav-arrows { 
     position:fixed ; top:50% ; left:0 ; width:100% ; transform: translateY(-50%) ; 
@@ -172,7 +172,7 @@ footer {
     .detail-label, .detail-value { width:100% ; font-size:1.1rem }
     .cert-type-with-icon { flex-direction:column ; align-items:flex-start }
     .qr-code-value { flex-direction:column ; align-items:flex-start }
-    .cert-image { order:-1 }
+    .coa-img { order:-1 }
     .verification-badge { padding:0.6rem 1.5rem ; font-size:1.1rem }
     .checkmarks { font-size:1.5rem }
     .vid-container iframe { height: 300px }

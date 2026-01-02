@@ -77,7 +77,7 @@ export function generate(certID) {
             }
 
             // Render COA SHOT
-            document.querySelector('.certificate-image')?.addEventListener('click', function() {
+            document.querySelector('.coa-img')?.addEventListener('click', function() {
                 const imgURL = 'https://cdn.jsdelivr.net/gh/KudoGrading/certificates/coas/${certID}/certificate.png'
                 zoomImg({ imgURL, title: 'Certificate' })
             })
