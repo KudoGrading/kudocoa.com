@@ -1,13 +1,13 @@
-import * as homePage from './templates/home.js'
+import * as homepage from './templates/home.js'
 import * as certPage from './templates/cert.js'
 import * as errPage from './templates/error.js'
-import * as html from './lib/html.js'
+import { minify } from './lib/html.js'
 
 export default {
     async fetch(req, env) {
         const url = new URL(req.url)
         if (/^\/?$/.test(url.pathname)) // render homepage
-            return new Response(html.minify(homePage.generate()), { headers: { 'Content-Type': 'text/html' }})
+            return new Response(minify(homepage.generate()), { headers: { 'Content-Type': 'text/html' }})
 
         // Validate cert #
         const certInput = url.pathname.split('/')[1]
@@ -23,12 +23,12 @@ export default {
         try {
             const certData = await env.COAS_KV.get(certID)
             return !certData ?
-                new Response(html.minify(errPage.generate(certID, 'not found')), {
+                new Response(minify(errPage.generate(certID, 'not found')), {
                     headers: { 'Content-Type': 'text/html' }, status: 404 })
-              : new Response(html.minify(await certPage.generate(certID, JSON.parse(certData))), {
+              : new Response(minify(await certPage.generate(certID, JSON.parse(certData))), {
                     headers: { 'Content-Type': 'text/html', 'Cache-Control': 'public, max-age=300' }})
         } catch (err) {
-            return new Response(html.minify(errPage.generate('', 'System error')), {
+            return new Response(minify(errPage.generate('', 'System error')), {
                     headers: { 'Content-Type': 'text/html' }, status: 500 }) }
     }
 }
