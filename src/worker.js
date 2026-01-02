@@ -12,10 +12,10 @@ export default {
         // Validate cert #
         const certInput = url.pathname.split('/')[1]
         if (!/^\d+$/.test(certInput))
-            return new Response('Invalid certificate ID (numbers only)', { status: 400 })
+            return new Response('Invalid certificate ID (numbers only!)', { status: 400 })
         const certID = certInput.padStart(10, '0')
         if (certID.length > 10)
-            return new Response('Certificate ID too long (max 10 digits)', { status: 400 })
+            return new Response('Certificate ID too long (max 10 digits!)', { status: 400 })
         if (certInput != certID)
             return Response.redirect('https://kudocoa.com/' + certID, 301)
 
