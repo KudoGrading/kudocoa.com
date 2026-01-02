@@ -40,9 +40,7 @@ export function generate(certID) {
                     const url = currentTarget.getAttribute('data-url'),
                           filename = currentTarget.getAttribute('data-filename')
                     try {
-                        const response = await fetch(url),
-                              blob = await response.blob(),
-                              downloadURL = URL.createObjectURL(blob),
+                        const downloadURL = URL.createObjectURL(await (await fetch(url)).blob()),
                               a = document.createElement('a')
                         a.style.display = 'none' ; a.href = downloadURL ; a.download = filename
                         document.body.append(a) ; a.click()
