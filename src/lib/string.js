@@ -11,7 +11,7 @@ export function formatDate(dateStr) { // e.g. '2026-1-1' => 'JANUARY 1, 2026'
         }
         const date = new Date(dateStr)
         return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).toUpperCase()
-    } catch { return dateStr.toUpperCase() }
+    } catch (err) { return dateStr.toUpperCase() }
 }
 
 export function generatePageTitle(certID, certData) { // e.g. 'Kudo COA #1 / NFL SuperPro #1 (1991) / Kudo Grading + Authentication'
