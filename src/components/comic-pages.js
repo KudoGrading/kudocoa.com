@@ -5,11 +5,11 @@ export async function generate(certData) {
     try {
 
         // Collect all img URLs
-        const pagesHTML = await (await fetch(interiorURL)).text(),
+        const siteHTML = await (await fetch(interiorURL)).text(),
               imgPattern = /<img[^>]+src="([^"]+)"[^>]*>/gi,
               imgURLs = []
         let imgMatch
-        while ((imgMatch = imgPattern.exec(pagesHTML)) != null) imgURLs.push(imgMatch[1])
+        while ((imgMatch = imgPattern.exec(siteHTML)) != null) imgURLs.push(imgMatch[1])
         if (!imgURLs.length) return ''
 
         // Count domains
