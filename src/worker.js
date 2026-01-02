@@ -22,10 +22,12 @@ export default {
         // Render cert page
         try {
             const certData = await env.COAS_KV.get(certID)
-            if (!certData) return new Response(html.minify(errPage.generate(certID, 'not found')), {
-                headers: { 'Content-Type': 'text/html' }, status: 404 })
-            else return new Response(html.minify(await certPage.generate(certID, JSON.parse(certData))), {
-                headers: { 'Content-Type': 'text/html', 'Cache-Control': 'public, max-age=300' }})
-        } catch (err) { return new Response(html.minify(errPage.generate('', 'System error')), { status: 500 }) }
+            return !certData ?
+                new Response(html.minify(errPage.generate(certID, 'not found')), {
+                    headers: { 'Content-Type': 'text/html' }, status: 404 })
+              : new Response(html.minify(await certPage.generate(certID, JSON.parse(certData))), {
+                    headers: { 'Content-Type': 'text/html', 'Cache-Control': 'public, max-age=300' }})
+        } catch (err) {
+            return new Response(html.minify(errPage.generate('', 'System error')), { status: 500 }) }
     }
 }
