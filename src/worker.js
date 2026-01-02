@@ -6,9 +6,7 @@ import * as html from './lib/html.js'
 export default {
     async fetch(req, env) {
         const url = new URL(req.url)
-
-        // Render homepage
-        if (/^\/?$/.test(url.pathname))
+        if (/^\/?$/.test(url.pathname)) // render homepage
             return new Response(html.minify(homePage.generate()), { headers: { 'Content-Type': 'text/html' }})
 
         // Validate cert #
@@ -23,24 +21,11 @@ export default {
 
         // Render cert page
         try {
-            const certDataRaw = await env.COAS_KV.get(certID)
-            if (!certDataRaw) {
-                const html = errPage.generate(certID, 'not found')
-                return new Response(html.minify(html), {
-                    headers: { 'Content-Type': 'text/html' },
-                    status: 404
-                })
-            }
-
-            const certData = JSON.parse(certDataRaw),
-                  html = await certPage.generate(certID, certData)
-
-            return new Response(html.minify(html), {
+            const certData = await env.COAS_KV.get(certID)
+            if (!certData) return new Response(html.minify(errPage.generate(certID, 'not found')), {
+                headers: { 'Content-Type': 'text/html' }, status: 404 })
+            else return new Response(html.minify(await certPage.generate(certID, JSON.parse(certData))), {
                 headers: { 'Content-Type': 'text/html', 'Cache-Control': 'public, max-age=300' }})
-
-        } catch (err) {
-            const html = errPage.generate('', 'System error')
-            return new Response(html.minify(html), { status: 500 })
-        }
+        } catch (err) { return new Response(html.minify(errPage.generate('', 'System error')), { status: 500 }) }
     }
 }
