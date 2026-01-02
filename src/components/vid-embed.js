@@ -1,7 +1,6 @@
-export function generate(certData) {
-    const ytURL = certData.trailerURL || certData.videoURL || certData.vidURL || certData.youtubeURL || certData.ytURL
-    if (!ytURL || !/youtube\.com|youtu\.be/.test(ytURL)) return ''
-    const vidID = ytURL.match(
+export function generate(vidURL) {
+    if (!vidURL || !/youtube\.com|youtu\.be/.test(vidURL)) return ''
+    const vidID = vidURL.match(
         /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/)?.[1]
     return !vidID ? '' : `
         <div class="vid-embed">

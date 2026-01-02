@@ -6,11 +6,12 @@ import * as certDataRows from '../components/cert-data-rows.js'
 import * as comicPages from '../components/comic-pages.js'
 import * as noteBoxes from '../components/note-boxes.js'
 import * as verificationBadge from '../components/verification-badge.js'
-import * as ytEmbed from '../components/vid-embed.js'
+import * as vidEmbed from '../components/vid-embed.js'
 import * as certScript from '../scripts/cert.js'
 
 export async function generate({ certID, certData }) {
     certData = typeof certData == 'string' ? JSON.parse(certData) : certData
+    const vidURL = certData.trailerURL || certData.videoURL || certData.vidURL || certData.youtubeURL || certData.ytURL
     const title = generatePageTitle({ certID, certData })
     const description = `Certificate # ${certID} verified by Kudo Grading & Authentication Services`
     const bodyContent = `
@@ -37,7 +38,7 @@ export async function generate({ certID, certData }) {
             <div class="cert-details">${certDataRows.generate({ certID, certData })}</div>
         </div>
         ${noteBoxes.generate(certData)}
-        ${ await ytEmbed.generate(certData) }
+        ${ vidURL ? await vidEmbed.generate(vidURL) : '' }
         ${ await comicPages.generate(certData) }
         ${footer.generate()}
         <script>${certScript.generate(certID)}</script>
