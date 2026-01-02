@@ -1,7 +1,7 @@
+import { minify } from './lib/html.js'
 import * as homepage from './templates/home.js'
 import * as certPage from './templates/cert.js'
 import * as errPage from './templates/error.js'
-import { minify } from './lib/html.js'
 
 export default {
     async fetch(req, env) {
