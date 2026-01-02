@@ -1,4 +1,3 @@
-
 export function minify(html) {
 
     // Extract scripts to preserve from minification
