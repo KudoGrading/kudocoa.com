@@ -3,7 +3,7 @@ import * as comicPages from './comic-pages.js'
 import * as noteBoxes from './note-boxes.js'
 import * as verificationBadge from './verification-badge.js'
 
-export async function generate(certID, certData) {
+export async function generate({ certID, certData }) {
     return `
         <div class="cert-header">
             <div class="serial-num">CERT. NUMBER: ${certID}</div>
@@ -25,7 +25,7 @@ export async function generate(certID, certData) {
 
         <div class="cert-body">
             <div class="cert-image" id="certImage"><div class="image-placeholder">Loading image...</div></div>
-            <div class="cert-details">${certDetailRows.generate(certID, certData)}</div>
+            <div class="cert-details">${certDetailRows.generate({ certID, certData })}</div>
         </div>
 
         ${noteBoxes.generate(certData)}

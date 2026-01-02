@@ -14,7 +14,7 @@ export function formatDate(dateStr) { // e.g. '2026-1-1' => 'JANUARY 1, 2026'
     } catch (err) { return dateStr.toUpperCase() }
 }
 
-export function generatePageTitle(certID, certData) { // e.g. 'Kudo COA #1 / NFL SuperPro #1 (1991) / Kudo Grading + Authentication'
+export function generatePageTitle({ certID, certData }) { // e.g. 'Kudo COA #1 / NFL SuperPro #1 (1991) / Kudo Grading + Authentication'
     const yearMatch = (certData?.coverDate || certData?.publishDate)?.match(/\d{4}/),
           year = yearMatch ? ` (${yearMatch[0]})` : ''
     return `Kudo COA #${parseInt(certID)} / ${ certData?.item || '' }${year} / Kudo Grading + Authentication`

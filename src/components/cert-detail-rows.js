@@ -1,7 +1,7 @@
 import * as string from '../lib/string.js'
 import * as imgDisplay from './img-display.js'
 
-export function generate(certID, certData) {
+export function generate({ certID, certData }) {
     const rows = []
     for (const [key, val] of Object.entries(certData)) {
         if (/(?:Notes|interiorURL)$/i.test(key)) continue

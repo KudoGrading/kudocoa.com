@@ -7,11 +7,11 @@ import * as certScript from '../scripts/cert.js'
 
 export async function generate({ certID, certData }) {
     certData = typeof certData == 'string' ? JSON.parse(certData) : certData
-    const title = generatePageTitle(certID, certData)
+    const title = generatePageTitle({ certID, certData })
     const description = `Certificate # ${certID} verified by Kudo Grading & Authentication Services`
     const bodyContent = `
         ${header.generate(certID)}
-        ${ await certContent.generate(certID, certData) }
+        ${ await certContent.generate({ certID, certData }) }
         ${footer.generate()}
         <script>${certScript.generate(certID)}</script>
     `
