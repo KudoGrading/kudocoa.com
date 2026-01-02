@@ -68,7 +68,7 @@ input { -moz-appearance:textfield ; appearance:textfield }
 .cert-type-with-icon { display:flex ; flex-direction:column ; gap:0.5rem ; align-items:flex-start }
 .certificate-image-container { margin-top:1rem ; cursor: zoom-in }
 .certificate-image { max-width: 150px ; height:auto ; border:1px solid #fff ; padding:10px }
-.dynamic-image { height: 71px ; width: auto ; display:block }
+.dynamic-img { height: 71px ; width: auto ; display:block }
 .name-text { font-size:1.3rem ; font-weight:bold ; text-transform:uppercase ; overflow-wrap:break-word }
 .nav-arrows { 
     position:fixed ; top:50% ; left:0 ; width:100% ; transform: translateY(-50%) ; 

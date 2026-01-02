@@ -4,7 +4,7 @@ export function generate({ imgURL, alt }) {
         <div class="img-embed">
             <span class="name-text" id="name_${id}">${alt}</span>
             <img src="${imgURL}" 
-                 alt="${alt}" class="dynamic-image" id="img_${id}"
+                 alt="${alt}" class="dynamic-img" id="img_${id}"
                  onload="document.getElementById('img_${id}').style.display='block'; document.getElementById('name_${id}').style.display='none'"
                  onerror="this.style.display='none'" style="display:none">
         </div>
