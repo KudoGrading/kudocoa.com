@@ -47,7 +47,7 @@ input { -moz-appearance:textfield ; appearance:textfield }
     font-weight:bold ; cursor:pointer ; text-decoration:none ; font-size:1rem ; border-radius:60px
 }
 .download-btn:hover { background:#fff ; color:#000 }
-.status-badge {
+.verification-badge {
     background:#fff ; color:#000 ; padding:0.8rem 2rem ; border-radius:30px ; font-weight:bold ; font-size:1.3rem ;
     text-transform:uppercase ; display:flex ; align-items:center ; gap:0.8rem ; white-space:nowrap
 }
@@ -165,7 +165,7 @@ footer {
     .cert-type-with-icon { flex-direction:column ; align-items:flex-start }
     .qr-code-value { flex-direction:column ; align-items:flex-start }
     .cert-image { order:-1 }
-    .status-badge { padding:0.6rem 1.5rem ; font-size:1.1rem }
+    .verification-badge { padding:0.6rem 1.5rem ; font-size:1.1rem }
     .checkmarks { font-size:1.5rem }
     footer { font-size:1.4rem ; padding:4rem 0 3rem 0 ; margin-top:4rem }
     .footer-links { flex-direction:column ; gap:0.5rem ; margin-top:1.5rem }

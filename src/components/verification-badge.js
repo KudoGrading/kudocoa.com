@@ -29,7 +29,7 @@ export function generate(certData) {
     const checkmarks = '✓'.repeat(Math.min(totalChecks, 10))
 
     return `
-        <div class="status-badge">
+        <div class="verification-badge">
             <span class="checkmarks">${checkmarks}</span>
             <span class="status-text">${badgeText}</span>
         </div>`
