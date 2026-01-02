@@ -5,6 +5,12 @@ export function generate({ title, description, bodyContent, bodyClass } = {}) {
         <!DOCTYPE html>
         <html lang="en">
         <head>
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-E45MKWKPC9"></script>
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date()); gtag('config', 'G-E45MKWKPC9');
+            </script>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>${ title || 'Untitled page' }</title>
