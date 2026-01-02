@@ -28,6 +28,7 @@ export function generate(certID) {
             // Add NAV arrows
             document.body.insertAdjacentHTML('beforeend', \`${navArrowsHTML.replace(/'/g, `\\'`)}\`)
             document.addEventListener('keydown', ({ key }) => {
+                if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) return
                 ${ prevCertNum ? `if (key == 'ArrowLeft') location.href = 'https://kudocoa.com/${prevCertNum}'` : '' }
                 if (key == 'ArrowRight') location.href = 'https://kudocoa.com/${nextCertNum}'
             })
