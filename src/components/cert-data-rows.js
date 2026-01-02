@@ -22,8 +22,8 @@ export function generate({ certID, certData }) {
         if (/^publisher$/i.test(key)) { // replace publisher w/ logo
             const publisherSlug = val.toString().toLowerCase()
                 .replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
-            const logoUrl = `https://cdn.jsdelivr.net/gh/KudoComics/assets/images/logos/publishers/${publisherSlug}/white.png`
-            displayVal = imgDisplay.generate(logoUrl, displayVal)
+            const logoURL = `https://cdn.jsdelivr.net/gh/KudoComics/assets/images/logos/publishers/${publisherSlug}/white.png`
+            displayVal = imgDisplay.generate(logoURL, displayVal)
         }
 
         if (/^coa/i.test(key) && /certificate/i.test(displayVal)) // render COAs
