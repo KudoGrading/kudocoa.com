@@ -19,10 +19,10 @@ export function generate(certID) {
                 button.disabled = true ; button.textContent = 'Retrieving...'
                 location.href = 'https://kudocoa.com/' + certNumber
             }
-            input.focus() ; const val = input.value ; input.value = '' ; input.value = val
+            const val = input.value ; input.value = '' ; input.value = val
             addEventListener('pageshow', () => { // reset loading state
                 button.disabled = false ; button.textContent = 'Verify Certificate'
-                input.focus() ; const val = input.value ; input.value = '' ; input.value = val
+                const val = input.value ; input.value = '' ; input.value = val
             })
 
             // Add NAV arrows
