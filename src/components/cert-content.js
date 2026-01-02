@@ -22,7 +22,7 @@ export async function generate(certID, certData) {
                 ${verificationBadge.generate(certData)}
             </div>
         </div>
-        
+
         <div class="cert-body">
             <div class="cert-image" id="certImage"><div class="image-placeholder">Loading image...</div></div>
             <div class="cert-details">${certDetailRows.generate(certID, certData)}</div>
