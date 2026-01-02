@@ -28,12 +28,12 @@ export function generate({ certID, certData }) {
 
         if (/^coa/i.test(key) && /certificate/i.test(displayVal)) // render COAs
             displayVal = `
-                <div class="cert-type-with-icon">
+                <div class="coa-type">
                     <div class="coa-img-container">
                         <img src="${jsdBaseURL}/KudoGrading/certificates/coas/${certID}/certificate.png" 
                             alt="Certificate Image" class="coa-img" onerror="this.style.display='none'">
                     </div>
-                    <div class="cert-type-text">${displayVal}</div>
+                    <div>${displayVal}</div>
                 </div>
             `
 

@@ -62,7 +62,7 @@ input { -moz-appearance: textfield ; appearance: textfield }
 .item-shot img:hover { transform: scale(1.5) }
 .zoom-container { display: inline-block ; line-height: 0 ; background: #000 }
 .zoom-container img { margin: 0 }
-.cert-type-with-icon { display: flex ; flex-direction: column ; gap: 0.5rem ; align-items: flex-start }
+.coa-type { display: flex ; flex-direction: column ; gap: 0.5rem ; align-items: flex-start }
 .coa-img-container { margin-top: 1rem ; cursor: zoom-in }
 .coa-img { max-width: 150px ; height: auto ; border: 1px solid #fff ; padding: 10px }
 .dynamic-img { height: 71px ; width: auto ; display: block }
@@ -165,7 +165,7 @@ footer {
     .cert-body { flex-direction: column ; gap: 2rem }
     .detail-row { flex-direction: column ; gap: 0.5rem ; align-items: flex-start }
     .detail-label, .detail-val { width: 100% ; font-size: 1.1rem }
-    .cert-type-with-icon { flex-direction: column ; align-items: flex-start }
+    .coa-type { flex-direction: column ; align-items: flex-start }
     .coa-img { order: -1 }
     .verification-badge { padding: 0.6rem 1.5rem ; font-size: 1.1rem }
     .checkmarks { font-size: 1.5rem }
