@@ -69,5 +69,5 @@ export async function generate(certData) {
                 `).join('')}
             </div>
         `
-    } catch (err) { console.error('Error fetching comic pages:', err) ; return '' }
+    } catch (err) { return '' }
 }
