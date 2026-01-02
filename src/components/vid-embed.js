@@ -4,8 +4,8 @@ export function generate(certData) {
     const vidID = ytURL.match(
         /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/)?.[1]
     return !vidID ? '' : `
-        <div class="youtube-embed">
-            <div class="video-container">
+        <div class="vid-embed">
+            <div class="vid-container">
                 <iframe 
                     src="https://www.youtube.com/embed/${vidID}" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
