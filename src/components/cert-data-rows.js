@@ -4,7 +4,7 @@ import * as imgDisplay from './img-display.js'
 export function generate({ certID, certData }) {
     const rows = [], jsdBaseURL = 'https://cdn.jsdelivr.net/gh'
     for (const [key, val] of Object.entries(certData)) {
-        if (/(?:Notes|interiorURL)$/i.test(key)) continue
+        if (/(?:Notes|^interiorURL)$/.test(key)) continue
 
         const label = string.camelToTitleCase(key)
         let displayVal = /date/i.test(key) ? string.formatDate(val) : val.toString().toUpperCase()
