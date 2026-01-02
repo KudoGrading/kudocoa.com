@@ -67,7 +67,7 @@ export function generate(certID) {
                     img.onload = () => {
                         certImageDiv.innerHTML = ''
                         const img = document.createElement('img') ; img.src = imgURL ; img.alt = 'Certificate Image'                    
-                        img.onclick = () => zoomImg(imgURL, 'Item Image')                
+                        img.onclick = () => zoomImg({ imgURL, title: 'Item Image' })                
                         certImageDiv.append(img)
                         setTimeout(() => trackMouseZoom(img), 0)
                     }
@@ -78,8 +78,8 @@ export function generate(certID) {
 
             // Render COA SHOT
             document.querySelector('.certificate-image')?.addEventListener('click', function() {
-                const certImgURL = 'https://cdn.jsdelivr.net/gh/KudoGrading/certificates/coas/${certID}/certificate.png'
-                zoomImg(certImgURL, 'Certificate')
+                const imgURL = 'https://cdn.jsdelivr.net/gh/KudoGrading/certificates/coas/${certID}/certificate.png'
+                zoomImg({ imgURL, title: 'Certificate' })
             })
 
             // Add BACK-TO-TOP button/link
@@ -136,7 +136,7 @@ export function generate(certID) {
             }, 0)
         }
 
-        function zoomImg(imgURL, title = '') {
+        function zoomImg({ imgURL, title }) {
             const fadeOutDuration = 0.12,
                   overlay = document.createElement('div')
             Object.assign(overlay.style, {
@@ -173,5 +173,6 @@ export function generate(certID) {
                 zoomedImg.style.opacity = '1'
                 zoomedImg.style.transform = 'scale(1) translateY(0)'
             }, 10)
-    }`
+        }
+    `
 }

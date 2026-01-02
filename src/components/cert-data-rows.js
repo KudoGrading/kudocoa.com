@@ -15,7 +15,7 @@ export function generate({ certID, certData }) {
                 const imgName = val.toString().toLowerCase()
                     .replace(/[&,+]/g, '').replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
                 const imgURL = `${jsdBaseURL}/KudoGrading/certificates/assets/images/signatures/${imgName}/white.png`
-                displayVal = imgEmbed.generate(imgURL, displayVal)
+                displayVal = imgEmbed.generate({ imgURL, alt: displayVal })
             }
         }
 
@@ -23,7 +23,7 @@ export function generate({ certID, certData }) {
             const publisherSlug = val.toString().toLowerCase()
                 .replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
             const logoURL = `${jsdBaseURL}/KudoComics/assets/images/logos/publishers/${publisherSlug}/white.png`
-            displayVal = imgEmbed.generate(logoURL, displayVal)
+            displayVal = imgEmbed.generate({ logoURL, alt: displayVal })
         }
 
         if (/^coa/i.test(key) && /certificate/i.test(displayVal)) // render COAs
