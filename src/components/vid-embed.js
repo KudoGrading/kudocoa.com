@@ -6,10 +6,12 @@ export function generate({ vidURL, vidURLs } = {}) {
     return !vidID ? '' : `
         <div class="vid-embed">
             <div class="vid-container">
+                <div class="vid-placeholder">Loading video...</div>
                 <iframe 
                     src="https://www.youtube.com/embed/${vidID}" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen frameborder="0" loading="lazy">
+                    allowfullscreen frameborder="0" loading="lazy"
+                    onload="this.previousElementSibling.style.display='none'">
                 </iframe>
             </div>
         </div>
