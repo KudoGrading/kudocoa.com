@@ -33,7 +33,7 @@ export async function generate(certData) {
                 const url = new URL(src), hostname = url.hostname, domainParts = hostname.split('.')
                 const domain = domainParts.length >= 2 ? domainParts.slice(-2).join('.') : hostname
                 return domain == mostCommonDomain
-            } catch (err)  { return false }
+            } catch (err) { return false }
         }).slice(1) // skip 1st img (cover)
 
         return !comicPageURLs.length ? '' : `
