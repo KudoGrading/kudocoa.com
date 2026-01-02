@@ -4,9 +4,6 @@ import * as noteBoxes from './note-boxes.js'
 import * as verificationBadge from './verification-badge.js'
 
 export async function generate(certID, certData) {
-
-    // Generate comic pages if they exist
-    const comicPagesHTML = await comicPages.generate(certData)
     return `
         <div class="cert-header">
             <div class="serial-num">CERT. NUMBER: ${certID}</div>
@@ -32,6 +29,6 @@ export async function generate(certID, certData) {
         </div>
 
         ${noteBoxes.generate(certData)}
-        ${comicPagesHTML}
+        ${ await comicPages.generate(certData) }
     `
 }
