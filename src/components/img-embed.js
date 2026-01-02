@@ -1,7 +1,7 @@
 export function generate(imgURL, displayText) {
     const id = 'img_' + Date.now() + Math.random().toString(36).slice(2, 11)
     return `
-        <div style="margin: -15px 0 -11px">
+        <div class="img-embed">
             <span class="name-text" id="name_${id}">${displayText}</span>
             <img src="${imgURL}" 
                  alt="${displayText}" class="dynamic-image" id="img_${id}"
