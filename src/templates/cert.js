@@ -2,7 +2,7 @@ import { generatePageTitle } from '../lib/string.js'
 import * as base from './base.js'
 import * as header from './header.js'
 import * as footer from './footer.js'
-import * as certDetailRows from '../components/cert-detail-rows.js'
+import * as certDataRows from '../components/cert-data-rows.js'
 import * as comicPages from '../components/comic-pages.js'
 import * as noteBoxes from '../components/note-boxes.js'
 import * as verificationBadge from '../components/verification-badge.js'
@@ -33,7 +33,7 @@ export async function generate({ certID, certData }) {
         </div>
         <div class="cert-body">
             <div class="cert-image" id="certImage"><div class="image-placeholder">Loading image...</div></div>
-            <div class="cert-details">${certDetailRows.generate({ certID, certData })}</div>
+            <div class="cert-details">${certDataRows.generate({ certID, certData })}</div>
         </div>
         ${noteBoxes.generate(certData)}
         ${await comicPages.generate(certData)}
