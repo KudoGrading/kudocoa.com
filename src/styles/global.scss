@@ -94,7 +94,7 @@ input { -moz-appearance:textfield ; appearance:textfield }
 }
 .detail-value { flex:1 ; font-size:1.3rem ; font-weight:bold ; text-transform:uppercase ; overflow-wrap:break-word }
 .detail-value img[src*="/publishers/"] { margin: -15px 0 -11px } /* tighten publisher logo y-spacing */
-.detail-value img[src*="/signatures/"] { opacity: 0.8 ; margin-top: 6px ; width: 163px ; height: auto }
+.detail-value img[src*="/signatures/"] { opacity: 0.8 ; margin-top: 12px ; width: 163px ; height: auto }
 .signature-with-icon { display:flex ; flex-direction:column ; gap:0.5rem ; align-items:flex-start }
 .signature-image-container { margin-top:0.5rem }
 .signature-image { width:100px ; height:auto ; filter:invert(1) ; border:1px solid #fff ; padding:5px }
