@@ -42,7 +42,7 @@ export function generate(certID) {
                     try {
                         const response = await fetch(url),
                               blob = await response.blob(),
-                              downloadURL = window.URL.createObjectURL(blob),
+                              downloadURL = URL.createObjectURL(blob),
                               a = document.createElement('a')
                         a.style.display = 'none' ; a.href = downloadURL ; a.download = filename
                         document.body.append(a) ; a.click()
@@ -98,7 +98,7 @@ export function generate(certID) {
             if (scrollY > 300) bttBtn.classList.add('visible') // in case already scrolled on load
             if (document.querySelector('.comic-pages')) // add back-to-top link to footer
                 document.querySelector('.footer-links').innerHTML += 
-                    '<span class="footer-separator"></span><a onclick="window.scrollTo({top:0,behavior:\\'smooth\\'});return false">Back to Top ↑</a>'
+                    '<span class="footer-separator"></span><a onclick="scrollTo({top:0,behavior:\\'smooth\\'});return false">Back to Top ↑</a>'
         })
 
         // FUNCTIONS
