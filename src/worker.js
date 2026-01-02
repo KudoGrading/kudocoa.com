@@ -6,6 +6,7 @@ import { minify } from './lib/html.js'
 export default {
     async fetch(req, env) {
         const url = new URL(req.url)
+
         if (/^\/?$/.test(url.pathname)) // render homepage
             return new Response(minify(homepage.generate()), { headers: { 'Content-Type': 'text/html' }})
 
@@ -29,6 +30,7 @@ export default {
                     headers: { 'Content-Type': 'text/html', 'Cache-Control': 'public, max-age=300' }})
         } catch (err) {
             return new Response(minify(errPage.generate('', 'System error')), {
-                    headers: { 'Content-Type': 'text/html' }, status: 500 }) }
+                    headers: { 'Content-Type': 'text/html' }, status: 500 })
+        }
     }
 }
