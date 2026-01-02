@@ -4,7 +4,7 @@ import * as imgEmbed from './img-embed.js'
 export function generate({ certID, certData }) {
     const rows = [], jsdBaseURL = 'https://cdn.jsdelivr.net/gh'
     for (const [key, val] of Object.entries(certData)) {
-        if (/(?:Notes|URL)$/.test(key)) continue
+        if (/(?:Notes|URLs?)$/.test(key)) continue
 
         const label = string.camelToTitleCase(key)
         let displayVal = /date/i.test(key) ? string.formatDate(val) : val.toString().toUpperCase()
