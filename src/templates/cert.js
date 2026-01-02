@@ -12,6 +12,8 @@ import * as certScript from '../scripts/cert.js'
 export async function generate({ certID, certData }) {
     certData = typeof certData == 'string' ? JSON.parse(certData) : certData
     const vidURL = certData.trailerURL || certData.videoURL || certData.vidURL || certData.youtubeURL || certData.ytURL
+    const vidURLs = certData.vidURLs
+    const vidEmbedOptions = vidURLs ? { vidURLs } : vidURL ? { vidURL } : null
     const title = generatePageTitle({ certID, certData })
     const description = `Certificate # ${certID} verified by Kudo Grading & Authentication Services`
     const bodyContent = `
@@ -38,7 +40,7 @@ export async function generate({ certID, certData }) {
             <div class="cert-details">${certDataRows.generate({ certID, certData })}</div>
         </div>
         ${noteBoxes.generate(certData)}
-        ${ vidURL ? await vidEmbed.generate(vidURL) : '' }
+        ${ vidEmbedOptions ? vidEmbed.generate(vidEmbedOptions) : '' }
         ${ certData.interiorURL ? await comicPages.generate(certData.interiorURL) : '' }
         ${footer.generate()}
         <script>${certScript.generate(certID)}</script>
