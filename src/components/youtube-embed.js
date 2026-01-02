@@ -8,10 +8,8 @@ export function generate(certData) {
             <div class="video-container">
                 <iframe 
                     src="https://www.youtube.com/embed/${vidID}" 
-                    frameborder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen
-                    loading="lazy">
+                    allowfullscreen frameborder="0" loading="lazy">
                 </iframe>
             </div>
         </div>
