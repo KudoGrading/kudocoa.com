@@ -1,7 +1,7 @@
 import * as navArrows from '../components/nav-arrows.js'
 
 export function generate(certID) {
-    const { navArrowsHTML, prevCert, nextCert } = navArrows.generate(certID)
+    const { navArrowsHTML, prevCertNum, nextCertNum } = navArrows.generate(certID)
     return `
         document.addEventListener('DOMContentLoaded', () => {
 
@@ -28,8 +28,8 @@ export function generate(certID) {
             // Add NAV arrows
             document.body.insertAdjacentHTML('beforeend', \`${navArrowsHTML.replace(/'/g, `\\'`)}\`)
             document.addEventListener('keydown', ({ key }) => {
-                ${ prevCert ? `if (key == 'ArrowLeft') location.href = 'https://kudocoa.com/${prevCert}'` : '' }
-                if (key == 'ArrowRight') location.href = 'https://kudocoa.com/${nextCert}'
+                ${ prevCertNum ? `if (key == 'ArrowLeft') location.href = 'https://kudocoa.com/${prevCertNum}'` : '' }
+                if (key == 'ArrowRight') location.href = 'https://kudocoa.com/${nextCertNum}'
             })
 
             // Init DOWNLOAD buttons
