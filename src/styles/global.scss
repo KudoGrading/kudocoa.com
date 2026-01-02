@@ -30,7 +30,7 @@ input { -moz-appearance: textfield ; appearance: textfield }
     display: flex ; justify-content: space-between ; align-items: center ; margin-bottom: 3rem ; margin-top: 100px ;
     border-bottom: 2px solid #fff ; padding-bottom: 1.5rem ; gap: 2rem
 }
-.serial-num { font-size: 2.5rem ; font-weight: bold ; text-transform: uppercase ; letter-spacing: 2px }
+.cert-num { font-size: 2.5rem ; font-weight: bold ; text-transform: uppercase ; letter-spacing: 2px }
 .header-right { display: flex ; align-items: center ; gap: 2rem }
 .download-section { display: flex ; align-items: center ; gap: 1rem }
 .download-label {
@@ -159,7 +159,7 @@ footer {
     .hero-small { font-size: 1.2rem }
     input, .search-btn { font-size: 1.5rem ; padding: 1.2rem }
     .cert-header { flex-direction: column ; gap: 1rem ; text-align: center }
-    .serial-num { font-size: 2rem }
+    .cert-num { font-size: 2rem }
     .header-right { flex-direction: column ; width: 100% }
     .download-section { flex-direction: column ; width: 100% ; gap: 0.5rem }
     .cert-body { flex-direction: column ; gap: 2rem }

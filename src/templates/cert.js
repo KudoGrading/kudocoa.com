@@ -19,7 +19,7 @@ export async function generate({ certID, certData }) {
     const bodyContent = `
         ${header.generate(certID)}
         <div class="cert-header">
-            <div class="serial-num">CERT. NUMBER: ${certID}</div>
+            <div class="cert-num">CERT. NUMBER: ${certID}</div>
             <div class="header-right">
                 <div class="download-section">
                     <div class="download-label">Download:</div>
