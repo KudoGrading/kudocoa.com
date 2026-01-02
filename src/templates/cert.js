@@ -8,7 +8,7 @@ import * as certScript from '../scripts/cert.js'
 export async function generate(certID, certData) {
     const pageContent = `
         ${header.generate(certID)}
-        ${await certContent.generate(certID, certData)}
+        ${ await certContent.generate(certID, certData) }
         ${footer.generate()}
         <script>${certScript.generate(certID)}</script>
     `
