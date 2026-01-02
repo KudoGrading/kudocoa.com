@@ -6,6 +6,6 @@ export function generate(certID, errMsg) {
     const title = certID ? `Kudo COA #${certID} / Certificate Not Found` : 'System Error',
           description = certID ? `Certificate # ${certID} not found` : 'System error occurred',
           errContent = `<div class="error-message">Certificate # <strong>${certID}</strong> ${errMsg}.</div>`,
-          pageContent = `${header.generate(certID)} ${errContent} ${footer.generate()}`
-    return base.generate(title, description, pageContent)
+          bodyContent = `${header.generate(certID)} ${errContent} ${footer.generate()}`
+    return base.generate({ title, description, bodyContent })
 }
