@@ -5,7 +5,7 @@ import * as footer from './footer.js'
 import * as certContent from '../components/cert-content.js'
 import * as certScript from '../scripts/cert.js'
 
-export async function generate(certID, certData) {
+export async function generate({ certID, certData }) {
     const title = generatePageTitle(certID, certData)
     const description = `Certificate # ${certID} verified by Kudo Grading & Authentication Services`
     const bodyContent = `
