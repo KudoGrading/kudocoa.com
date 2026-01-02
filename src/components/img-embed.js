@@ -1,4 +1,4 @@
-export function generate({ imgURL, alt }) {
+export function generate({ imgURL, alt = '' }) {
     const id = 'img_' + Date.now() + Math.random().toString(36).slice(2, 11)
     return `
         <div class="img-embed">
