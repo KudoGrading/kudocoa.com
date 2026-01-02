@@ -1,5 +1,5 @@
 export function generate(imgURL, displayText) {
-    const id = 'img_' + Date.now() + Math.random().toString(36).substr(2, 9);
+    const id = 'img_' + Date.now() + Math.random().toString(36).substr(2, 9)
     return `
         <div style="margin: -15px 0 -11px">
             <span class="name-text" id="name_${id}">${displayText}</span>
