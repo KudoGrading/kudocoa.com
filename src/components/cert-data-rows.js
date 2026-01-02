@@ -2,7 +2,7 @@ import * as string from '../lib/string.js'
 import * as imgDisplay from './img-display.js'
 
 export function generate({ certID, certData }) {
-    const rows = []
+    const rows = [], jsdBaseURL = 'https://cdn.jsdelivr.net/gh'
     for (const [key, val] of Object.entries(certData)) {
         if (/(?:Notes|interiorURL)$/i.test(key)) continue
 
@@ -14,7 +14,7 @@ export function generate({ certID, certData }) {
             if (/(?:authenticated|graded)by$/i.test(key)) { // replace names w/ sig
                 const imgName = val.toString().toLowerCase()
                     .replace(/[&,+]/g, '').replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
-                const imgURL = `https://cdn.jsdelivr.net/gh/KudoGrading/certificates/assets/images/signatures/${imgName}/white.png`
+                const imgURL = `${jsdBaseURL}/KudoGrading/certificates/assets/images/signatures/${imgName}/white.png`
                 displayVal = imgDisplay.generate(imgURL, displayVal)
             }
         }
@@ -22,7 +22,7 @@ export function generate({ certID, certData }) {
         if (/^publisher$/i.test(key)) { // replace publisher w/ logo
             const publisherSlug = val.toString().toLowerCase()
                 .replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
-            const logoURL = `https://cdn.jsdelivr.net/gh/KudoComics/assets/images/logos/publishers/${publisherSlug}/white.png`
+            const logoURL = `${jsdBaseURL}/KudoComics/assets/images/logos/publishers/${publisherSlug}/white.png`
             displayVal = imgDisplay.generate(logoURL, displayVal)
         }
 
@@ -30,7 +30,7 @@ export function generate({ certID, certData }) {
             displayVal = `
                 <div class="cert-type-with-icon">
                     <div class="certificate-image-container">
-                        <img src="https://cdn.jsdelivr.net/gh/KudoGrading/certificates/coas/${certID}/certificate.png" 
+                        <img src="${jsdBaseURL}/KudoGrading/certificates/coas/${certID}/certificate.png" 
                             alt="Certificate Image" class="certificate-image" onerror="this.style.display='none'">
                     </div>
                     <div class="cert-type-text">${displayVal}</div>
