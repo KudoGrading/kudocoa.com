@@ -31,9 +31,7 @@ export function generate({ certID, certData }) {
                 <div class="cert-type-with-icon">
                     <div class="certificate-image-container">
                         <img src="https://cdn.jsdelivr.net/gh/KudoGrading/certificates/coas/${certID}/certificate.png" 
-                            alt="Certificate Image" 
-                            class="certificate-image"
-                            onerror="this.style.display='none'">
+                            alt="Certificate Image" class="certificate-image" onerror="this.style.display='none'">
                     </div>
                     <div class="cert-type-text">${displayVal}</div>
                 </div>
