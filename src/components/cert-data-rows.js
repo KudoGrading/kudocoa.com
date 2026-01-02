@@ -40,7 +40,7 @@ export function generate({ certID, certData }) {
         rows.push(`
             <div class="detail-row">
                 <div class="detail-label">${label}:</div>
-                <div class="detail-value">${displayVal}</div>
+                <div class="detail-val">${displayVal}</div>
             </div>
         `)
     }

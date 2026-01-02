@@ -54,7 +54,7 @@ export function generate(certID) {
             // Render ITEM SHOT
             const certImageDiv = document.getElementById('certImage')
             if (certImageDiv) {
-                const placeholder = certImageDiv.querySelector('.image-placeholder'),
+                const placeholder = certImageDiv.querySelector('.img-placeholder'),
                       formats = ['jpg', 'jpeg', 'png', 'webp', 'gif'],
                       certID = '${certID}'
                 let currentFormat = 0
