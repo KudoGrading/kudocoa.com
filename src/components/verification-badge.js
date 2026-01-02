@@ -10,7 +10,7 @@ export function generate(certData) {
         if (/signed|signature|sign/i.test(label)) cnts.sig += 1 + cnts.commasAndPluses
     })
 
-    // Build label
+    // Build label components
     let badgeText = ''
     if (cnts.art > 0 && cnts.sig > 0) {
         cnts.check = cnts.art + cnts.sig
