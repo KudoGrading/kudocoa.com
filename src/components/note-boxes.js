@@ -1,10 +1,10 @@
-import * as string from '../lib/string.js'
+import { camelToTitleCase } from '../lib/string.js'
 
 export function generate(certData) {
     const notes = []
     for (const [key, val] of Object.entries(certData)) {
         if (!/Notes$/i.test(key) || !val) continue
-        let adj = string.camelToTitleCase(key.replace(/Notes$/, ''))
+        let adj = camelToTitleCase(key.replace(/Notes$/, ''))
         if (adj.endsWith('s')) adj = adj.slice(0, -1) + `'s`
         notes.push({ label: `${adj} Notes`, content: val })
     }
