@@ -27,7 +27,7 @@ export async function generate(certData) {
         for (const [domain, cnt] of Object.entries(domainCnts))
             if (cnt > maxCnt) { maxCnt = cnt ; mostCommonDomain = domain }
 
-        // Extract comic page URLs
+        // Extract interior page URLs
         const interiorPageURLs = imgURLs.filter(src => {
             try {
                 const url = new URL(src), hostname = url.hostname, domainParts = hostname.split('.')
