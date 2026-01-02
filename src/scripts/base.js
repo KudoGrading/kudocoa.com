@@ -2,7 +2,7 @@ export function generate() {
     return `
         document.addEventListener('DOMContentLoaded', () => {
             const input = document.getElementById('certNumber'),
-                button = document.getElementById('verifyBtn')
+                  button = document.getElementById('verifyBtn')
             button.onclick = verify
             input.addEventListener('keydown', ({ key }) => key == 'Enter' && verify())
             function verify() {
