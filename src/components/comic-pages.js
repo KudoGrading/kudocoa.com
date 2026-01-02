@@ -1,6 +1,6 @@
 export async function generate(certData) {
-    const { interiorURL } = certData
-    if (!interiorURL || !interiorURL.includes('readallcomics.com')) return ''
+    const { interiorURL } = certData, parsableSites = ['readallcomics.com']
+    if (!interiorURL || !parsableSites.some(site => interiorURL.includes(site))) return ''
 
     try {
 
