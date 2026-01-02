@@ -11,22 +11,18 @@ export function generate(certData) {
     })
 
     // Build label
-    let badgeText = '', totalChecks = 0
+    let badgeText = ''
     if (cnts.art > 0 && cnts.sig > 0) {
-        totalChecks = cnts.art + cnts.sig
-        const sigText = cnts.sig == 1 ? 'SIGNATURE' : cnts.sig + 'X SIGNATURES'
-        badgeText = 'ARTWORK + ' + sigText + ' VERIFIED'
+        cnts.check = cnts.art + cnts.sig
+        badgeText = `ARTWORK + ${ cnts.sig == 1 ? 'SIGNATURE' : cnts.sig + 'X SIGNATURES' } VERIFIED`
     } else if (cnts.art > 0) {
-        totalChecks = cnts.art
-        badgeText = 'ARTWORK VERIFIED'
+        cnts.check = cnts.art ; badgeText = 'ARTWORK VERIFIED'
     } else if (cnts.sig > 0) {
-        totalChecks = cnts.sig
-        badgeText = cnts.sig == 1 ? 'SIGNATURE VERIFIED' : cnts.sig + 'X SIGNATURES VERIFIED';
+        cnts.check = cnts.sig ; badgeText = `${ cnts.sig == 1 ? 'SIGNATURE' : cnts.sig + 'X SIGNATURES' } VERIFIED`
     } else {
-        totalChecks = 1
-        badgeText = 'VERIFIED'
+        cnts.check = 1 ; badgeText = 'VERIFIED'
     }
-    const checkmarks = '✓'.repeat(Math.min(totalChecks, 10))
+    const checkmarks = '✓'.repeat(Math.min(cnts.check, 10))
 
     return `
         <div class="verification-badge">
