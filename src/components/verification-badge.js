@@ -4,10 +4,10 @@ export function generate(certData) {
     const cnts = { art: 0, sig: 0 }
     Object.entries(certData).forEach(([key, val]) => {
         const label = key.toLowerCase(),
-              valStr = val.toString().toLowerCase().replace(/&/g, '+'),
-              commasAndPluses = ((valStr.match(/,/g) || []).length + (valStr.match(/\+/g) || []).length)
-        if (/artwork|painted/i.test(label)) cnts.art += 1 + commasAndPluses
-        if (/signed|signature|sign/i.test(label)) cnts.sig += 1 + commasAndPluses
+              strVal = val.toString().toLowerCase().replace(/&/g, '+')
+        cnts.commasAndPluses = ((strVal.match(/,/g) || []).length + (strVal.match(/\+/g) || []).length)
+        if (/artwork|painted/i.test(label)) cnts.art += 1 + cnts.commasAndPluses
+        if (/signed|signature|sign/i.test(label)) cnts.sig += 1 + cnts.commasAndPluses
     })
 
     // Build label
