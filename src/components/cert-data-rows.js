@@ -9,7 +9,14 @@ export function generate({ certID, certData }) {
         const label = string.camelToTitleCase(key)
         let displayVal = /date/i.test(key) ? string.formatDate(val) : val.toString().toUpperCase()
 
-        if (/By$/i.test(key)) { // human attr
+        if (/^publisher$/i.test(key)) { // replace publisher w/ logo
+            const publisherSlug = val.toString().toLowerCase()
+                .replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+            const logoURL = `${jsdBaseURL}/KudoComics/assets/images/logos/publishers/${publisherSlug}/white.png`
+            displayVal = imgEmbed.generate({ logoURL, alt: displayVal })
+        }
+
+        else if (/By$/i.test(key)) { // human attr
             displayVal = displayVal.replace(/[,&]/g, ' +') // separate names w/ pluses
             if (/(?:authenticated|graded)by$/i.test(key)) { // replace names w/ sig
                 const imgName = val.toString().toLowerCase()
@@ -19,14 +26,7 @@ export function generate({ certID, certData }) {
             }
         }
 
-        if (/^publisher$/i.test(key)) { // replace publisher w/ logo
-            const publisherSlug = val.toString().toLowerCase()
-                .replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
-            const logoURL = `${jsdBaseURL}/KudoComics/assets/images/logos/publishers/${publisherSlug}/white.png`
-            displayVal = imgEmbed.generate({ logoURL, alt: displayVal })
-        }
-
-        if (/^coa/i.test(key) && /certificate/i.test(displayVal)) // render COAs
+        else if (/^coa/i.test(key) && /certificate/i.test(displayVal)) // render COAs
             displayVal = `
                 <div class="coa-type">
                     <div class="coa-img-container">
