@@ -1,11 +1,11 @@
-export async function generate(certData) {
-    const { interiorURL } = certData, parsableSites = ['readallcomics.com']
-    if (!interiorURL || !parsableSites.some(site => interiorURL.includes(site))) return ''
+export async function generate(srcURL) {
+    const parsableSites = ['readallcomics.com']
+    if (!srcURL || !parsableSites.some(site => srcURL.includes(site))) return ''
 
     try {
 
         // Collect all img URLs
-        const siteHTML = await (await fetch(interiorURL)).text(),
+        const siteHTML = await (await fetch(srcURL)).text(),
               imgPattern = /<img[^>]+src="([^"]+)"[^>]*>/gi,
               imgURLs = []
         let imgMatch

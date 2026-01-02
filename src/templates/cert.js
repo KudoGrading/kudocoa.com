@@ -39,7 +39,7 @@ export async function generate({ certID, certData }) {
         </div>
         ${noteBoxes.generate(certData)}
         ${ vidURL ? await vidEmbed.generate(vidURL) : '' }
-        ${ await comicPages.generate(certData) }
+        ${ certData.interiorURL ? await comicPages.generate(certData.interiorURL) : '' }
         ${footer.generate()}
         <script>${certScript.generate(certID)}</script>
     `
