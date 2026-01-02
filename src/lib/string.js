@@ -17,3 +17,9 @@ export function formatDate(dateStr) {
         return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).toUpperCase()
     } catch { return dateStr.toUpperCase() }
 }
+
+export function generatePageTitle(certID, certData) {
+    const yearMatch = (certData?.coverDate || certData?.publishDate)?.match(/\d{4}/),
+          year = yearMatch ? ` (${yearMatch[0]})` : ''
+    return `Kudo COA #${parseInt(certID)} / ${certData?.item || ''}${year} / Kudo Grading + Authentication`
+}
