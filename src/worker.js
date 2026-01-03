@@ -3,7 +3,8 @@ import * as homepage from './server/templates/home.js'
 import * as certPage from './server/templates/cert.js'
 import * as errPage from './server/templates/error.js'
 
-const app = await import('../data/app.json')
+const app = await import('../data/app.json'),
+      mimeTypes = await import('../data/mime-types.json')
 
 export default {
     async fetch(req, env) {
@@ -11,11 +12,18 @@ export default {
 
         if (url.hostname == 'cert.kudoauthentication.com') // redir to kudocoa.com/<path>
             return Response.redirect(url.toString().replace(url.hostname, 'kudocoa.com'), 301)
-        else if (url.hostname == 'assets.kudocoa.com') // redir / to kudocoa.com or serve public/
-            return url.pathname == '/' ? Response.redirect(app.urls.web, 302) : env.ASSETS.fetch(req)
+
         else if (url.hostname == 'kudocoa.com') {
 
-            if (/^\/?$/.test(url.pathname)) // render homepage
+            if (url.pathname.startsWith('/assets/')) { // serve public/
+                const assetPath = url.pathname.replace('/assets', '').replace(/(?<!\.min)\.js$/i, '.min.js'),
+                      resp = await env.ASSETS.fetch(new Request(new URL(assetPath, req.url), req)),
+                      fileExt = url.pathname.split('.').pop().toLowerCase(),
+                      contentType = mimeTypes[fileExt] || 'application/octet-stream'
+                return new Response(resp.body, {
+                    status: resp.status, headers: { 'Content-Type': contentType, ...Object.fromEntries(resp.headers) }})
+
+            } else if (url.pathname == '/') // render homepage
                 return new Response(minify(homepage.generate()), { headers: htmlHeaders })
 
             // Validate cert #
