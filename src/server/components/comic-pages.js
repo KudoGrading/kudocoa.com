@@ -38,7 +38,7 @@ export async function generate(srcURL) {
 
         return !interiorPageURLs.length ? '' : `
             <div class="comic-pages">
-                <div class="comic-title">INTERIOR PAGES (OF REFERENCE COPY)</div>
+                <div class="comic-pages-title">INTERIOR PAGES (OF REFERENCE COPY)</div>
                 ${interiorPageURLs.map((src, idx) => `
                     <div class="comic-page">
                         <img src="${src}" loading="lazy">

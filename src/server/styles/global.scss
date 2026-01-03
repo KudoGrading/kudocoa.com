@@ -70,7 +70,7 @@ input { -moz-appearance: textfield ; appearance: textfield }
 .coa-img-container { margin-top: 1rem ; cursor: zoom-in }
 .coa-img { max-width: 150px ; height: auto ; border: 1px solid #fff ; padding: 10px }
 .dynamic-img { height: 71px ; width: auto ; display: block }
-.name-text { font-size: 1.3rem ; font-weight: bold ; text-transform: uppercase ; overflow-wrap: break-word }
+.img-name { font-size: 1.3rem ; font-weight: bold ; text-transform: uppercase ; overflow-wrap: break-word }
 .nav-arrows { 
     position: fixed ; top: 50% ; left: 0 ; width: 100% ; transform: translateY(-50%) ; z-index: 1000 ; display: flex ;
     justify-content: space-between ; padding: 0 20px ; pointer-events: none 
@@ -132,7 +132,7 @@ footer {
 .vid-container iframe {
     width: 100% ; height: 555px ; border: none ; max-width: 100% ; display: block ; margin: 0 auto }
 .comic-pages { margin-top: 6.5rem ; display: flex ; flex-direction: column ; align-items: center }
-.comic-title {
+.comic-pages-title {
     font-size: 1.5rem ; font-weight: bold ; margin-bottom: 3.5rem ; text-transform: uppercase ; text-align: center ;
     width: 100%
 }
