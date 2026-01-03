@@ -3,7 +3,7 @@
   "name": "kudo-coa",
   "main": "src/worker.js",
   "rules": [{ "type": "Text", "globs": ["**/*.css"], "fallthrough": true }],
-  "compatibility_date": "2026-01-02",
+  "compatibility_date": "2026-01-03",
   "workers_dev": false,
   "route": { "pattern": "kudocoa.com/*", "zone_name": "kudocoa.com" },
   "kv_namespaces": [{ "binding": "COAS_KV", "id": "e6a02eddd0a0446bb7f7ef8a74c88d31" }]
