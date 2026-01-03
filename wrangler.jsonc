@@ -3,7 +3,7 @@
   "name": "kudo-coa",
   "main": "src/worker.js",
   "compatibility_date": "2026-01-03",
-  "assets": { "binding": "ASSETS", "directory": "./public" },
+  "assets": { "binding": "ASSETS", "directory": "./public" }, // for asset routing in worker.js
   "rules": [{ "type": "Text", "globs": ["**/*.css"], "fallthrough": true }], // allow import CSS as text
   "workers_dev": false, // disable workers.dev previews
   "routes": [
