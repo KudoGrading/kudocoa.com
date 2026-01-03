@@ -11,7 +11,7 @@ import * as certScript from '../scripts/cert.js'
 export async function generate({ certID, certData }) {
     certData = typeof certData == 'string' ? JSON.parse(certData) : certData
     const vidURL = certData.trailerURL || certData.videoURL || certData.vidURL || certData.youtubeURL || certData.ytURL
-    const vidURLs = certData.vidURLs
+    const { vidURLs } = certData
     const vidEmbedOptions = vidURLs ? { vidURLs } : vidURL ? { vidURL } : null
     const itemYearMatch = (certData?.coverDate || certData?.publishDate)?.match(/\d{4}/)
     const itemYear = itemYearMatch ? ` (${itemYearMatch[0]})` : ''
