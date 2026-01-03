@@ -6,7 +6,7 @@ export function generate(certData) {
         const label = key.toLowerCase(),
               strVal = val.toString().toLowerCase().replace(/&/g, '+')
         cnts.commasAndPluses = ((strVal.match(/,/g) || []).length + (strVal.match(/\+/g) || []).length)
-        if (/artwork|painted/i.test(label)) cnts.art += 1 + cnts.commasAndPluses
+        if (/artwork|painted/i.test(label))  cnts.art += 1 + cnts.commasAndPluses
         if (/sign(?:ed|ature)/i.test(label)) cnts.sig += 1 + cnts.commasAndPluses
     })
 
