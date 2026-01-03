@@ -3,8 +3,10 @@ import * as header from './header.js'
 import * as footer from './footer.js'
 import * as homeScript from '../scripts/home.js'
 
+const site = await import('../../data/site.json')
+
 export function generate() {
-    const title = 'Kudo Grading + Authentication'
+    const title = site.name
     const description = 'Verify certificate authenticity with Kudo Grading & Authentication Services'
     const bodyContent = `
         ${header.generate()}
