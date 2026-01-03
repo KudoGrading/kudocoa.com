@@ -7,7 +7,7 @@ export function generate(certData) {
               strVal = val.toString().toLowerCase().replace(/&/g, '+')
         cnts.commasAndPluses = ((strVal.match(/,/g) || []).length + (strVal.match(/\+/g) || []).length)
         if (/artwork|painted/i.test(label)) cnts.art += 1 + cnts.commasAndPluses
-        if (/signed|signature|sign/i.test(label)) cnts.sig += 1 + cnts.commasAndPluses
+        if (/sign(?:ed|ature)/i.test(label)) cnts.sig += 1 + cnts.commasAndPluses
     })
 
     // Build label components
