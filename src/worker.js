@@ -14,34 +14,37 @@ export default {
             const newURL = new URL(url.toString()) ; newURL.hostname = 'kudocoa.com'
             return Response.redirect(newURL.toString(), 301)
 
-        } else if (url.hostname == 'kudocoa.com' && /^\/?$/.test(url.pathname)) // render homepage
-            return new Response(minify(homepage.generate()), { headers: htmlHeaders })
+        } else if (url.hostname == 'kudocoa.com') {
 
-        // Validate cert #
-        const certInput = url.pathname.split('/')[1]
-        if (!/^\d+$/.test(certInput))
-            return new Response(minify(errPage.generate({
-                certID: certInput, errMsg: 'Invalid certificate ID (numbers only!)' })), {
-                    headers: htmlHeaders, status: 400 }
-            )
-        const certID = certInput.padStart(10, '0')
-        if (certID.length > 10)
-            return new Response(minify(errPage.generate({
-                certID, errMsg: 'Certificate ID too long (max 10 digits!)' })), { headers: htmlHeaders, status: 400 })
-        if (certInput != certID) // redir e.g. /1 to /0000000001
-            return Response.redirect(`${app.urls.web}/${certID}`, 301)
+            if (/^\/?$/.test(url.pathname)) // render homepage
+                return new Response(minify(homepage.generate()), { headers: htmlHeaders })
 
-        // Render cert page
-        try {
-            const certData = await env.COAS_KV.get(certID)
-            return !certData ?
-                new Response(minify(errPage.generate({ certID, errMsg: 'Not found' })), {
-                    headers: htmlHeaders, status: 404 })
-              : new Response(minify(await certPage.generate({ certID, certData })), {
-                    headers: { ...htmlHeaders, 'Cache-Control': 'public, max-age=300' }})
-        } catch (err) {
-            return new Response(minify(errPage.generate({ errMsg: 'System error' })), {
-                    headers: htmlHeaders, status: 500 })
+            // Validate cert #
+            const certInput = url.pathname.split('/')[1]
+            if (!/^\d+$/.test(certInput))
+                return new Response(minify(errPage.generate({
+                    certID: certInput, errMsg: 'Invalid certificate ID (numbers only!)' })), {
+                        headers: htmlHeaders, status: 400 }
+                )
+            const certID = certInput.padStart(10, '0')
+            if (certID.length > 10)
+                return new Response(minify(errPage.generate({
+                    certID, errMsg: 'Certificate ID too long (max 10 digits!)' })), { headers: htmlHeaders, status: 400 })
+            if (certInput != certID) // redir e.g. /1 to /0000000001
+                return Response.redirect(`${app.urls.web}/${certID}`, 301)
+
+            // Render cert page
+            try {
+                const certData = await env.COAS_KV.get(certID)
+                return !certData ?
+                    new Response(minify(errPage.generate({ certID, errMsg: 'Not found' })), {
+                        headers: htmlHeaders, status: 404 })
+                : new Response(minify(await certPage.generate({ certID, certData })), {
+                        headers: { ...htmlHeaders, 'Cache-Control': 'public, max-age=300' }})
+            } catch (err) {
+                return new Response(minify(errPage.generate({ errMsg: 'System error' })), {
+                        headers: htmlHeaders, status: 500 })
+            }
         }
     }
 }
