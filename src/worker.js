@@ -21,14 +21,15 @@ export default {
             // Validate cert #
             const certInput = url.pathname.split('/')[1]
             if (!/^\d+$/.test(certInput))
-                return new Response(minify(errPage.generate({
-                    certID: certInput, errMsg: 'Invalid certificate ID (numbers only!)' })), {
+                return new Response(
+                    minify(errPage.generate({ certID: certInput, errMsg: 'Invalid certificate ID (numbers only!)' })), {
                         headers: htmlHeaders, status: 400 }
                 )
             const certID = certInput.padStart(10, '0')
             if (certID.length > 10)
-                return new Response(minify(errPage.generate({
-                    certID, errMsg: 'Certificate ID too long (max 10 digits!)' })), { headers: htmlHeaders, status: 400 })
+                return new Response(
+                    minify(errPage.generate({ certID, errMsg: 'Certificate ID too long (max 10 digits!)' })), {
+                        headers: htmlHeaders, status: 400 })
             if (certInput != certID) // redir e.g. /1 to /0000000001
                 return Response.redirect(`${app.urls.web}/${certID}`, 301)
 
