@@ -29,10 +29,10 @@ export async function generate({ certID, certData }) {
                     <div class="download-label">Download:</div>
                     <div class="download-buttons">
                         <button class="download-btn" data-filename="kudo_coa_${certID}.png"
-                                data-url="https://cdn.jsdelivr.net/gh/KudoGrading/certificates/coas/${certID}/certificate.png">
+                                data-url="${app.urls.jsdelivr}/certificates/coas/${certID}/certificate.png">
                             PNG</button>
                         <button class="download-btn" data-filename="kudo_coa_${certID}.pdf"
-                                data-url="https://cdn.jsdelivr.net/gh/KudoGrading/certificates/coas/${certID}/certificate.pdf">
+                                data-url="${app.urls.jsdelivr}/certificates/coas/${certID}/certificate.pdf">
                             PDF</button>
                     </div>
                 </div>

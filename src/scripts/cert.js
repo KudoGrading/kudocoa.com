@@ -62,7 +62,7 @@ export function generate(certID) {
                 function tryNextFormat() {
                     if (currentFormat >= formats.length) return itemPlaceholder.innerHTML = 'No image available'                
                     const format = formats[currentFormat],
-                          imgURL = \`https://cdn.jsdelivr.net/gh/KudoGrading/certificates/coas/\${certID}/item.\${format}\`,                
+                          imgURL = \`${app.urls.jsdelivr}/certificates/coas/\${certID}/item.\${format}\`,                
                           img = new Image()
                     img.onload = () => {
                         certImgDiv.innerHTML = ''
@@ -78,7 +78,7 @@ export function generate(certID) {
 
             // Render COA SHOT
             document.querySelector('.coa-img')?.addEventListener('click', function() {
-                const imgURL = 'https://cdn.jsdelivr.net/gh/KudoGrading/certificates/coas/${certID}/certificate.png'
+                const imgURL = '${app.urls.jsdelivr}/certificates/coas/${certID}/certificate.png'
                 zoomImg({ imgURL, title: 'Certificate' })
             })
 
