@@ -2,8 +2,7 @@ export function trackMouseZoom(img) {
     setTimeout(() => {
         if (!img.parentElement) return
         if (!img.parentElement.classList.contains('zoom-container')) {
-            const container = document.createElement('div')
-            container.className = 'zoom-container'
+            const container = document.createElement('div') ; container.className = 'zoom-container'
             img.style.cssText = `
                 border: none ; padding: 0 ; box-shadow: none ; max-width: 100% ; max-height: 600px ; width: auto ;
                 height: auto ; display: block ; object-fit: contain ; background: #000 ;
