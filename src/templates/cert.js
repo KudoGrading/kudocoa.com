@@ -39,10 +39,10 @@ export async function generate({ certID, certData }) {
             <div class="item-shot" id="certImage"><div class="img-placeholder">Loading image...</div></div>
             <div class="cert-details">${certDataRows.generate({ certID, certData })}</div>
         </div>
-        ${noteBoxes.generate(certData)}
+        ${ noteBoxes.generate(certData) }
         ${ vidEmbedOptions ? vidEmbed.generate(vidEmbedOptions) : '' }
         ${ certData.interiorURL ? await comicPages.generate(certData.interiorURL) : '' }
-        ${footer.generate()}
+        ${ footer.generate() }
         <script>${certScript.generate(certID)}</script>
     `
     return base.generate({ title, description, bodyContent })
