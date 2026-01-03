@@ -31,8 +31,7 @@ export default {
             if (!/^\d+$/.test(certInput))
                 return new Response(
                     minify(errPage.generate({ certID: certInput, errMsg: 'Invalid certificate ID (numbers only!)' })), {
-                        headers: htmlHeaders, status: 400 }
-                )
+                        headers: htmlHeaders, status: 400 })
             const certID = certInput.padStart(10, '0')
             if (certID.length > 10)
                 return new Response(
