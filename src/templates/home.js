@@ -7,7 +7,7 @@ const site = await import('../../data/site.json')
 
 export function generate() {
     const title = site.name
-    const description = 'Verify certificate authenticity with Kudo Grading & Authentication Services'
+    const description = `Verify certificate authenticity with ${site.fullName}`
     const bodyContent = `
         ${header.generate()}
         ${footer.generate()}
