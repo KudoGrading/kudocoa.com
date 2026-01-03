@@ -6,7 +6,7 @@
     "lint:all": "eslint .",
     "lint:fix": "eslint . --fix --cache",
     "lint:fix-all": "eslint . --fix",
-    "build:css": "scss-to-css src/styles/global.scss",
+    "build:css": "scss-to-css src/server/styles/global.scss",
     "dev": "wrangler dev",
     "deploy": "wrangler deploy"
   },
