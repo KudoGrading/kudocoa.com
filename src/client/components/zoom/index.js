@@ -25,13 +25,10 @@ export function zoomImg({ imgURL, title = '' }) {
         document.removeEventListener('touchmove', preventScroll)
         overlay.style.backgroundColor = 'rgba(0,0,0,0)'
         Object.assign(zoomedImg.style, {
-            opacity: 0,
-            transform: 'scale(1.05)',
+            opacity: 0, transform: 'scale(1.05)',
             transition: `opacity ${fadeOutDuration}s ease-out, transform ${fadeOutDuration}s ease-out`
         })
-        setTimeout(() => {
-            if (overlay.parentNode) document.body.removeChild(overlay)
-        }, fadeOutDuration * 1000)
+        setTimeout(() => overlay.parentNode && document.body.removeChild(overlay), fadeOutDuration *1000)
     }
 
     // Prevent scroll
