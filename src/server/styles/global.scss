@@ -42,7 +42,7 @@ input { -moz-appearance: textfield ; appearance: textfield }
     gap: 0.3rem ; position: relative
 }
 .download-label::before { content: "↓" ; font-size: 1.2rem ; position: relative ; left: -2px ; top: -2px }
-.download-buttons { display: flex ; gap: 0.5rem }
+.download-btns { display: flex ; gap: 0.5rem }
 .download-btn {
     background: #000 ; color: #fff ; border: 2px solid #fff ; padding: 0.8rem 1.2rem ; text-transform: uppercase ;
     font-weight: bold ; cursor: pointer ; text-decoration: none ; font-size: 1rem ; border-radius: 60px

@@ -1,4 +1,4 @@
-export function initDownloadButtons() {
+export function initDownloadBtns() {
     document.querySelectorAll('.download-btn').forEach(btn =>
         btn.addEventListener('click', async event => {
             event.preventDefault()

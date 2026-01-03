@@ -1,5 +1,5 @@
 import { initSearch } from '../shared/verify.js'
-import { initDownloadButtons } from '../shared/download.js'
+import { initDownloadBtns } from '../shared/download.js'
 import { initBackToTop } from '../shared/back-to-top.js'
 import { initItemShot } from '../components/item-shot.js'
 import { initNavArrows } from '../components/nav-arrows.js'
@@ -16,7 +16,7 @@ export function initCertPage(config) {
             const val = input.value ; input.value = '' ; input.value = val ; input.blur()
         }
         initNavArrows(config.navArrowsHTML, config.prevCertNum, config.nextCertNum, config.baseURL)
-        initDownloadButtons()
+        initDownloadBtns()
         initItemShot(config.certID, config.urls)
         document.querySelector('.coa-img')?.addEventListener('click', () =>
             zoomImg({ title: 'Certificate',
