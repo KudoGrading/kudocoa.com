@@ -9,13 +9,13 @@ export function initCertPage(config) {
     document.addEventListener('DOMContentLoaded', () => {
         const input = document.getElementById('certNum'),
               button = document.getElementById('verifyBtn')
-        initSearch(input, button, config.baseUrl)
+        initSearch(input, button, config.baseURL)
         resetUI() ; addEventListener('pageshow', resetUI)
         function resetUI() {
             button.disabled = false ; button.textContent = 'Verify Certificate'
             const val = input.value ; input.value = '' ; input.value = val ; input.blur()
         }
-        initNavArrows(config.navArrowsHTML, config.prevCertNum, config.nextCertNum, config.baseUrl)
+        initNavArrows(config.navArrowsHTML, config.prevCertNum, config.nextCertNum, config.baseURL)
         initDownloadButtons()
         initItemShot(config.certID, config.urls)
         document.querySelector('.coa-img')?.addEventListener('click', () =>

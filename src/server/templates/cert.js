@@ -54,7 +54,7 @@ export async function generate({ certID, certData }) {
             import { initCertPage } from '${app.urls.assetHost}/js/pages/cert.min.js'
             initCertPage(${JSON.stringify({
                 certID: certID,
-                baseUrl: app.urls.web,
+                baseURL: app.urls.web,
                 urls: app.urls,
                 navArrowsHTML: navArrowsHTML,
                 prevCertNum: prevCertNum || '',
