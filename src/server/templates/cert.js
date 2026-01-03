@@ -41,7 +41,7 @@ export async function generate({ certID, certData }) {
             </div>
         </div>
         <div class="cert-body">
-            <div class="item-shot" id="certImage"><div class="item-placeholder">Loading image...</div></div>
+            <div class="item-shot" id="certImg"><div class="item-placeholder">Loading image...</div></div>
             <div class="cert-details">${certDataRows.generate({ certID, certData })}</div>
         </div>
         ${ noteBoxes.generate(certData) }

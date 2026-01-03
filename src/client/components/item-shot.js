@@ -1,5 +1,5 @@
 export function initItemShot(certID, baseURLs) {
-    const certImgDiv = document.getElementById('certImage') ; if (!certImgDiv) return
+    const certImgDiv = document.getElementById('certImg') ; if (!certImgDiv) return
     const itemPlaceholder = certImgDiv.querySelector('.item-placeholder')
     const formats = ['jpg', 'jpeg', 'png', 'webp', 'gif']
     let currentFormat = 0
