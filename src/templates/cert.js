@@ -6,7 +6,7 @@ import * as comicPages from '../components/comic-pages.js'
 import * as noteBoxes from '../components/note-boxes.js'
 import * as verificationBadge from '../components/verification-badge.js'
 import * as vidEmbed from '../components/vid-embed.js'
-import * as navArrows from '../components/nav-arrows.js' // Server-side component for HTML
+import * as navArrows from '../components/nav-arrows.js'
 
 const app = await import('../../data/app.json')
 
