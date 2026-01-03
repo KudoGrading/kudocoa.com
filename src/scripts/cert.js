@@ -134,7 +134,7 @@ export function generate(certID) {
             }, 0)
         }
 
-        function zoomImg({ imgURL, title }) {
+        function zoomImg({ imgURL, title = '' }) {
             const fadeOutDuration = 0.12,
                   overlay = document.createElement('div')
             Object.assign(overlay.style, {

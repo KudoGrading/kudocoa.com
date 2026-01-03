@@ -1,5 +1,5 @@
-export function generate({ vidURL, vidURLs } = {}) {
-    const url = vidURL || (Array.isArray(vidURLs) && vidURLs[Math.floor(Math.random() * vidURLs.length)])
+export function generate({ vidURL, vidURLs = [] }) {
+    const url = vidURL || vidURLs[Math.floor(Math.random() * vidURLs.length)]
     if (!url || !/youtube\.com|youtu\.be/.test(url)) return ''
     const vidID = url.match(
         /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/)?.[1]
