@@ -9,7 +9,7 @@ export function generate({ certID, certData }) {
         const label = string.camelToTitleCase(key)
         let displayVal = /date/i.test(key) ? string.formatDate(val) : val.toString().toUpperCase()
 
-        if (/^publisher$/i.test(key)) { // replace publisher w/ logo
+        if (/^publisher$/.test(key)) { // replace publisher w/ logo
             const publisherSlug = val.toString().toLowerCase()
                 .replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
             const logoURL = `${jsdBaseURL}/KudoComics/assets/images/logos/publishers/${publisherSlug}/white.png`
@@ -24,7 +24,7 @@ export function generate({ certID, certData }) {
                 displayVal = imgEmbed.generate({ imgURL, alt: displayVal })
             }
 
-        } else if (/^coa/i.test(key) && /certificate/i.test(displayVal)) // render COAs
+        } else if (/^coa/.test(key) && /certificate/i.test(displayVal)) // render COAs
             displayVal = `
                 <div class="coa-type">
                     <div class="coa-img-container">
