@@ -1,23 +1,25 @@
 import * as navArrows from '../components/nav-arrows.js'
 
+const site = await import('../../data/site.json')
+
 export function generate(certID) {
     const { navArrowsHTML, prevCertNum, nextCertNum } = navArrows.generate(certID)
     return `
         document.addEventListener('DOMContentLoaded', () => {
 
             // Init SEARCH bar
-            const input = document.getElementById('certNumber'),
+            const input = document.getElementById('certNum'),
                   button = document.getElementById('verifyBtn')
             button.onclick = verify
             input.addEventListener('keydown', ({ key }) => key == 'Enter' && verify())
             function verify() {
-                const certNumber = input.value.trim()
-                if (!certNumber)
+                const certNum = input.value.trim()
+                if (!certNum)
                     return alert('Please enter a certificate number')
-                if (!/^\\d+$/.test(certNumber))
+                if (!/^\\d+$/.test(certNum))
                     return alert('Certificate number must contain only digits')
                 button.disabled = true ; button.textContent = 'Retrieving...'
-                location.href = 'https://kudocoa.com/' + certNumber
+                location.href = '${site.urls.home}/' + certNum
             }
             const val = input.value ; input.value = '' ; input.value = val ; input.blur()
             addEventListener('pageshow', () => { // reset loading state
@@ -29,8 +31,8 @@ export function generate(certID) {
             document.body.insertAdjacentHTML('beforeend', \`${navArrowsHTML.replace(/'/g, `\\'`)}\`)
             document.addEventListener('keydown', ({ key }) => {
                 if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) return
-                ${ prevCertNum ? `if (key == 'ArrowLeft') location.href = 'https://kudocoa.com/${prevCertNum}'` : '' }
-                if (key == 'ArrowRight') location.href = 'https://kudocoa.com/${nextCertNum}'
+                ${ prevCertNum ? `if (key == 'ArrowLeft') location.href = '${site.urls.home}/${prevCertNum}'` : '' }
+                if (key == 'ArrowRight') location.href = '${site.urls.home}/${nextCertNum}'
             })
 
             // Init DOWNLOAD buttons

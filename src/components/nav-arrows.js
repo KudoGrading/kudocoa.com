@@ -1,3 +1,5 @@
+const site = await import('../../data/site.json')
+
 export function generate(certID) {
     const certNum = parseInt(certID)
     const prevCertNum = certNum > 1 ? String(certNum -1).padStart(10, '0') : null
@@ -5,11 +7,11 @@ export function generate(certID) {
     const navArrowsHTML = `
         <div class="nav-arrows">
             ${ prevCertNum ?
-                `<a href="https://kudocoa.com/${prevCertNum}"
+                `<a href="${site.urls.home}/${prevCertNum}"
                     class="nav-arrow left" title="Previous Certificate">&lt;</a>`
               : '<span class="nav-arrow left disabled" title="No Previous Certificate">&lt;</span>'
             }
-            <a href="https://kudocoa.com/${nextCertNum}" class="nav-arrow right" title="Next Certificate">&lt;</a>
+            <a href="${site.urls.home}/${nextCertNum}" class="nav-arrow right" title="Next Certificate">&lt;</a>
         </div>
     `
     return { navArrowsHTML, prevCertNum, nextCertNum }
