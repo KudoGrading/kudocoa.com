@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "kudo-coa-verify",
+  "name": "kudo-coa",
   "main": "src/worker.js",
   "rules": [{ "type": "Text", "globs": ["**/*.css"], "fallthrough": true }],
   "compatibility_date": "2026-01-02",
