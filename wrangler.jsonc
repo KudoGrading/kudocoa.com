@@ -2,8 +2,8 @@
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "kudo-coa",
   "main": "src/worker.js",
-  "rules": [{ "type": "Text", "globs": ["**/*.css"], "fallthrough": true }],
   "compatibility_date": "2026-01-03",
+  "rules": [{ "type": "Text", "globs": ["**/*.css"], "fallthrough": true }],
   "workers_dev": false,
   "routes": [
     { "pattern": "kudocoa.com/*", "zone_name": "kudocoa.com" },
