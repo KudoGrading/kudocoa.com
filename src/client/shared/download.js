@@ -8,7 +8,7 @@ export function initDownloadButtons() {
                 const downloadURL = URL.createObjectURL(await (await fetch(url)).blob()),
                       a = document.createElement('a')
                 a.style.display = 'none' ; a.href = downloadURL ; a.download = filename ; document.body.append(a)
-                a.click() ; URL.revokeObjectURL(downloadURL) ; document.body.removeChild(a)
+                a.click() ; URL.revokeObjectURL(downloadURL) ; a.remove()
             } catch (err) { open(url, '_blank') }
         })
     )

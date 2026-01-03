@@ -28,7 +28,7 @@ export function zoomImg({ imgURL, title = '' }) {
             opacity: 0, transform: 'scale(1.05)',
             transition: `opacity ${fadeOutDuration}s ease-out, transform ${fadeOutDuration}s ease-out`
         })
-        setTimeout(() => overlay.parentNode && document.body.removeChild(overlay), fadeOutDuration *1000)
+        setTimeout(() => overlay.remove(), fadeOutDuration *1000)
     }
 
     // Prevent scroll
