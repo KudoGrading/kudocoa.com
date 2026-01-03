@@ -6,9 +6,11 @@
     "lint:all": "eslint .",
     "lint:fix": "eslint . --fix --cache",
     "lint:fix-all": "eslint . --fix",
+    "build": "npm run build:css && npm run build:js",
     "build:css": "scss-to-css src/server/styles/global.scss",
     "build:js": "minify-js src/client public/js --clone-folders",
     "dev": "wrangler dev",
+    "predeploy": "npm run build",
     "deploy": "wrangler deploy"
   },
   "devDependencies": {
