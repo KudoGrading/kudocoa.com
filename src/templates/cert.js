@@ -8,7 +8,7 @@ import * as verificationBadge from '../components/verification-badge.js'
 import * as vidEmbed from '../components/vid-embed.js'
 import * as certScript from '../scripts/cert.js'
 
-const site = await import('../../data/site.json')
+const site = await import('../../data/app.json')
 
 export async function generate({ certID, certData }) {
     certData = typeof certData == 'string' ? JSON.parse(certData) : certData
@@ -18,8 +18,8 @@ export async function generate({ certID, certData }) {
     const itemYearMatch = (certData?.coverDate || certData?.publishDate)?.match(/\d{4}/)
     const itemYear = itemYearMatch ? ` (${itemYearMatch[0]})` : ''
     const title = `${ certID ? `Kudo COA #${parseInt(certID)} / ` : '' }${
-                      certData?.item || '' }${itemYear} / ${site.name}`
-    const description = `Certificate # ${certID} verified by ${site.fullName}`
+                      certData?.item || '' }${itemYear} / ${app.name}`
+    const description = `Certificate # ${certID} verified by ${app.fullName}`
     const bodyContent = `
         ${header.generate(certID)}
         <div class="cert-header">

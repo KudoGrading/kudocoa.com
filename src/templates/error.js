@@ -2,10 +2,10 @@ import * as base from './base.js'
 import * as header from './header.js'
 import * as footer from './footer.js'
 
-const site = await import('../../data/site.json')
+const site = await import('../../data/app.json')
 
 export function generate({ certID, errMsg = 'Error' } = {}) {
-    const title = `${ certID ? `Kudo COA #${certID} / Certificate Not Found` : 'System Error' } / ${site.name}`
+    const title = `${ certID ? `Kudo COA #${certID} / Certificate Not Found` : 'System Error' } / ${app.name}`
     const description = certID ? `Certificate # ${certID} not found` : 'System error occurred'
     const bodyContent = `
         ${header.generate(certID)}

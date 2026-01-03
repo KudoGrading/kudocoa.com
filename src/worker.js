@@ -3,7 +3,7 @@ import * as homepage from './templates/home.js'
 import * as certPage from './templates/cert.js'
 import * as errPage from './templates/error.js'
 
-const site = await import('../data/site.json')
+const site = await import('../data/app.json')
 
 export default {
     async fetch(req, env) {
@@ -24,7 +24,7 @@ export default {
             return new Response(minify(errPage.generate({
                 certID, errMsg: 'Certificate ID too long (max 10 digits!)' })), { headers: htmlHeaders, status: 400 })
         if (certInput != certID) // redir e.g. /1 to /0000000001
-            return Response.redirect(`${site.urls.home}/${certID}`, 301)
+            return Response.redirect(`${app.urls.home}/${certID}`, 301)
 
         // Render cert page
         try {

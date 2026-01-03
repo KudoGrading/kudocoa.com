@@ -1,4 +1,4 @@
-const site = await import('../../data/site.json')
+const site = await import('../../data/app.json')
 
 export function generate() {
     return `
@@ -14,7 +14,7 @@ export function generate() {
                 if (!/^\\d+$/.test(certNum))
                     return alert('Certificate number must contain only digits')
                 button.disabled = true ; button.textContent = 'Retrieving...'
-                location.href = '${site.urls.home}/' + certNum
+                location.href = '${app.urls.home}/' + certNum
             }
             input.focus() ; const val = input.value ; input.value = '' ; input.value = val
             addEventListener('pageshow', () => {

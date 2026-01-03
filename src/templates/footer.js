@@ -1,13 +1,13 @@
-const site = await import('../../data/site.json')
+const site = await import('../../data/app.json')
 
 export function generate() {
     return `
         <footer>
-            <div>© ${ new Date().getFullYear() } ${site.fullName.toUpperCase()}</div>
+            <div>© ${ new Date().getFullYear() } ${app.fullName.toUpperCase()}</div>
             <div class="footer-links">
-                <a href="${site.urls.home}">Home</a>
+                <a href="${app.urls.home}">Home</a>
                 <span class="footer-separator"></span>
-                <a href="${site.urls.github}" target="_blank" rel="noopener">GitHub</a>
+                <a href="${app.urls.github}" target="_blank" rel="noopener">GitHub</a>
                 <span class="footer-separator"></span>
                 <a href="mailto:support@kudocoa.com">Contact</a>
             </div>
