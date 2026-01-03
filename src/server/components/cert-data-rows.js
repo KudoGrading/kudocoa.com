@@ -12,17 +12,16 @@ export function generate({ certID, certData }) {
         let displayVal = /date/i.test(key) ? string.formatDate(val) : val.toString().toUpperCase()
 
         if (/^publisher$/.test(key)) { // replace publisher w/ logo
-            const publisherSlug = val.toString().toLowerCase()
-                .replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
-            const logoURL = `${app.urls.comicAssetHost}/images/logos/publishers/${publisherSlug}/white.png`
-            displayVal = imgEmbed.generate({ logoURL, alt: displayVal })
+            const publisherSlug = val.toString().toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
+                  imgURL = `${app.urls.comicAssetHost}/images/logos/publishers/${publisherSlug}/white.png`
+            displayVal = imgEmbed.generate({ imgURL, alt: displayVal })
 
         } else if (/By$/.test(key)) { // human attr
             displayVal = displayVal.replace(/[,&]/g, ' +') // separate names w/ pluses
             if (/(?:authenticat|grad)edBy$/i.test(key)) { // replace names w/ sig
-                const imgName = val.toString().toLowerCase()
+                const signerSlug = val.toString().toLowerCase()
                     .replace(/[&,+]/g, '').replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
-                const imgURL = `${app.urls.jsdelivr}/certificates/assets/images/signatures/${imgName}/white.png`
+                const imgURL = `${app.urls.jsdelivr}/certificates/assets/images/signatures/${signerSlug}/white.png`
                 displayVal = imgEmbed.generate({ imgURL, alt: displayVal })
             }
 
