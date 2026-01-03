@@ -13,7 +13,7 @@ export function generate() {
         
         <!-- Inject config and load frontend module -->
         <script type="module">
-            import { initHomePage } from '${app.urls.jsdelivr}/kudocoa.com/src/client/pages/home.js'
+            import { initHomePage } from '${app.urls.assetHost}/js/pages/home.min.js'
             initHomePage(${JSON.stringify(app.urls.web)})
         </script>
     `

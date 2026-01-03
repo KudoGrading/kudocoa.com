@@ -51,7 +51,7 @@ export async function generate({ certID, certData }) {
         
         <!-- Inject config and load frontend module -->
         <script type="module">
-            import { initCertPage } from '${app.urls.jsdelivr}/kudocoa.com/src/client/pages/cert.js'
+            import { initCertPage } from '${app.urls.assetHost}/js/pages/cert.min.js'
             initCertPage(${JSON.stringify({
                 certID: certID,
                 baseUrl: app.urls.web,
