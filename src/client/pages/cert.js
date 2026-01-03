@@ -8,11 +8,11 @@ import { zoomImg } from '../components/zoom/index.js'
 export function initCertPage(config) {
     document.addEventListener('DOMContentLoaded', () => {
         const input = document.getElementById('certNum'),
-              button = document.getElementById('verifyBtn')
-        initSearch(input, button, config.baseURL)
+              btn = document.getElementById('verifyBtn')
+        initSearch(input, btn, config.baseURL)
         resetUI() ; addEventListener('pageshow', resetUI)
         function resetUI() {
-            button.disabled = false ; button.textContent = 'Verify Certificate'
+            btn.disabled = false ; btn.textContent = 'Verify Certificate'
             const val = input.value ; input.value = '' ; input.value = val ; input.blur()
         }
         initNavArrows(config.navArrowsHTML, config.prevCertNum, config.nextCertNum, config.baseURL)
