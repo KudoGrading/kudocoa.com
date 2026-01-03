@@ -12,16 +12,15 @@ export function generate({ certID, certData }) {
         let displayVal = /(?:^d|[a-z]D)ate(?:[A-Z]|$)/.test(key) ? string.formatDate(val) : val.toUpperCase()
 
         if (key == 'publisher') { // replace publisher w/ logo
-            const publisherSlug = val.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
+            const publisherSlug = string.toHyphenCase(val),
                   imgURL = `${app.urls.comicAssetHost}/images/logos/publishers/${publisherSlug}/white.png`
             displayVal = imgEmbed.generate({ imgURL, alt: displayVal })
 
         } else if (key.endsWith('By')) { // human attr
             displayVal = displayVal.replace(/[,&]/g, ' +') // separate names w/ pluses
             if (/(?:authenticat|grad)edBy$/i.test(key)) { // replace names w/ sig
-                const signerSlug = val.toLowerCase()
-                    .replace(/[&,+]/g, '').replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
-                const imgURL = `${app.urls.jsdelivr}/certificates/assets/images/signatures/${signerSlug}/white.png`
+                const signerSlug = string.toHyphenCase(val),
+                      imgURL = `${app.urls.jsdelivr}/certificates/assets/images/signatures/${signerSlug}/white.png`
                 displayVal = imgEmbed.generate({ imgURL, alt: displayVal })
             }
 

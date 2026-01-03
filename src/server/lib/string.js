@@ -1,6 +1,8 @@
 export function camelToTitleCase(str) { // e.g. 'gradedAndAuthenticatedBy' => 'Graded / Authenticated By'
     return str.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()).replace(/\bAnd\b/gi, '/') }
 
+export function toHyphenCase(str) { return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') }
+
 export function formatDate(dateStr, { format = 'monthDayYear', caseStyle = 'upper' } = {}) { // e.g. '2026-1' => 'JANUARY 2026'
     if (!dateStr) throw new Error(`'dateStr' option required by formatDate()`)
     try {
