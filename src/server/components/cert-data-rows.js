@@ -9,7 +9,7 @@ export function generate({ certID, certData }) {
         if (/(?:Notes|URLs?)$/.test(key)) continue
 
         const label = string.camelToTitleCase(key)
-        let displayVal = /date/i.test(key) ? string.formatDate(val) : val.toString().toUpperCase()
+        let displayVal = /(?:^d|[a-z]D)ate(?:[A-Z]|$)/.test(key) ? string.formatDate(val) : val.toString().toUpperCase()
 
         if (key == 'publisher') { // replace publisher w/ logo
             const publisherSlug = val.toString().toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
