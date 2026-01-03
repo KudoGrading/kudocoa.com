@@ -1,4 +1,3 @@
-import { generatePageTitle } from '../lib/string.js'
 import * as base from './base.js'
 import * as header from './header.js'
 import * as footer from './footer.js'
@@ -14,7 +13,10 @@ export async function generate({ certID, certData }) {
     const vidURL = certData.trailerURL || certData.videoURL || certData.vidURL || certData.youtubeURL || certData.ytURL
     const vidURLs = certData.vidURLs
     const vidEmbedOptions = vidURLs ? { vidURLs } : vidURL ? { vidURL } : null
-    const title = generatePageTitle({ certID, certData })
+    const itemYearMatch = (certData?.coverDate || certData?.publishDate)?.match(/\d{4}/)
+    const itemYear = itemYearMatch ? ` (${itemYearMatch[0]})` : ''
+    const title = `${ certID ? `Kudo COA #${parseInt(certID)} / ` : '' }${
+                      certData?.item || '' }${itemYear} / Kudo Grading + Authentication`
     const description = `Certificate # ${certID} verified by Kudo Grading & Authentication Services`
     const bodyContent = `
         ${header.generate(certID)}
