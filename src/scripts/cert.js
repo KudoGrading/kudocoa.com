@@ -52,23 +52,23 @@ export function generate(certID) {
             })
 
             // Render ITEM SHOT
-            const certImageDiv = document.getElementById('certImage')
-            if (certImageDiv) {
-                const placeholder = certImageDiv.querySelector('.img-placeholder'),
+            const certImgDiv = document.getElementById('certImage')
+            if (certImgDiv) {
+                const itemPlaceholder = certImgDiv.querySelector('.item-placeholder'),
                       formats = ['jpg', 'jpeg', 'png', 'webp', 'gif'],
                       certID = '${certID}'
                 let currentFormat = 0
                 tryNextFormat()
                 function tryNextFormat() {
-                    if (currentFormat >= formats.length) return placeholder.innerHTML = 'No image available'                
+                    if (currentFormat >= formats.length) return itemPlaceholder.innerHTML = 'No image available'                
                     const format = formats[currentFormat],
                           imgURL = \`https://cdn.jsdelivr.net/gh/KudoGrading/certificates/coas/\${certID}/item.\${format}\`,                
                           img = new Image()
                     img.onload = () => {
-                        certImageDiv.innerHTML = ''
+                        certImgDiv.innerHTML = ''
                         const img = document.createElement('img') ; img.src = imgURL ; img.alt = 'Certificate Image'                    
                         img.onclick = () => zoomImg({ imgURL, title: 'Item Image' })                
-                        certImageDiv.append(img)
+                        certImgDiv.append(img)
                         setTimeout(() => trackMouseZoom(img), 0)
                     }
                     img.onerror = () => { currentFormat++ ; tryNextFormat() }                
