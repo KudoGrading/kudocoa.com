@@ -1,3 +1,5 @@
+const site = await import('../../data/site.json')
+
 export function generate() {
     return `
         document.addEventListener('DOMContentLoaded', () => {
@@ -12,7 +14,7 @@ export function generate() {
                 if (!/^\\d+$/.test(certNumber))
                     return alert('Certificate number must contain only digits')
                 button.disabled = true ; button.textContent = 'Retrieving...'
-                location.href = 'https://kudocoa.com/' + certNumber
+                location.href = '${site.urls.home}/' + certNumber
             }
             input.focus() ; const val = input.value ; input.value = '' ; input.value = val
             addEventListener('pageshow', () => {

@@ -1,4 +1,8 @@
 {
   "name": "Kudo Grading + Authentication",
-  "fullName": "Kudo Grading & Authentication Services"
+  "fullName": "Kudo Grading & Authentication Services",
+  "urls": {
+    "home": "https://kudocoa.com",
+    "github": "https://github.com/KudoGrading"
+  }
 }
