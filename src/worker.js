@@ -15,7 +15,7 @@ export default {
 
         else if (url.hostname == 'kudocoa.com') {
 
-            if (url.pathname.startsWith('/assets/')) { // serve public/
+            if (url.pathname.startsWith('/assets/')) { // serve public/ asset
                 const assetPath = url.pathname.replace('/assets', '').replace(/(?<!\.min)\.js$/i, '.min.js'),
                       resp = await env.ASSETS.fetch(new Request(new URL(assetPath, req.url), req)),
                       fileExt = url.pathname.split('.').pop().toLowerCase(),
