@@ -19,7 +19,7 @@ export function generate(certID) {
                 if (!/^\\d+$/.test(certNum))
                     return alert('Certificate number must contain only digits')
                 button.disabled = true ; button.textContent = 'Retrieving...'
-                location.href = '${app.urls.home}/' + certNum
+                location.href = '${app.urls.web}/' + certNum
             }
             const val = input.value ; input.value = '' ; input.value = val ; input.blur()
             addEventListener('pageshow', () => { // reset loading state
@@ -31,8 +31,8 @@ export function generate(certID) {
             document.body.insertAdjacentHTML('beforeend', \`${navArrowsHTML.replace(/'/g, `\\'`)}\`)
             document.addEventListener('keydown', ({ key }) => {
                 if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) return
-                ${ prevCertNum ? `if (key == 'ArrowLeft') location.href = '${app.urls.home}/${prevCertNum}'` : '' }
-                if (key == 'ArrowRight') location.href = '${app.urls.home}/${nextCertNum}'
+                ${ prevCertNum ? `if (key == 'ArrowLeft') location.href = '${app.urls.web}/${prevCertNum}'` : '' }
+                if (key == 'ArrowRight') location.href = '${app.urls.web}/${nextCertNum}'
             })
 
             // Init DOWNLOAD buttons

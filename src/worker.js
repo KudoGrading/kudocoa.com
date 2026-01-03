@@ -24,7 +24,7 @@ export default {
             return new Response(minify(errPage.generate({
                 certID, errMsg: 'Certificate ID too long (max 10 digits!)' })), { headers: htmlHeaders, status: 400 })
         if (certInput != certID) // redir e.g. /1 to /0000000001
-            return Response.redirect(`${app.urls.home}/${certID}`, 301)
+            return Response.redirect(`${app.urls.web}/${certID}`, 301)
 
         // Render cert page
         try {

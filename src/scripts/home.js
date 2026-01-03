@@ -14,7 +14,7 @@ export function generate() {
                 if (!/^\\d+$/.test(certNum))
                     return alert('Certificate number must contain only digits')
                 button.disabled = true ; button.textContent = 'Retrieving...'
-                location.href = '${app.urls.home}/' + certNum
+                location.href = '${app.urls.web}/' + certNum
             }
             input.focus() ; const val = input.value ; input.value = '' ; input.value = val
             addEventListener('pageshow', () => {

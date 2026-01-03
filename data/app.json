@@ -4,7 +4,7 @@
   "urls": {
     "comicAssetHost": "https://cdn.jsdelivr.net/gh/KudoComics/assets",
     "github": "https://github.com/KudoGrading",
-    "home": "https://kudocoa.com",
-    "jsdelivr": "https://cdn.jsdelivr.net/gh/KudoGrading"
+    "jsdelivr": "https://cdn.jsdelivr.net/gh/KudoGrading",
+    "web": "https://kudocoa.com"
   }
 }
