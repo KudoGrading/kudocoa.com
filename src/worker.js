@@ -51,7 +51,7 @@ export default {
                   : new Response(minify(await certPage.generate({ certID, certData })), {
                         headers: { ...htmlHeaders, 'Cache-Control': 'public, max-age=300' }})
             } catch (err) {
-                return new Response(minify(errPage.generate({ errMsg: 'System error' })), {
+                return new Response(minify(errPage.generate({ errMsg: 'System error: ' + err.message })), {
                         headers: htmlHeaders, status: 500 })
             }
         }
