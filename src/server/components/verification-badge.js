@@ -3,6 +3,7 @@ export function generate(certData) {
     // Count verifications
     const cnts = { art: 0, sig: 0 }
     Object.entries(certData).forEach(([key, val]) => {
+        if (typeof val != 'string') return
         val = val.toLowerCase().replace(/&/g, '+')
         cnts.commasAndPluses = (val.match(/,|\+/g) || []).length
         if (/artwork|painted/i.test(key))  cnts.art += 1 + cnts.commasAndPluses
