@@ -9,11 +9,11 @@ export default {
     async fetch(req, env) {
         const url = new URL(req.url), htmlHeaders = { 'Content-Type': 'text/html' }
 
-        if (url.hostname == 'cert.kudoauthentication.com') { // redir to kudocoa.com/<path>
-            const newURL = new URL(url.toString()) ; newURL.hostname = 'kudocoa.com'
-            return Response.redirect(newURL.toString(), 301)
-
-        } else if (url.hostname == 'kudocoa.com') {
+        if (url.hostname == 'cert.kudoauthentication.com') // redir to kudocoa.com/<path>
+            return Response.redirect(url.toString().replace(url.hostname, 'kudocoa.com'), 301)
+        else if (url.hostname == 'assets.kudocoa.com') // redir / to kudocoa.com or serve public/
+            return url.pathname == '/' ? Response.redirect(app.urls.web, 302) : env.ASSETS.fetch(req)
+        else if (url.hostname == 'kudocoa.com') {
 
             if (/^\/?$/.test(url.pathname)) // render homepage
                 return new Response(minify(homepage.generate()), { headers: htmlHeaders })
