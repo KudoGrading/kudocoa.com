@@ -11,12 +11,12 @@ export function generate({ certID, certData }) {
         const label = string.camelToTitleCase(key)
         let displayVal = /date/i.test(key) ? string.formatDate(val) : val.toString().toUpperCase()
 
-        if (/^publisher$/.test(key)) { // replace publisher w/ logo
+        if (key == 'publisher') { // replace publisher w/ logo
             const publisherSlug = val.toString().toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''),
                   imgURL = `${app.urls.comicAssetHost}/images/logos/publishers/${publisherSlug}/white.png`
             displayVal = imgEmbed.generate({ imgURL, alt: displayVal })
 
-        } else if (/By$/.test(key)) { // human attr
+        } else if (key.endsWith('By')) { // human attr
             displayVal = displayVal.replace(/[,&]/g, ' +') // separate names w/ pluses
             if (/(?:authenticat|grad)edBy$/i.test(key)) { // replace names w/ sig
                 const signerSlug = val.toString().toLowerCase()
@@ -25,7 +25,7 @@ export function generate({ certID, certData }) {
                 displayVal = imgEmbed.generate({ imgURL, alt: displayVal })
             }
 
-        } else if (/^coa/.test(key) && /certificate/i.test(displayVal)) // render COAs
+        } else if (key == 'coaType' && /certificate/i.test(displayVal)) // render COAs
             displayVal = `
                 <div class="coa-type">
                     <div class="coa-img-container">
