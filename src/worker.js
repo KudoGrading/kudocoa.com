@@ -14,7 +14,7 @@ export default {
             const newURL = new URL(url.toString()) ; newURL.hostname = 'kudocoa.com'
             return Response.redirect(newURL.toString(), 301)
 
-        } else if (/^\/?$/.test(url.pathname)) // render homepage
+        } else if (url.hostname == 'kudocoa.com' && /^\/?$/.test(url.pathname)) // render homepage
             return new Response(minify(homepage.generate()), { headers: htmlHeaders })
 
         // Validate cert #
