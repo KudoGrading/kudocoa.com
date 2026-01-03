@@ -6,7 +6,7 @@ import * as comicPages from '../components/comic-pages.js'
 import * as noteBoxes from '../components/note-boxes.js'
 import * as verificationBadge from '../components/verification-badge.js'
 import * as vidEmbed from '../components/vid-embed.js'
-import * as certScript from '../scripts/cert.js'
+import * as navArrows from '../components/nav-arrows.js' // Server-side component for HTML
 
 const app = await import('../../data/app.json')
 
@@ -20,6 +20,7 @@ export async function generate({ certID, certData }) {
     const title = `${ certID ? `Kudo COA #${parseInt(certID)} / ` : '' }${
                       certData?.item || '' }${itemYear} / ${app.name}`
     const description = `Certificate # ${certID} verified by ${app.fullName}`
+    const { navArrowsHTML, prevCertNum, nextCertNum } = navArrows.generate(certID)
     const bodyContent = `
         ${header.generate(certID)}
         <div class="cert-header">
@@ -47,7 +48,19 @@ export async function generate({ certID, certData }) {
         ${ vidEmbedOptions ? vidEmbed.generate(vidEmbedOptions) : '' }
         ${ certData.interiorURL ? await comicPages.generate(certData.interiorURL) : '' }
         ${ footer.generate() }
-        <script>${certScript.generate(certID)}</script>
+        
+        <!-- Inject config and load frontend module -->
+        <script type="module">
+            import { initCertPage } from '${app.urls.jsdelivr}/kudocoa.com/src/client/pages/cert.js'
+            initCertPage(${JSON.stringify({
+                certID: certID,
+                baseUrl: app.urls.web,
+                urls: app.urls,
+                navArrowsHTML: navArrowsHTML,
+                prevCertNum: prevCertNum || '',
+                nextCertNum: nextCertNum
+            })})
+        </script>
     `
     return base.generate({ title, description, bodyContent })
 }

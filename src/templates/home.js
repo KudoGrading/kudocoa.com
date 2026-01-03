@@ -1,7 +1,6 @@
 import * as base from './base.js'
 import * as header from './header.js'
 import * as footer from './footer.js'
-import * as homeScript from '../scripts/home.js'
 
 const app = await import('../../data/app.json')
 
@@ -11,7 +10,12 @@ export function generate() {
     const bodyContent = `
         ${header.generate()}
         ${footer.generate()}
-        <script>${homeScript.generate()}</script>
+        
+        <!-- Inject config and load frontend module -->
+        <script type="module">
+            import { initHomePage } from '${app.urls.jsdelivr}/kudocoa.com/src/client/pages/home.js'
+            initHomePage(${JSON.stringify(app.urls.web)})
+        </script>
     `
     return base.generate({ title, description, bodyContent, bodyClass: 'homepage' })
 }

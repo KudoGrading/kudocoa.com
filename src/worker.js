@@ -9,7 +9,12 @@ export default {
     async fetch(req, env) {
         const url = new URL(req.url), htmlHeaders = { 'Content-Type': 'text/html' }
 
-        if (/^\/?$/.test(url.pathname)) // render homepage
+        if (url.pathname.startsWith('/js/')) { // redir to jsDelivr
+            const jsPath = url.pathname.replace('/js/', ''),
+                  jsdURL = `${app.urls.jsdelivr}/KudoGrading/kudocoa.com@main/src/client/${jsPath}`
+            return Response.redirect(jsdURL, 302)
+
+        } else if (/^\/?$/.test(url.pathname)) // render homepage
             return new Response(minify(homepage.generate()), { headers: htmlHeaders })
 
         // Validate cert #
