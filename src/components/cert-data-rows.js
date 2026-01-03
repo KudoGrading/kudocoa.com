@@ -2,7 +2,6 @@ import * as string from '../lib/string.js'
 import * as imgEmbed from './img-embed.js'
 
 const { urls } = await import('../../data/app.json')
-urls.comicAssetHost = 'https://cdn.jsdelivr.net/gh/KudoComics/assets'
 
 export function generate({ certID, certData }) {
     const rows = []
