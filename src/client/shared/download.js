@@ -3,12 +3,11 @@ export function initDownloadButtons() {
         btn.addEventListener('click', async event => {
             event.preventDefault()
             const url = btn.getAttribute('data-url'),
-                  filename = btn.getAttribute('data-filename')
+                  download = btn.getAttribute('data-filename')
             try {
-                const downloadURL = URL.createObjectURL(await (await fetch(url)).blob()),
-                      a = document.createElement('a')
-                a.style.display = 'none' ; a.href = downloadURL ; a.download = filename ; document.body.append(a)
-                a.click() ; URL.revokeObjectURL(downloadURL) ; a.remove()
+                const href = URL.createObjectURL(await (await fetch(url)).blob()),
+                      a = Object.assign(document.createElement('a'), { href, download, style: 'display: none' })
+                document.body.append(a) ; a.click() ; a.remove() ; URL.revokeObjectURL(href)
             } catch (err) { open(url, '_blank') }
         })
     )
