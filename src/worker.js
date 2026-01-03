@@ -30,7 +30,7 @@ export default {
 
             // Validate cert #
             const certInput = url.pathname.split('/')[1]
-            if (!/^\d+$/.test(certInput))
+            if (/\D/.test(certInput))
                 return new Response(
                     minify(errPage.generate({ certID: certInput, errMsg: 'Invalid certificate ID (numbers only!)' })), {
                         headers: htmlHeaders, status: 400 })
