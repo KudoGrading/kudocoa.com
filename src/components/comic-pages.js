@@ -1,6 +1,6 @@
 export async function generate(srcURL) {
     const parsableSites = ['readallcomics.com']
-    if (!srcURL || !parsableSites.some(app => srcURL.includes(site))) return ''
+    if (!srcURL || !parsableSites.some(site => srcURL.includes(site))) return ''
 
     try {
 
