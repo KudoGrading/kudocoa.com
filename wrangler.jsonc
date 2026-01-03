@@ -3,8 +3,8 @@
   "name": "kudo-coa",
   "main": "src/worker.js",
   "compatibility_date": "2026-01-03",
-  "rules": [{ "type": "Text", "globs": ["**/*.css"], "fallthrough": true }],
-  "workers_dev": false,
+  "rules": [{ "type": "Text", "globs": ["**/*.css"], "fallthrough": true }], // allow import CSS as text
+  "workers_dev": false, // disable workers.dev previews
   "routes": [
     { "pattern": "kudocoa.com/*", "zone_name": "kudocoa.com" },
     { "pattern": "assets.kudocoa.com/*", "zone_name": "kudocoa.com" }
