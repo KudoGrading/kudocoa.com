@@ -9,7 +9,12 @@ export default {
     async fetch(req, env) {
         const url = new URL(req.url), htmlHeaders = { 'Content-Type': 'text/html' }
 
-        if (/^\/?$/.test(url.pathname)) // render homepage
+        // Redir cert.kudoauthentication.com/* to kudocoa.com/${1}
+        if (url.hostname == 'cert.kudoauthentication.com') {
+            const newURL = new URL(url.toString()) ; newURL.hostname = 'kudocoa.com'
+            return Response.redirect(newURL.toString(), 301)
+
+        } else if (/^\/?$/.test(url.pathname)) // render homepage
             return new Response(minify(homepage.generate()), { headers: htmlHeaders })
 
         // Validate cert #
