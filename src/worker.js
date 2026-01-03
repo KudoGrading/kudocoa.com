@@ -9,8 +9,7 @@ export default {
     async fetch(req, env) {
         const url = new URL(req.url), htmlHeaders = { 'Content-Type': 'text/html' }
 
-        // Redir cert.kudoauthentication.com/* to kudocoa.com/${1}
-        if (url.hostname == 'cert.kudoauthentication.com') {
+        if (url.hostname == 'cert.kudoauthentication.com') { // redir to kudocoa.com/<path>
             const newURL = new URL(url.toString()) ; newURL.hostname = 'kudocoa.com'
             return Response.redirect(newURL.toString(), 301)
 
