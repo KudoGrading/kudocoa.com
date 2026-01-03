@@ -2,7 +2,7 @@ import * as base from './base.js'
 import * as header from './header.js'
 import * as footer from './footer.js'
 
-const site = await import('../../data/app.json')
+const app = await import('../../data/app.json')
 
 export function generate({ certID, errMsg = 'Error' } = {}) {
     const title = `${ certID ? `Kudo COA #${certID} / Certificate Not Found` : 'System Error' } / ${app.name}`

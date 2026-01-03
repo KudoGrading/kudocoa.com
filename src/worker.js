@@ -3,7 +3,7 @@ import * as homepage from './templates/home.js'
 import * as certPage from './templates/cert.js'
 import * as errPage from './templates/error.js'
 
-const site = await import('../data/app.json')
+const app = await import('../data/app.json')
 
 export default {
     async fetch(req, env) {

@@ -1,4 +1,4 @@
-const site = await import('../../data/app.json')
+const app = await import('../../data/app.json')
 
 export function generate(certID) {
     const certNum = parseInt(certID)

@@ -3,7 +3,7 @@ import * as header from './header.js'
 import * as footer from './footer.js'
 import * as homeScript from '../scripts/home.js'
 
-const site = await import('../../data/app.json')
+const app = await import('../../data/app.json')
 
 export function generate() {
     const title = app.name

@@ -1,6 +1,6 @@
 import * as navArrows from '../components/nav-arrows.js'
 
-const site = await import('../../data/app.json')
+const app = await import('../../data/app.json')
 
 export function generate(certID) {
     const { navArrowsHTML, prevCertNum, nextCertNum } = navArrows.generate(certID)
