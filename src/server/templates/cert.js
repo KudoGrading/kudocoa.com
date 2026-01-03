@@ -8,7 +8,7 @@ import * as verificationBadge from '../components/verification-badge.js'
 import * as vidEmbed from '../components/vid-embed.js'
 import * as navArrows from '../components/nav-arrows.js'
 
-const app = await import('../../data/app.json')
+const app = await import('../../../data/app.json')
 
 export async function generate({ certID, certData }) {
     certData = typeof certData == 'string' ? JSON.parse(certData) : certData

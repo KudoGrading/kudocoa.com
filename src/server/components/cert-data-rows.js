@@ -1,7 +1,7 @@
 import * as string from '../lib/string.js'
 import * as imgEmbed from './img-embed.js'
 
-const app = await import('../../data/app.json')
+const app = await import('../../../data/app.json')
 
 export function generate({ certID, certData }) {
     const rows = []

@@ -1,7 +1,7 @@
-import { minify } from './lib/html.js'
-import * as homepage from './templates/home.js'
-import * as certPage from './templates/cert.js'
-import * as errPage from './templates/error.js'
+import { minify } from './server/lib/html.js'
+import * as homepage from './server/templates/home.js'
+import * as certPage from './server/templates/cert.js'
+import * as errPage from './server/templates/error.js'
 
 const app = await import('../data/app.json')
 
