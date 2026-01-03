@@ -15,7 +15,10 @@ export default {
 
         else if (url.hostname == 'kudocoa.com') {
 
-            if (url.pathname.startsWith('/assets/')) { // serve public/ asset
+            if (/^\/assets\/?$/.test(url.pathname)) // redir assets index to homepage
+                return Response.redirect(app.urls.web, 302)
+
+            else if (/^\/assets(?:\/|$)/.test(url.pathname)) { // serve public/ asset
                 const assetPath = url.pathname.replace('/assets', '').replace(/(?<!\.min)\.js$/i, '.min.js'),
                       resp = await env.ASSETS.fetch(new Request(new URL(assetPath, req.url), req)),
                       fileExt = url.pathname.split('.').pop().toLowerCase(),
