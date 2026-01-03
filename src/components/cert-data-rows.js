@@ -1,8 +1,11 @@
 import * as string from '../lib/string.js'
 import * as imgEmbed from './img-embed.js'
 
+const { urls } = await import('../../data/app.json')
+urls.comicAssetHost = 'https://cdn.jsdelivr.net/gh/KudoComics/assets'
+
 export function generate({ certID, certData }) {
-    const rows = [], jsdBaseURL = 'https://cdn.jsdelivr.net/gh'
+    const rows = []
     for (const [key, val] of Object.entries(certData)) {
         if (/(?:Notes|URLs?)$/.test(key)) continue
 
@@ -12,15 +15,15 @@ export function generate({ certID, certData }) {
         if (/^publisher$/.test(key)) { // replace publisher w/ logo
             const publisherSlug = val.toString().toLowerCase()
                 .replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
-            const logoURL = `${jsdBaseURL}/KudoComics/assets/images/logos/publishers/${publisherSlug}/white.png`
+            const logoURL = `${urls.comicAssetHost}/images/logos/publishers/${publisherSlug}/white.png`
             displayVal = imgEmbed.generate({ logoURL, alt: displayVal })
 
-        } else if (/By$/i.test(key)) { // human attr
+        } else if (/By$/.test(key)) { // human attr
             displayVal = displayVal.replace(/[,&]/g, ' +') // separate names w/ pluses
             if (/(?:authenticat|grad)edBy$/i.test(key)) { // replace names w/ sig
                 const imgName = val.toString().toLowerCase()
                     .replace(/[&,+]/g, '').replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
-                const imgURL = `${jsdBaseURL}/KudoGrading/certificates/assets/images/signatures/${imgName}/white.png`
+                const imgURL = `${urls.jsdelivr}/certificates/assets/images/signatures/${imgName}/white.png`
                 displayVal = imgEmbed.generate({ imgURL, alt: displayVal })
             }
 
@@ -28,8 +31,8 @@ export function generate({ certID, certData }) {
             displayVal = `
                 <div class="coa-type">
                     <div class="coa-img-container">
-                        <img src="${jsdBaseURL}/KudoGrading/certificates/coas/${certID}/certificate.png" 
-                            alt="Certificate Image" class="coa-img" onerror="this.style.display='none'">
+                        <img src="${urls.jsdelivr}/certificates/coas/${certID}/certificate.png" 
+                             alt="Certificate Image" class="coa-img" onerror="this.style.display='none'">
                     </div>
                     <div>${displayVal}</div>
                 </div>
