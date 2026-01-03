@@ -1,4 +1,4 @@
-export function initNavArrows(navArrowsHTML, prevCertNum, nextCertNum, baseURL) {
+export function initNavArrows({ navArrowsHTML, prevCertNum, nextCertNum, baseURL }) {
     document.body.insertAdjacentHTML('beforeend', navArrowsHTML)
     document.addEventListener('keydown', ({ key }) => {
         if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) return

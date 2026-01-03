@@ -9,15 +9,15 @@ export function initCertPage(config) {
     document.addEventListener('DOMContentLoaded', () => {
         const input = document.getElementById('certNum'),
               btn = document.getElementById('verifyBtn')
-        initSearch(input, btn, config.baseURL)
+        initSearch({ input, btn, baseURL: config.baseURL })
         resetUI() ; addEventListener('pageshow', resetUI)
         function resetUI() {
             btn.disabled = false ; btn.textContent = 'Verify Certificate'
             const val = input.value ; input.value = '' ; input.value = val ; input.blur()
         }
-        initNavArrows(config.navArrowsHTML, config.prevCertNum, config.nextCertNum, config.baseURL)
+        initNavArrows(config)
         initDownloadBtns()
-        initItemShot(config.certID, config.urls)
+        initItemShot({ certID: config.certID, baseURLs: config.urls })
         document.querySelector('.coa-img')?.addEventListener('click', () =>
             zoomImg({ title: 'Certificate',
                 imgURL: `${config.urls.jsdelivr}/certificates/coas/${config.certID}/certificate.png` })
