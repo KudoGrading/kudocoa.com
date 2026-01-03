@@ -4,7 +4,7 @@ import * as imgEmbed from './img-embed.js'
 const app = await import('../../../data/app.json')
 
 export function generate({ certID, certData }) {
-    const rows = []
+    const dataRows = []
     for (const [key, val] of Object.entries(certData)) {
         if (/(?:Notes|URLs?)$/.test(key)) continue
 
@@ -35,7 +35,7 @@ export function generate({ certID, certData }) {
                 </div>
             `
 
-        rows.push(`
+        dataRows.push(`
             <div class="detail-row">
                 <div class="detail-label">${label}:</div>
                 <div class="detail-val">${displayVal}</div>
@@ -43,5 +43,5 @@ export function generate({ certID, certData }) {
         `)
     }
 
-    return rows.join('')
+    return dataRows.join('')
 }
