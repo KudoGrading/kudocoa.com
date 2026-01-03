@@ -17,7 +17,7 @@ export function generate({ certID, certData }) {
 
         } else if (/By$/i.test(key)) { // human attr
             displayVal = displayVal.replace(/[,&]/g, ' +') // separate names w/ pluses
-            if (/(?:authenticated|graded)by$/i.test(key)) { // replace names w/ sig
+            if (/(?:authenticat|grad)edBy$/i.test(key)) { // replace names w/ sig
                 const imgName = val.toString().toLowerCase()
                     .replace(/[&,+]/g, '').replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
                 const imgURL = `${jsdBaseURL}/KudoGrading/certificates/assets/images/signatures/${imgName}/white.png`
