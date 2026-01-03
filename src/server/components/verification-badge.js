@@ -3,11 +3,10 @@ export function generate(certData) {
     // Count verifications
     const cnts = { art: 0, sig: 0 }
     Object.entries(certData).forEach(([key, val]) => {
-        const label = key.toLowerCase(),
-              strVal = val.toLowerCase().replace(/&/g, '+')
-        cnts.commasAndPluses = ((strVal.match(/,/g) || []).length + (strVal.match(/\+/g) || []).length)
-        if (/artwork|painted/i.test(label))  cnts.art += 1 + cnts.commasAndPluses
-        if (/sign(?:ed|ature)/i.test(label)) cnts.sig += 1 + cnts.commasAndPluses
+        val = val.toLowerCase().replace(/&/g, '+')
+        cnts.commasAndPluses = (val.match(/,|\+/g) || []).length
+        if (/artwork|painted/i.test(key))  cnts.art += 1 + cnts.commasAndPluses
+        if (/sign(?:ed|ature)/i.test(key)) cnts.sig += 1 + cnts.commasAndPluses
     })
 
     // Build label components
