@@ -5,7 +5,7 @@ export function generate() {
         <footer>
             <div>© ${ new Date().getFullYear() } ${app.fullName.toUpperCase()}</div>
             <div class="footer-links">
-                <a href="${app.urls.web}">Home</a>
+                <a href="/">Home</a>
                 <span class="footer-separator"></span>
                 <a href="${app.urls.github}" target="_blank" rel="noopener">GitHub</a>
                 <span class="footer-separator"></span>
