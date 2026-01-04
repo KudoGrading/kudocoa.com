@@ -9,8 +9,8 @@ export default {
     async fetch(req, env) {
         const url = new URL(req.url),
               htmlHeaders = { 'Content-Type': 'text/html' },
-              baseURL = `${url.protocol}//${url.hostname}${ url.port ? ':' + url.port : '' }`,
-              isDevMode = /^(?:localhost|127\.0\.0\.1)$/.test(url.hostname)
+              isDevMode = env.ENVIRONMENT == 'development',
+              baseURL = `http${ isDevMode ? '://localhost:8787' : 's://' + url.hostname }`
 
         if (url.hostname == 'cert.kudoauthentication.com') // redir to kudocoa.com/<path>
             return Response.redirect(url.toString().replace(url.hostname, 'kudocoa.com'), 301)
@@ -41,7 +41,7 @@ export default {
                 return new Response(minify(errPage.generate({
                     certID, errMsg: 'Certificate ID too long (max 10 digits!)', status: 400 })), {
                         headers: htmlHeaders, status: 400 })
-            if (certInput != certID && !isDevMode) // redir e.g. /1 to /0000000001
+            if (certInput != certID) // redir e.g. /1 to /0000000001
                 return Response.redirect(`${baseURL}/${certID}`, 301)
 
             // Render cert page
