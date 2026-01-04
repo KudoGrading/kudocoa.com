@@ -17,9 +17,9 @@ export default {
 
         else if (url.pathname.startsWith('/assets/')) { // serve public/ asset
             const assetPath = url.pathname.replace('/assets', '').replace(/(?<!\.min)\.js$/i, '.min.js'),
-                    resp = await env.ASSETS.fetch(new Request(new URL(assetPath, req.url), req)),
-                    fileExt = url.pathname.split('.').pop().toLowerCase(),
-                    contentType = mimeTypes[fileExt] || 'application/octet-stream'
+                  resp = await env.ASSETS.fetch(new Request(new URL(assetPath, req.url), req)),
+                  fileExt = url.pathname.split('.').pop().toLowerCase(),
+                  contentType = mimeTypes[fileExt] || 'application/octet-stream'
             return new Response(resp.body, {
                 status: resp.status, headers: { 'Content-Type': contentType, ...Object.fromEntries(resp.headers) }})
 
