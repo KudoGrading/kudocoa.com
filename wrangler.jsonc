@@ -6,10 +6,7 @@
   "assets": { "binding": "ASSETS", "directory": "./public" }, // for asset routing in worker.js
   "rules": [{ "type": "Text", "globs": ["**/*.css"], "fallthrough": true }], // allow template/base.js import CSS as txt
   "workers_dev": false, // disable workers.dev previews
-  "routes": [
-    { "pattern": "kudocoa.com/*", "zone_name": "kudocoa.com" },
-    { "pattern": "cert.kudoauthentication.com/*", "zone_name": "kudoauthentication.com" }
-  ],
+  "routes": [{ "pattern": "kudocoa.com/*", "zone_name": "kudocoa.com" }],
   "kv_namespaces": [
     { "binding": "COAS_KV", "id": "e6a02eddd0a0446bb7f7ef8a74c88d31", "preview_id": "e6a02eddd0a0446bb7f7ef8a74c88d31" }
   ]
