@@ -12,6 +12,8 @@ export function initBackToTop() {
         else bttBtn.classList.remove('visible')
     })
     if (document.querySelector('.comic-pages, .vid-embed')) // add back-to-top footer link
-        document.querySelector('.footer-links').innerHTML +=
-            '<span class="footer-separator"></span><a onclick="window.scrollTo({top:0,behavior:\'smooth\'});return false">Back to Top ↑</a>'
+        document.querySelector('.footer-links').innerHTML += `
+            <span class="footer-separator"></span>
+            <a onclick="window.scrollTo({top:0,behavior:\'smooth\'});return false">Back to Top ↑</a>
+        `
 }
