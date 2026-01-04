@@ -3,20 +3,22 @@ import * as homepage from './server/templates/home.js'
 import * as certPage from './server/templates/cert.js'
 import * as errPage from './server/templates/error.js'
 
-const app = await import('../data/app.json'),
-      mimeTypes = await import('../data/mime-types.json')
+const mimeTypes = await import('../data/mime-types.json')
 
 export default {
     async fetch(req, env) {
-        const url = new URL(req.url), htmlHeaders = { 'Content-Type': 'text/html' }
+        const url = new URL(req.url),
+              htmlHeaders = { 'Content-Type': 'text/html' },
+              isDevMode = /^(?:localhost|127\.0\.0\.1)$/.test(url.hostname),
+              baseURL = `${url.protocol}//${url.hostname}${url.port ? ':' + url.port : ''}`
 
         if (url.hostname == 'cert.kudoauthentication.com') // redir to kudocoa.com/<path>
             return Response.redirect(url.toString().replace(url.hostname, 'kudocoa.com'), 301)
 
-        else if (url.hostname == 'kudocoa.com') {
+        else if (url.hostname == 'kudocoa.com' || isDevMode) { // MAIN routine
 
             if (/^\/assets\/?$/.test(url.pathname)) // redir assets index to homepage
-                return Response.redirect(app.urls.web, 302)
+                return Response.redirect('/', 302)
             else if (url.pathname.startsWith('/assets/')) { // serve public/ asset
                 const assetPath = url.pathname.replace('/assets', '').replace(/(?<!\.min)\.js$/i, '.min.js'),
                       resp = await env.ASSETS.fetch(new Request(new URL(assetPath, req.url), req)),
@@ -39,8 +41,8 @@ export default {
                 return new Response(
                     minify(errPage.generate({ certID, errMsg: 'Certificate ID too long (max 10 digits!)' })), {
                         headers: htmlHeaders, status: 400 })
-            if (certInput != certID) // redir e.g. /1 to /0000000001
-                return Response.redirect(`${app.urls.web}/${certID}`, 301)
+            if (certInput != certID && !isDevMode) // redir e.g. /1 to /0000000001
+                return Response.redirect(`${baseURL}/${certID}`, 301)
 
             // Render cert page
             try {
@@ -54,6 +56,7 @@ export default {
                 return new Response(minify(errPage.generate({ errMsg: 'System error: ' + err.message })), {
                         headers: htmlHeaders, status: 500 })
             }
-        }
+
+        } else return new Response('Not found', { status: 404 })
     }
 }
