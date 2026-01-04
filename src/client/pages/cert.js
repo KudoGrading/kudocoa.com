@@ -6,7 +6,6 @@ import { initNavArrows } from '../components/nav-arrows.js'
 import { zoomImg } from '../components/zoom/index.js'
 
 export function initCertPage(config) {
-    config.devMode && console.log('initCertPage() running...')
     document.addEventListener('DOMContentLoaded', () => {
         const input = document.getElementById('certNum'),
               btn = document.getElementById('verifyBtn')
@@ -24,7 +23,5 @@ export function initCertPage(config) {
                 imgURL: `${config.urls.jsdelivr}/certificates/coas/${config.certID}/certificate.png` })
         )
         initBackToTop()
-        config.devMode && console.log('initCertPage() >> DOMContentLoaded and handler finished')
     })
-    config.devMode && console.log('initCertPage() finished')
 }

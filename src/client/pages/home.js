@@ -1,7 +1,6 @@
 import { initSearch } from '../shared/verify.js'
 
-export function initHomepage({ baseURL, devMode }) {
-    devMode && console.log('initHomepage() running...')
+export function initHomepage(baseURL) {
     document.addEventListener('DOMContentLoaded', () => {
         const input = document.getElementById('certNum'),
               btn = document.getElementById('verifyBtn')
@@ -11,7 +10,6 @@ export function initHomepage({ baseURL, devMode }) {
             btn.disabled = false ; btn.textContent = 'Verify Certificate'
             input.focus() ; const val = input.value ; input.value = '' ; input.value = val
         }
-        devMode && console.log('initHomepage() >> DOMContentLoaded and handler finished')
     })
-    devMode && console.log('initHomepage() finished')
 }
+
