@@ -5,7 +5,7 @@ import * as footer from './footer.js'
 const app = await import('../../../data/app.json')
 
 export function generate(devMode) {
-    app.urls.assetHost = devMode ? 'http://localhost:8787/assets' : app.urls.assetHost
+    app.urls.assetHost = devMode ? 'http://127.0.0.1:8787/assets' : app.urls.assetHost
     const title = app.name
     const description = `Verify certificate authenticity with ${app.fullName}`
     const bodyContent = `

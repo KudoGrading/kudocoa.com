@@ -10,7 +10,7 @@ export default {
         const url = new URL(req.url),
               htmlHeaders = { 'Content-Type': 'text/html' },
               devMode = env.ENVIRONMENT == 'development',
-              baseURL = `http${ devMode ? '://localhost:8787' : 's://' + url.hostname }`
+              baseURL = `http${ devMode ? '://127.0.0.1:8787' : 's://' + url.hostname }`
 
         if (/^\/assets\/?$/.test(url.pathname)) // redir assets index to homepage
             return Response.redirect(`${baseURL}/`, 302)
