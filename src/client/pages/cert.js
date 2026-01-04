@@ -6,6 +6,7 @@ import { initNavArrows } from '../components/nav-arrows.js'
 import { zoomImg } from '../components/zoom/index.js'
 
 export function initCertPage(config) {
+    if (config.devMode) console.log('initCertPage() running...')
     document.addEventListener('DOMContentLoaded', () => {
         const input = document.getElementById('certNum'),
               btn = document.getElementById('verifyBtn')
@@ -24,4 +25,5 @@ export function initCertPage(config) {
         )
         initBackToTop()
     })
+    if (config.devMode) console.log('initCertPage() finished!')
 }

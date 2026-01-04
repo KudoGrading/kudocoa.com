@@ -10,8 +10,8 @@ import * as navArrows from '../components/nav-arrows.js'
 
 const app = await import('../../../data/app.json')
 
-export async function generate({ certID, certData, isDevMode }) {
-    app.urls.assetHost = isDevMode ? 'http://localhost:8787/assets' : app.urls.assetHost
+export async function generate({ certID, certData, devMode }) {
+    app.urls.assetHost = devMode ? 'http://localhost:8787/assets' : app.urls.assetHost
     certData = typeof certData == 'string' ? JSON.parse(certData) : certData
     const vidURL = certData.trailerURL || certData.videoURL || certData.vidURL || certData.youtubeURL || certData.ytURL
     const { vidURLs } = certData
@@ -55,7 +55,7 @@ export async function generate({ certID, certData, isDevMode }) {
             import { initCertPage } from '${app.urls.assetHost}/js/pages/cert.min.js'
             initCertPage(${JSON.stringify({
                 certID, baseURL: app.urls.web, urls: app.urls, navArrowsHTML,
-                prevCertNum: prevCertNum || '', nextCertNum
+                prevCertNum: prevCertNum || '', nextCertNum, devMode
             })})
         </script>
     `
