@@ -10,5 +10,7 @@
     { "pattern": "kudocoa.com/*", "zone_name": "kudocoa.com" },
     { "pattern": "cert.kudoauthentication.com/*", "zone_name": "kudoauthentication.com" }
   ],
-  "kv_namespaces": [{ "binding": "COAS_KV", "id": "e6a02eddd0a0446bb7f7ef8a74c88d31" }]
+  "kv_namespaces": [
+    { "binding": "COAS_KV", "id": "e6a02eddd0a0446bb7f7ef8a74c88d31", "preview_id": "e6a02eddd0a0446bb7f7ef8a74c88d31" }
+  ]
 }
