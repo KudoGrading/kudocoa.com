@@ -40,7 +40,8 @@ export async function generate(srcURL) {
                 return domain == mostCommonDomain
             } catch (err) { return false }
         }).slice(1) // skip 1st img (cover)
-        console.log(`${interiorPageURLs.length} page URLs extracted!`)
+
+        console.log(`${interiorPageURLs.length} page URLs extracted! Generating HTML...`)
 
         return !interiorPageURLs.length ? '' : `
             <div class="comic-pages">
