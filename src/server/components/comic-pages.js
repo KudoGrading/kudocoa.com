@@ -1,7 +1,8 @@
 export async function generate(srcURL) {
     console.log('comicPages.generate() running...')
     const parsableSites = ['readallcomics.com']
-    if (!srcURL || !parsableSites.some(site => srcURL.includes(site))) return ''
+    if (!srcURL || !parsableSites.some(site => srcURL.includes(site))) {
+        console.error(srcURL + ' is not parsable!') ; return '' }
 
     try {
 
