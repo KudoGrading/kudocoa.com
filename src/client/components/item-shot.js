@@ -1,3 +1,6 @@
+window.dom ||= await import (
+    'https://cdn.jsdelivr.net/gh/adamlui/ai-web-extensions@1e84c2e/assets/js/lib/dom.js/dist/dom.min.js')
+
 export function initItemShot({ certID, baseURLs }) {
     const certImgDiv = document.getElementById('certImg') ; if (!certImgDiv) return
     const itemPlaceholder = certImgDiv.querySelector('.item-placeholder')
@@ -11,9 +14,10 @@ export function initItemShot({ certID, baseURLs }) {
               img = new Image()
         img.onload = () => {
             certImgDiv.innerHTML = ''
-            const newImg = document.createElement('img') ; newImg.src = imgURL ; newImg.alt = 'Certificate Image'
-            import('./zoom/index.js').then(({ zoomImg }) => {
-                newImg.onclick = () => zoomImg({ imgURL, title: 'Item Image' })})
+            const newImg = dom.create.elem('img', {
+                src: imgURL, alt: 'Certificate Image',
+                onclick: () => import('./zoom/index.js').then(({ zoomImg }) => zoomImg({ imgURL, title: 'Item Image' }))
+            })
             certImgDiv.append(newImg)
             import('./zoom/mouse.js').then(({ trackMouseZoom }) => setTimeout(() => trackMouseZoom(newImg), 0))
         }
