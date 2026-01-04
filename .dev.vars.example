@@ -1,1 +1,3 @@
+# Copy this file to .dev.vars for isDevMode in src/worker.js to redir/render certs locally
+
 ENVIRONMENT="development"
