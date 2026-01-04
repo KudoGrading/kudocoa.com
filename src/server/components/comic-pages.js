@@ -1,38 +1,46 @@
 export async function generate(srcURL) {
+    console.log('comicPages.generate() running...')
     const parsableSites = ['readallcomics.com']
     if (!srcURL || !parsableSites.some(site => srcURL.includes(site))) return ''
 
     try {
 
-        // Collect all img URLs
-        const imgURLs = [] ; let imgMatch
-        while ((imgMatch = /<img[^>]+src="([^"]+)"[^>]*>/i.exec(await (await fetch(srcURL)).text())) != null)
-            imgURLs.push(imgMatch[1])
-        if (!imgURLs.length) return ''
+        console.log('Collecting all img URLs...')
+        const srcHTML = await (await fetch(srcURL)).text(),
+              imgMatches = srcHTML.matchAll(/<img[^>]+src="([^"]+)"[^>]*>/gi),
+              imgURLs = Array.from(imgMatches, match => match[1])
+        if (imgURLs.length) console.log('Total images found:', imgURLs.length)
+        else { console.log('No images found!') ; return '' }
 
-        // Count domains
+        console.log('Counting domains...') // by last two segments of hostname to support variations in earlier segments
         const domainCnts = {}
         imgURLs.forEach(src => {
             try {
-                const url = new URL(src), domainParts = url.hostname.split('.')
-                const domain = domainParts.length >= 2 ? domainParts.slice(-2).join('.') : url.hostname
+                const url = new URL(src),
+                      domainParts = url.hostname.split('.'),
+                      domain = domainParts.length >= 2 ? domainParts.slice(-2).join('.') : url.hostname
                 domainCnts[domain] = (domainCnts[domain] || 0) +1
             } catch (err) {}
         })
+        for (const [domain, cnt] of Object.entries(domainCnts))
+            console.log(`Domain ${domain}: ${cnt} images`)
 
-        // Get domain w/ most imgs
+        console.log('Calculating domain w/ most imgs...')
         let mostCommonDomain = '', maxCnt = 0
         for (const [domain, cnt] of Object.entries(domainCnts))
             if (cnt > maxCnt) { maxCnt = cnt ; mostCommonDomain = domain }
+        console.log(`Most common domain: ${mostCommonDomain} (${maxCnt} images)`)
 
-        // Extract interior page URLs
+        console.log('Extracing interior page URLs...')
         const interiorPageURLs = imgURLs.filter(src => {
             try {
-                const url = new URL(src), domainParts = url.hostname.split('.')
-                const domain = domainParts.length >= 2 ? domainParts.slice(-2).join('.') : url.hostname
+                const url = new URL(src),
+                      domainParts = url.hostname.split('.'),
+                      domain = domainParts.length >= 2 ? domainParts.slice(-2).join('.') : url.hostname
                 return domain == mostCommonDomain
             } catch (err) { return false }
         }).slice(1) // skip 1st img (cover)
+        console.log(`${interiorPageURLs.length} page URLs extracted!`)
 
         return !interiorPageURLs.length ? '' : `
             <div class="comic-pages">
@@ -45,5 +53,5 @@ export async function generate(srcURL) {
                 `).join('')}
             </div>
         `
-    } catch (err) { return '' }
+    } catch (err) { console.error('Error generating comic pages:', err.message) ; return '' }
 }
