@@ -17,7 +17,7 @@ export function initCertPage(config) {
         }
         initNavArrows(config)
         initDownloadBtns()
-        initItemShot({ certID: config.certID, baseURLs: config.urls })
+        //initItemShot({ certID: config.certID, baseURLs: config.urls })
         document.querySelector('.coa-img')?.addEventListener('click', () =>
             zoomImg({ title: 'Certificate',
                 imgURL: `${config.urls.jsdelivr}/certificates/coas/${config.certID}/certificate.png` })
