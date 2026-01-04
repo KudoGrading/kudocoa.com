@@ -9,8 +9,8 @@ export function generate({ certID, errMsg = 'Error', status = 404 } = {}) {
     const description = certID ? `Certificate # ${certID} not found` : 'System error occurred'
     const bodyContent = `
         ${header.generate(certID)}
-        <div class="error-msg">
-            <div class="status-code">${status}</div>
+        <div class="err-msg">
+            <div class="err-code">${status}</div>
             <p>${ certID ? `Certificate # <strong>${certID}</strong> — ` : '' }${errMsg}</p>
         </div>
         ${footer.generate()}
