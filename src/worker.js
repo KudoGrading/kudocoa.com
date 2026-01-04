@@ -10,7 +10,7 @@ export default {
         const url = new URL(req.url),
               htmlHeaders = { 'Content-Type': 'text/html' },
               isDevMode = /^(?:localhost|127\.0\.0\.1)$/.test(url.hostname),
-              baseURL = `${url.protocol}//${url.hostname}${url.port ? ':' + url.port : ''}`
+              baseURL = `${url.protocol}//${url.hostname}${ url.port ? ':' + url.port : '' }`
 
         if (url.hostname == 'cert.kudoauthentication.com') // redir to kudocoa.com/<path>
             return Response.redirect(url.toString().replace(url.hostname, 'kudocoa.com'), 301)
