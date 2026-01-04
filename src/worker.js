@@ -9,7 +9,8 @@ export default {
     async fetch(req, env) {
         const url = new URL(req.url),
               htmlHeaders = { 'Content-Type': 'text/html' },
-              baseURL = `http${ env.ENVIRONMENT == 'development' ? '://localhost:8787' : 's://' + url.hostname }`
+              isDevMode = env.ENVIRONMENT == 'development',
+              baseURL = `http${ isDevMode ? '://localhost:8787' : 's://' + url.hostname }`
 
         if (/^\/assets\/?$/.test(url.pathname)) // redir assets index to homepage
             return Response.redirect(`${baseURL}/`, 302)
@@ -23,7 +24,7 @@ export default {
                 status: resp.status, headers: { 'Content-Type': contentType, ...Object.fromEntries(resp.headers) }})
 
         } else if (url.pathname == '/') // render homepage
-            return new Response(minify(homepage.generate()), { headers: htmlHeaders })
+            return new Response(minify(homepage.generate(isDevMode)), { headers: htmlHeaders })
 
         // Validate cert #
         const certInput = url.pathname.split('/')[1]
@@ -45,7 +46,7 @@ export default {
             return !certData ?
                 new Response(minify(errPage.generate({ certID, errMsg: 'Not found', status: 404 })), {
                     headers: htmlHeaders, status: 404 })
-                : new Response(minify(await certPage.generate({ certID, certData })), {
+                : new Response(minify(await certPage.generate({ certID, certData, isDevMode })), {
                     headers: { ...htmlHeaders, 'Cache-Control': 'public, max-age=300' }})
         } catch (err) {
             return new Response(minify(errPage.generate({ errMsg: 'System error: ' + err.message, status: 500 })), {
