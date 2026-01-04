@@ -2,7 +2,7 @@ import * as base from './base.js'
 import * as header from './header.js'
 import * as footer from './footer.js'
 import * as certDataRows from '../components/cert-data-rows.js'
-import * as comicPages from '../components/comic-pages.js'
+// import * as comicPages from '../components/comic-pages.js'
 import * as noteBoxes from '../components/note-boxes.js'
 import * as verificationBadge from '../components/verification-badge.js'
 import * as vidEmbed from '../components/vid-embed.js'
@@ -46,7 +46,7 @@ export async function generate({ certID, certData }) {
         </div>
         ${ noteBoxes.generate(certData) }
         ${ vidEmbedOptions ? vidEmbed.generate(vidEmbedOptions) : '' }
-        ${ certData.interiorURL ? await comicPages.generate(certData.interiorURL) : '' }
+        ${ certData.interiorURL ? /* await comicPages.generate(certData.interiorURL) */ '' : '' }
         ${ footer.generate() }
         
         <!-- Inject config and load frontend module -->
