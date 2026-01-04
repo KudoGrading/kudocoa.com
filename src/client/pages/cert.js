@@ -1,6 +1,6 @@
-import { initSearch } from '../shared/verify.js'
-import { initDownloadBtns } from '../shared/download.js'
 //import { initBackToTop } from '../shared/back-to-top.js'
+import { initDownloadBtns } from '../shared/download.js'
+import { initSearch } from '../shared/verify.js'
 //import { initItemShot } from '../components/item-shot.js'
 import { initNavArrows } from '../components/nav-arrows.js'
 import { zoomImg } from '../components/zoom/index.js'
