@@ -18,7 +18,7 @@ export default {
         else if (url.hostname == 'kudocoa.com' || isDevMode) { // MAIN routine
 
             if (/^\/assets\/?$/.test(url.pathname)) // redir assets index to homepage
-                return Response.redirect('/', 302)
+                return Response.redirect(`${baseURL}/`, 302)
             else if (url.pathname.startsWith('/assets/')) { // serve public/ asset
                 const assetPath = url.pathname.replace('/assets', '').replace(/(?<!\.min)\.js$/i, '.min.js'),
                       resp = await env.ASSETS.fetch(new Request(new URL(assetPath, req.url), req)),
