@@ -1,4 +1,4 @@
-//import { initBackToTop } from '../shared/back-to-top.js'
+import { initBackToTop } from '../shared/back-to-top.js'
 import { initDownloadBtns } from '../shared/download.js'
 import { initSearch } from '../shared/verify.js'
 //import { initItemShot } from '../components/item-shot.js'
@@ -22,6 +22,6 @@ export function initCertPage(config) {
             zoomImg({ title: 'Certificate',
                 imgURL: `${config.urls.jsdelivr}/certificates/coas/${config.certID}/certificate.png` })
         )
-        //initBackToTop()
+        initBackToTop()
     })
 }
