@@ -1,4 +1,4 @@
-window.dom ||= await import (
+if (!window.dom) await import (
     'https://cdn.jsdelivr.net/gh/adamlui/ai-web-extensions@1e84c2e/assets/js/lib/dom.js/dist/dom.min.js')
 
 export function initItemShot({ certID, baseURLs }) {
