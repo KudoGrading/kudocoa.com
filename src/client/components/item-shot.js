@@ -5,8 +5,7 @@ export function initItemShot({ certID, baseURLs }) {
     const certImgDiv = document.getElementById('certImg') ; if (!certImgDiv) return
     const itemPlaceholder = certImgDiv.querySelector('.item-placeholder')
     const formats = ['jpg', 'jpeg', 'png', 'webp', 'gif']
-    let currentFormat = 0
-    tryNextFormat()
+    let currentFormat = 0 ; tryNextFormat()
     function tryNextFormat() {
         if (currentFormat >= formats.length) return itemPlaceholder.innerHTML = 'No image available'
         const format = formats[currentFormat],
