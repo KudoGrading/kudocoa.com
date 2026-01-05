@@ -34,12 +34,12 @@ export default {
         const certInput = url.pathname.split('/')[1]
         if (/\D/.test(certInput))
             return new Response(minify(errPage.generate({
-                certID: certInput, errMsg: 'Invalid certificate ID (numbers only!)', devMode, status: 400 })), {
+                certID: certInput, errMsg: 'Invalid certificate ID (numbers only!)', status: 400, devMode })), {
                     headers: htmlHeaders, status: 400 })
         const certID = certInput.padStart(10, '0')
         if (certID.length > 10)
             return new Response(minify(errPage.generate({
-                certID, errMsg: 'Certificate ID too long (max 10 digits!)', devMode, status: 400 })), {
+                certID, errMsg: 'Certificate ID too long (max 10 digits!)', status: 400, devMode })), {
                     headers: htmlHeaders, status: 400 })
         if (certInput != certID) // redir e.g. /1 to /0000000001
             return Response.redirect(`${baseURL}/${certID}`, 301)
@@ -51,13 +51,13 @@ export default {
             const cacheHeaders = { // shorter for video pages to allow rotation
                 'Cache-Control': `public, max-age=${config[`${ hasVideo ? 'video' : 'static' }CacheTime`]}` }
             return !certData ?
-                new Response(minify(errPage.generate({ certID, errMsg: 'Not found', devMode, status: 404 })), {
+                new Response(minify(errPage.generate({ certID, errMsg: 'Not found', status: 404, devMode })), {
                     headers: htmlHeaders, status: 404 })
               : new Response(minify(await certPage.generate({ certID, certData, devMode })), {
                     headers: { ...htmlHeaders, ...cacheHeaders }})
         } catch (err) {
             return new Response(minify(errPage.generate({
-                errMsg: 'System error: ' + err.message, devMode, status: 500 })), {
+                errMsg: 'System error: ' + err.message, status: 500, devMode })), {
                     headers: htmlHeaders, status: 500 })
         }
     }
