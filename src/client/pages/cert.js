@@ -1,20 +1,16 @@
 import { zoomImg } from '../lib/zoom.js'
 import { initBackToTop } from '../components/back-to-top.js'
 import { initDownloadBtns } from '../components/download.js'
-import { initSearch } from '../components/search.js'
 import { initItemShot } from '../components/item-shot.js'
 import * as navArrows from '../components/nav-arrows.js'
+import * as search from '../components/search.js'
 
 export function initCertPage(config) {
     document.addEventListener('DOMContentLoaded', () => {
         const input = document.getElementById('certNum'),
               btn = document.getElementById('verifyBtn')
-        initSearch({ input, btn, baseURL: config.baseURL })
-        resetSearch() ; addEventListener('pageshow', resetSearch)
-        function resetSearch() {
-            btn.disabled = false ; btn.textContent = 'Verify Certificate'
-            const val = input.value ; input.value = '' ; input.value = val ; input.blur()
-        }
+        search.init({ input, btn, baseURL: config.baseURL })
+        addEventListener('pageshow', () => search.reset({ input, btn }))
         navArrows.createAppend(config)
         initDownloadBtns()
         initItemShot(config)
