@@ -1,8 +1,8 @@
 import * as zoom from './zoom.js'
 
 export async function initItemShot({ certID, jsdURL }) {
-    if (!window.dom) await import(
-        'https://cdn.jsdelivr.net/gh/adamlui/ai-web-extensions@1e84c2e/assets/js/lib/dom.js/dist/dom.min.js')
+    const app = await (await fetch('/assets/data/app.json')).json()
+    if (!window.dom) await import(`${app.urls.aiwebAssetHost}/js/lib/dom.js/dist/dom.min.js`)
     const certImgDiv = document.getElementById('certImg') ; if (!certImgDiv) return
     const itemPlaceholder = certImgDiv.querySelector('.item-placeholder')
     const formats = ['jpg', 'png', 'jpeg', 'webp', 'gif']
