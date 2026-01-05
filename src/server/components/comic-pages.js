@@ -41,7 +41,8 @@ export async function generate(srcURL) {
             } catch (err) { return false }
         }).slice(1) // skip 1st img (cover)
 
-        console.log(`${interiorPageURLs.length} page URLs extracted! Generating HTML...`)
+        console.log(`${interiorPageURLs.length} page URLs extracted!`)
+        if (interiorPageURLs.length) console.log('Generating HTML...')
 
         return !interiorPageURLs.length ? '' : `
             <div class="comic-pages">
