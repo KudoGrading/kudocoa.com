@@ -5,7 +5,7 @@ export async function initItemShot({ certID, jsdURL }) {
         'https://cdn.jsdelivr.net/gh/adamlui/ai-web-extensions@1e84c2e/assets/js/lib/dom.js/dist/dom.min.js')
     const certImgDiv = document.getElementById('certImg') ; if (!certImgDiv) return
     const itemPlaceholder = certImgDiv.querySelector('.item-placeholder')
-    const formats = ['jpg', 'jpeg', 'png', 'webp', 'gif']
+    const formats = ['jpg', 'png', 'jpeg', 'webp', 'gif']
     let currentFormat = 0 ; tryNextFormat()
     function tryNextFormat() {
         if (currentFormat >= formats.length) return itemPlaceholder.textContent = 'No image available'
