@@ -5,11 +5,8 @@ export function initHomepage(baseURL) {
         const input = document.getElementById('certNum'),
               btn = document.getElementById('verifyBtn')
         initSearch({ input, btn, baseURL }) ; input.focus()
-        resetUI() ; addEventListener('pageshow', resetUI)
-        function resetUI() {
-            btn.disabled = false ; btn.textContent = 'Verify Certificate'
-            input.focus() ; const val = input.value ; input.value = '' ; input.value = val
-        }
+        resetSearch() ; addEventListener('pageshow', resetSearch)
+        function resetSearch() { btn.disabled = false ; btn.textContent = 'Verify Certificate' ; input.focus() }
     })
 }
 
