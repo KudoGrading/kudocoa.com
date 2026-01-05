@@ -18,8 +18,9 @@ export async function generate({ certID, certData, devMode }) {
     const vidEmbedOptions = vidURLs ? { vidURLs } : vidURL ? { vidURL } : null
     const itemYearMatch = (certData.coverDate || certData.publishDate)?.match(/\d{4}/)
     const itemYear = itemYearMatch ? ` (${itemYearMatch[0]})` : ''
-    const title = `${ certID ? `Kudo COA #${certID} / ` : '' }${ certData.item || '' }${itemYear} / ${app.name}`
-    const description = `Certificate # ${certID} verified by ${app.longName}`
+    const title = `${ certID ? `${app.names.short} #${certID} / ` : '' }${
+                      certData.item || '' }${itemYear} / ${app.names.medium}`
+    const description = `Certificate # ${certID} verified by ${app.names.long}`
     const bodyContent = `
         ${header.generate(certID)}
         <div class="cert-header">

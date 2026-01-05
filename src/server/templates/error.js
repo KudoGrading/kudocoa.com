@@ -7,7 +7,8 @@ const app = await import('../../../public/data/app.json')
 export function generate({ certID, errMsg = 'Error', status = 404, devMode } = {}) {
     app.urls.web = devMode ? 'http://localhost:8888' : app.urls.web
     app.urls.assetHost = devMode ? app.urls.web + '/assets' : app.urls.assetHost
-    const title = `${ certID ? `Kudo COA #${certID} / Certificate Not Found` : 'System Error' } / ${app.name}`
+    const title = `${
+        certID ? `${app.names.short} #${certID} / Certificate Not Found` : 'System Error' } / ${app.names.medium}`
     const description = certID ? `Certificate # ${certID} not found` : 'System error occurred'
     const bodyContent = `
         ${header.generate(certID)}

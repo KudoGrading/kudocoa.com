@@ -7,8 +7,8 @@ const app = await import('../../../public/data/app.json')
 export function generate(devMode) {
     app.urls.web = devMode ? 'http://localhost:8888' : app.urls.web
     app.urls.assetHost = devMode ? app.urls.web + '/assets' : app.urls.assetHost
-    const title = app.name
-    const description = `Verify certificate authenticity with ${app.longName}`
+    const title = app.names.medium
+    const description = `Verify certificate authenticity with ${app.names.long}`
     const bodyContent = `
         ${header.generate()}
         ${footer.generate()}
