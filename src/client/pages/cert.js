@@ -10,8 +10,8 @@ export function initCertPage(config) {
         const input = document.getElementById('certNum'),
               btn = document.getElementById('verifyBtn')
         initSearch({ input, btn, baseURL: config.baseURL })
-        resetUI() ; addEventListener('pageshow', resetUI)
-        function resetUI() {
+        resetSearch() ; addEventListener('pageshow', resetSearch)
+        function resetSearch() {
             btn.disabled = false ; btn.textContent = 'Verify Certificate'
             const val = input.value ; input.value = '' ; input.value = val ; input.blur()
         }
