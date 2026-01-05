@@ -2,7 +2,7 @@
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "kudo-coa",
   "main": "src/worker.js",
-  "compatibility_date": "2026-01-04",
+  "compatibility_date": "2026-01-05",
   "assets": { "binding": "ASSETS", "directory": "./public" }, // for asset routing in worker.js
   "rules": [{ "type": "Text", "globs": ["**/*.css"], "fallthrough": true }], // allow template/base.js import CSS as txt
   "workers_dev": false, // disable workers.dev previews
