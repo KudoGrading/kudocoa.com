@@ -48,7 +48,7 @@ export default {
         try {
             const certData = await env.COAS_KV.get(certID)
             const hasVideo = /(?:trailer|vide?o?|youtube|yt)URLs?/.test(JSON.stringify(certData))
-            const cacheHeaders = {
+            const cacheHeaders = { // shorter for video pages to allow rotation
                 'Cache-Control': `public, max-age=${config[`${ hasVideo ? 'video' : 'static' }CacheTime`]}` }
             return !certData ?
                 new Response(minify(errPage.generate({ certID, errMsg: 'Not found', devMode, status: 404 })), {
