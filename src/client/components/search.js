@@ -1,8 +1,8 @@
-export function init({ input, btn, baseURL, focus = true }) {
-    btn.onclick = () => verify({ input, btn, baseURL })
-    input.addEventListener('keydown', ({ key }) => key == 'Enter' && verify({ input, btn, baseURL }))
+export function init({ input, baseURL, focus = true }) {
+    const btn = input.nextElementSibling ; btn.onclick = () => verify()
+    input.addEventListener('keydown', ({ key }) => key == 'Enter' && verify())
     if (focus) input.focus()
-    function verify({ input, btn, baseURL }) {
+    function verify() {
         const certNum = input.value.trim()
         if (!certNum) return alert('Please enter a certificate number')
         if (/\D/.test(certNum)) return alert('Certificate number must contain only digits')
@@ -11,6 +11,7 @@ export function init({ input, btn, baseURL, focus = true }) {
     }
 }
 
-export function reset({ input, btn }) {
-    btn.disabled = false ; btn.textContent = 'Verify Certificate' ; input[location.pathname == '/' ? 'focus' : 'blur']()
+export function reset({ input }) {
+    const btn = input.nextElementSibling ; btn.disabled = false ; btn.textContent = 'Verify Certificate'
+    input[location.pathname == '/' ? 'focus' : 'blur']()
 }

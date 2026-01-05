@@ -8,10 +8,9 @@ import * as search from '../../components/search.js'
 
 export function initCertPage(config) {
     document.addEventListener('DOMContentLoaded', () => {
-        const input = document.getElementById('certNum'),
-              btn = document.getElementById('verifyBtn')
-        search.init({ input, btn, baseURL: config.baseURL })
-        addEventListener('pageshow', () => search.reset({ input, btn }))
+        const input = document.getElementById('certNum')
+        search.init({ input, baseURL: config.baseURL })
+        addEventListener('pageshow', () => search.reset({ input }))
         navArrows.createAppend(config)
         initDownloadBtns()
         initItemShot(config)
