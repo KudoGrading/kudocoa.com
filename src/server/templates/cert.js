@@ -49,7 +49,7 @@ export async function generate({ certID, certData, devMode }) {
         ${ certData.interiorURL ? await comicPages.generate(certData.interiorURL) : '' }
         ${ footer.generate() }
         <script type="module">
-            import { initCertPage } from '${app.urls.assetHost}/js/pages/cert.min.js'
+            import { initCertPage } from '${app.urls.assetHost}/js/pages/cert/index.min.js'
             initCertPage(${JSON.stringify({ certID, baseURL: app.urls.web, jsdURL: app.urls.jsdelivr })})
         </script>
     `
