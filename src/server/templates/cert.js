@@ -10,7 +10,7 @@ import * as vidEmbed from '../components/vid-embed.js'
 const app = await import('../../../public/data/app.json')
 
 export async function generate({ certID, certData, devMode }) {
-    app.urls.web = devMode ? 'http://127.0.0.1:8888' : app.urls.web
+    app.urls.web = devMode ? 'http://localhost:8888' : app.urls.web
     app.urls.assetHost = devMode ? app.urls.web + '/assets' : app.urls.assetHost
     certData = typeof certData == 'string' ? JSON.parse(certData) : certData
     const vidURL = certData.trailerURL || certData.videoURL || certData.vidURL || certData.youtubeURL || certData.ytURL
@@ -18,8 +18,7 @@ export async function generate({ certID, certData, devMode }) {
     const vidEmbedOptions = vidURLs ? { vidURLs } : vidURL ? { vidURL } : null
     const itemYearMatch = (certData.coverDate || certData.publishDate)?.match(/\d{4}/)
     const itemYear = itemYearMatch ? ` (${itemYearMatch[0]})` : ''
-    const title = `${ certID ? `Kudo COA #${parseInt(certID)} / ` : '' }${
-                      certData.item || '' }${itemYear} / ${app.name}`
+    const title = `${ certID ? `Kudo COA #${certID} / ` : '' }${ certData.item || '' }${itemYear} / ${app.name}`
     const description = `Certificate # ${certID} verified by ${app.longName}`
     const bodyContent = `
         ${header.generate(certID)}
