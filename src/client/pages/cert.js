@@ -2,7 +2,7 @@ import { initBackToTop } from '../shared/back-to-top.js'
 import { initDownloadBtns } from '../shared/download.js'
 import { initSearch } from '../shared/verify.js'
 import { initItemShot } from '../components/item-shot.js'
-import { initNavArrows } from '../components/nav-arrows.js'
+import * as navArrows from '../components/nav-arrows.js'
 import { zoomImg } from '../components/zoom/index.js'
 
 export function initCertPage(config) {
@@ -15,7 +15,7 @@ export function initCertPage(config) {
             btn.disabled = false ; btn.textContent = 'Verify Certificate'
             const val = input.value ; input.value = '' ; input.value = val ; input.blur()
         }
-        initNavArrows(config)
+        navArrows.createAppend(config)
         initDownloadBtns()
         initItemShot({ certID: config.certID, baseURLs: config.urls })
         document.querySelector('.coa-img')?.addEventListener('click', () =>

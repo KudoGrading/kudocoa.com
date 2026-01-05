@@ -6,7 +6,6 @@ import * as comicPages from '../components/comic-pages.js'
 import * as noteBoxes from '../components/note-boxes.js'
 import * as verificationBadge from '../components/verification-badge.js'
 import * as vidEmbed from '../components/vid-embed.js'
-import * as navArrows from '../components/nav-arrows.js'
 
 const app = await import('../../../data/app.json')
 
@@ -22,7 +21,6 @@ export async function generate({ certID, certData, devMode }) {
     const title = `${ certID ? `Kudo COA #${parseInt(certID)} / ` : '' }${
                       certData.item || '' }${itemYear} / ${app.name}`
     const description = `Certificate # ${certID} verified by ${app.fullName}`
-    const { navArrowsHTML, prevCertNum, nextCertNum } = navArrows.generate(certID)
     const bodyContent = `
         ${header.generate(certID)}
         <div class="cert-header">
@@ -52,10 +50,7 @@ export async function generate({ certID, certData, devMode }) {
         ${ footer.generate() }
         <script type="module">
             import { initCertPage } from '${app.urls.assetHost}/js/pages/cert.min.js'
-            initCertPage(${JSON.stringify({
-                certID, baseURL: app.urls.web, urls: app.urls, navArrowsHTML,
-                prevCertNum: prevCertNum || '', nextCertNum
-            })})
+            initCertPage(${JSON.stringify({ certID, baseURL: app.urls.web, urls: app.urls })})
         </script>
     `
     return base.generate({ title, description, bodyContent })
