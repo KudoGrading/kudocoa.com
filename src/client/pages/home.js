@@ -9,4 +9,3 @@ export function initHomepage(baseURL) {
         function resetSearch() { btn.disabled = false ; btn.textContent = 'Verify Certificate' ; input.focus() }
     })
 }
-
