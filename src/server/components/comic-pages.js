@@ -12,7 +12,7 @@ export async function generate(srcURL) {
         if (imgURLs.length) console.log('Total images found:', imgURLs.length)
         else { console.log('No images found!') ; return '' }
 
-        console.log('Counting domains...') // by last two segments of hostname to support variations in earlier segments
+        console.log('Counting domains...') // by last two segments of hostname to support variations
         const domainCnts = {}
         imgURLs.forEach(src => {
             try {
@@ -45,11 +45,11 @@ export async function generate(srcURL) {
 
         return !interiorPageURLs.length ? '' : `
             <div class="comic-pages">
-                <div class="comic-pages-title">INTERIOR PAGES (OF REFERENCE COPY)</div>
+                <div class="comic-pages-title">Interior Pages (of reference copy)</div>
                 ${interiorPageURLs.map((src, idx) => `
                     <div class="comic-page">
                         <img src="${src}" loading="lazy">
-                        <div class="page-number">PAGE ${ idx +1 }</div>
+                        <div class="page-number">Page ${ idx +1 }</div>
                     </div>
                 `).join('')}
             </div>
