@@ -1,9 +1,10 @@
-import { zoomImg } from '../lib/zoom.js'
-import { initBackToTop } from '../components/back-to-top.js'
-import { initDownloadBtns } from '../components/download-btns.js'
-import { initItemShot } from '../components/item-shot.js'
-import * as navArrows from '../components/nav-arrows.js'
-import * as search from '../components/search.js'
+
+import { initDownloadBtns } from './download-btns.js'
+import { initItemShot } from './item-shot.js'
+import { zoomImg } from './zoom.js'
+import { initBackToTop } from '../../components/back-to-top.js'
+import * as navArrows from '../../components/nav-arrows.js'
+import * as search from '../../components/search.js'
 
 export function initCertPage(config) {
     document.addEventListener('DOMContentLoaded', () => {

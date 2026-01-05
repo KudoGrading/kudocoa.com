@@ -1,4 +1,4 @@
-import * as zoom from '../lib/zoom.js'
+import * as zoom from './zoom.js'
 
 export async function initItemShot({ certID, jsdURL }) {
     if (!window.dom) await import(
