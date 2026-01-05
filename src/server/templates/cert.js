@@ -50,8 +50,6 @@ export async function generate({ certID, certData, devMode }) {
         ${ vidEmbedOptions ? vidEmbed.generate(vidEmbedOptions) : '' }
         ${ certData.interiorURL ? await comicPages.generate(certData.interiorURL) : '' }
         ${ footer.generate() }
-        
-        <!-- Inject config and load frontend module -->
         <script type="module">
             import { initCertPage } from '${app.urls.assetHost}/js/pages/cert.min.js'
             initCertPage(${JSON.stringify({

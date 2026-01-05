@@ -12,8 +12,6 @@ export function generate(devMode) {
     const bodyContent = `
         ${header.generate()}
         ${footer.generate()}
-        
-        <!-- Inject config and load frontend module -->
         <script type="module">
             import { initHomepage } from '${app.urls.assetHost}/js/pages/home.min.js'
             initHomepage('${app.urls.web}')
