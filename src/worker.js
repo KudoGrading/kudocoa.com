@@ -47,14 +47,14 @@ export default {
         // Render cert page
         try {
             const certData = await env.COAS_KV.get(certID)
-            const hasVideo = certData.trailerURL || certData.videoURL || certData.vidURL
-                || certData.youtubeURL || certData.ytURL
-            const cacheHeader = `public, max-age=${config[`${ hasVideo ? 'video' : 'static' }CacheTime`]}`
+            const hasVideo = /(?:trailer|vide?o?|youtube|yt)URLs?/.test(JSON.stringify(certData))
+            const cacheHeaders = {
+                'Cache-Control': `public, max-age=${config[`${ hasVideo ? 'video' : 'static' }CacheTime`]}` }
             return !certData ?
                 new Response(minify(errPage.generate({ certID, errMsg: 'Not found', devMode, status: 404 })), {
                     headers: htmlHeaders, status: 404 })
               : new Response(minify(await certPage.generate({ certID, certData, devMode })), {
-                    headers: { ...htmlHeaders, 'Cache-Control': cacheHeader }})
+                    headers: { ...htmlHeaders, ...cacheHeaders }})
         } catch (err) {
             return new Response(minify(errPage.generate({
                 errMsg: 'System error: ' + err.message, devMode, status: 500 })), {
