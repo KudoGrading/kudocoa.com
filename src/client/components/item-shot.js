@@ -1,6 +1,6 @@
 import * as zoom from '../lib/zoom.js'
 
-export async function initItemShot({ certID, baseURLs }) {
+export async function initItemShot({ certID, jsdURL }) {
     if (!window.dom) await import(
         'https://cdn.jsdelivr.net/gh/adamlui/ai-web-extensions@1e84c2e/assets/js/lib/dom.js/dist/dom.min.js')
     const certImgDiv = document.getElementById('certImg') ; if (!certImgDiv) return
@@ -9,8 +9,7 @@ export async function initItemShot({ certID, baseURLs }) {
     let currentFormat = 0 ; tryNextFormat()
     function tryNextFormat() {
         if (currentFormat >= formats.length) return itemPlaceholder.innerHTML = 'No image available'
-        const format = formats[currentFormat],
-              imgURL = `${baseURLs.jsdelivr}/certificates/coas/${certID}/item.${format}`,
+        const imgURL = `${jsdURL}/certificates/coas/${certID}/item.${formats[currentFormat]}`,
               img = new Image()
         img.onload = () => {
             certImgDiv.innerHTML = ''
