@@ -15,8 +15,7 @@ export async function initItemShot({ certID, jsdURL }) {
             certImgDiv.replaceChildren()
             const newImg = dom.create.elem('img', { src: imgURL, alt: 'Certificate Image',
                 onclick: () => zoom.zoomImg({ imgURL, title: 'Item Image' })})
-            certImgDiv.append(newImg)
-            setTimeout(() => zoom.trackMouseZoom(newImg), 0)
+            certImgDiv.append(newImg) ; zoom.trackMouseZoom(newImg)
         }
         img.onerror = () => { currentFormat++ ; tryNextFormat() }
         img.src = imgURL
