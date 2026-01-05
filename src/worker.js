@@ -4,6 +4,10 @@ import * as certPage from './server/templates/cert.js'
 import * as errPage from './server/templates/error.js'
 
 const mimeTypes = await import('../public/data/mime-types.json')
+const config = {
+    staticCacheTime: 21600, // 6h
+    videoCacheTime: 5 // sec
+}
 
 export default {
     async fetch(req, env) {
@@ -43,11 +47,14 @@ export default {
         // Render cert page
         try {
             const certData = await env.COAS_KV.get(certID)
+            const hasVideo = certData.trailerURL || certData.videoURL || certData.vidURL
+                || certData.youtubeURL || certData.ytURL
+            const cacheHeader = `public, max-age=${config[`${ hasVideo ? 'video' : 'static' }CacheTime`]}`
             return !certData ?
                 new Response(minify(errPage.generate({ certID, errMsg: 'Not found', devMode, status: 404 })), {
                     headers: htmlHeaders, status: 404 })
               : new Response(minify(await certPage.generate({ certID, certData, devMode })), {
-                    headers: { ...htmlHeaders, 'Cache-Control': 'public, max-age=300' }})
+                    headers: { ...htmlHeaders, 'Cache-Control': cacheHeader }})
         } catch (err) {
             return new Response(minify(errPage.generate({
                 errMsg: 'System error: ' + err.message, devMode, status: 500 })), {
