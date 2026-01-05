@@ -46,7 +46,7 @@ export default {
             return !certData ?
                 new Response(minify(errPage.generate({ certID, errMsg: 'Not found', status: 404 })), {
                     headers: htmlHeaders, status: 404 })
-                : new Response(minify(await certPage.generate({ certID, certData, devMode })), {
+              : new Response(minify(await certPage.generate({ certID, certData, devMode })), {
                     headers: { ...htmlHeaders, 'Cache-Control': 'public, max-age=300' }})
         } catch (err) {
             return new Response(minify(errPage.generate({ errMsg: 'System error: ' + err.message, status: 500 })), {
