@@ -1,4 +1,4 @@
-import { initSearch } from '../shared/verify.js'
+import { initSearch } from '../components/verify.js'
 
 export function initHomepage(baseURL) {
     document.addEventListener('DOMContentLoaded', () => {

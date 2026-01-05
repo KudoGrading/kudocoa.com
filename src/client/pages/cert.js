@@ -1,7 +1,7 @@
 import { zoomImg } from '../lib/zoom.js'
-import { initBackToTop } from '../shared/back-to-top.js'
-import { initDownloadBtns } from '../shared/download.js'
-import { initSearch } from '../shared/verify.js'
+import { initBackToTop } from '../components/back-to-top.js'
+import { initDownloadBtns } from '../components/download.js'
+import { initSearch } from '../components/verify.js'
 import { initItemShot } from '../components/item-shot.js'
 import * as navArrows from '../components/nav-arrows.js'
 
