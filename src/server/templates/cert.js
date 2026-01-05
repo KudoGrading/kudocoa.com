@@ -17,10 +17,10 @@ export async function generate({ certID, certData, devMode }) {
     const vidURL = certData.trailerURL || certData.videoURL || certData.vidURL || certData.youtubeURL || certData.ytURL
     const { vidURLs } = certData
     const vidEmbedOptions = vidURLs ? { vidURLs } : vidURL ? { vidURL } : null
-    const itemYearMatch = (certData?.coverDate || certData?.publishDate)?.match(/\d{4}/)
+    const itemYearMatch = (certData.coverDate || certData.publishDate)?.match(/\d{4}/)
     const itemYear = itemYearMatch ? ` (${itemYearMatch[0]})` : ''
     const title = `${ certID ? `Kudo COA #${parseInt(certID)} / ` : '' }${
-                      certData?.item || '' }${itemYear} / ${app.name}`
+                      certData.item || '' }${itemYear} / ${app.name}`
     const description = `Certificate # ${certID} verified by ${app.fullName}`
     const { navArrowsHTML, prevCertNum, nextCertNum } = navArrows.generate(certID)
     const bodyContent = `
