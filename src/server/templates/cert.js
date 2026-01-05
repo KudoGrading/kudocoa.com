@@ -20,7 +20,7 @@ export async function generate({ certID, certData, devMode }) {
     const itemYear = itemYearMatch ? ` (${itemYearMatch[0]})` : ''
     const title = `${ certID ? `Kudo COA #${parseInt(certID)} / ` : '' }${
                       certData.item || '' }${itemYear} / ${app.name}`
-    const description = `Certificate # ${certID} verified by ${app.fullName}`
+    const description = `Certificate # ${certID} verified by ${app.longName}`
     const bodyContent = `
         ${header.generate(certID)}
         <div class="cert-header">

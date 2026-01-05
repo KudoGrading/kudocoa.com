@@ -3,7 +3,7 @@ const app = await import('../../../public/data/app.json')
 export function generate() {
     return `
         <footer>
-            <div>© ${ new Date().getFullYear() } ${app.fullName.toUpperCase()}</div>
+            <div>© ${ new Date().getFullYear() } ${app.longName.toUpperCase()}</div>
             <div class="footer-links">
                 <a href="/">Home</a>
                 <span class="footer-separator"></span>

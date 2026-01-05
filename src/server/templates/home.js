@@ -8,7 +8,7 @@ export function generate(devMode) {
     app.urls.web = devMode ? 'http://127.0.0.1:8888' : app.urls.web
     app.urls.assetHost = devMode ? app.urls.web + '/assets' : app.urls.assetHost
     const title = app.name
-    const description = `Verify certificate authenticity with ${app.fullName}`
+    const description = `Verify certificate authenticity with ${app.longName}`
     const bodyContent = `
         ${header.generate()}
         ${footer.generate()}
