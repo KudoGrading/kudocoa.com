@@ -29,10 +29,10 @@ export async function generate({ certID, certData, devMode }) {
                     <div class="download-label">Download:</div>
                     <div class="download-btns">
                         <button class="download-btn" data-filename="kudo_coa_#${certID}.png"
-                                data-url="${app.urls.jsdelivr}/certificates/coas/${certID}/certificate.png">
+                                data-url="${app.urls.cdn}/certificates/coas/${certID}/certificate.png">
                             PNG</button>
                         <button class="download-btn" data-filename="kudo_coa_#${certID}.pdf"
-                                data-url="${app.urls.jsdelivr}/certificates/coas/${certID}/certificate.pdf">
+                                data-url="${app.urls.cdn}/certificates/coas/${certID}/certificate.pdf">
                             PDF</button>
                     </div>
                 </div>
@@ -49,7 +49,7 @@ export async function generate({ certID, certData, devMode }) {
         ${ footer.generate() }
         <script type="module">
             import { initCertPage } from '${app.urls.assetHost}/js/pages/cert/index.min.js'
-            initCertPage(${JSON.stringify({ certID, baseURL: app.urls.web, jsdURL: app.urls.jsdelivr })})
+            initCertPage(${JSON.stringify({ certID, baseURL: app.urls.web, jsdURL: app.urls.cdn })})
         </script>
     `
     return base.generate({ title, description, bodyContent })

@@ -7,7 +7,7 @@
     "assetHost": "https://kudocoa.com/assets",
     "comicAssetHost": "https://cdn.jsdelivr.net/gh/KudoComics@fbc3867/assets",
     "github": "https://github.com/KudoGrading",
-    "jsdelivr": "https://cdn.jsdelivr.net/gh/KudoGrading",
+    "cdn": "https://cdn.jsdelivr.net/gh/KudoGrading",
     "web": "https://kudocoa.com"
   }
 }
