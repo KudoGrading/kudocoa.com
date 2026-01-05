@@ -2,7 +2,7 @@
   "name": "Kudo Grading + Authentication",
   "fullName": "Kudo Grading & Authentication Services",
   "urls": {
-    "aiwebAssetHost": "https://cdn.jsdelivr.net/gh/adamlui/ai-web-extensions@1e84c2e/assets",
+    "aiwebAssetHost": "https://cdn.jsdelivr.net/gh/adamlui/ai-web-extensions@c83eee7/assets",
     "assetHost": "https://kudocoa.com/assets",
     "comicAssetHost": "https://cdn.jsdelivr.net/gh/KudoComics/assets",
     "github": "https://github.com/KudoGrading",
