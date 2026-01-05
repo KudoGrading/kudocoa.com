@@ -1,5 +1,5 @@
 import { zoomImg } from '../lib/zoom.js'
-import { initBackToTop } from '../components/back-to-top.js'
+import { initBackToTop } from '../components/btt-btn.js'
 import { initDownloadBtns } from '../components/download.js'
 import { initSearch } from '../components/verify.js'
 import { initItemShot } from '../components/item-shot.js'
