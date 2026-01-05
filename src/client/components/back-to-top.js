@@ -2,7 +2,7 @@ export async function initBackToTop() {
     if (!window.dom) await import(
         'https://cdn.jsdelivr.net/gh/adamlui/ai-web-extensions@1e84c2e/assets/js/lib/dom.js/dist/dom.min.js')
 
-    // Add btt-btn corner button
+    // Add back-to-top corner button
     const bttBtn = dom.create.elem('div', {
         className: 'btt-btn', title: 'Back to top', innerHTML: '<span>^</span>',
         onclick: () => {
@@ -14,7 +14,7 @@ export async function initBackToTop() {
         else bttBtn.classList.remove('visible')
     })
 
-    if (document.querySelector('.comic-pages, .vid-embed')) // add btt-btn footer link
+    if (document.querySelector('.comic-pages, .vid-embed')) // add back-to-top footer link
         document.querySelector('.footer-links')?.append(
             dom.create.elem('span', { className: 'footer-separator' }),
             dom.create.elem('a', { textContent: 'Back to Top ↑', onclick: scrollToTop })
