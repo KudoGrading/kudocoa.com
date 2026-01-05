@@ -1,6 +1,6 @@
 export function initDownloadBtns() {
     document.querySelectorAll('.download-btn').forEach(btn =>
-        btn.addEventListener('click', async event => {
+        btn.onclick = async event => {
             event.preventDefault()
             const url = btn.getAttribute('data-url'),
                   download = btn.getAttribute('data-filename')
@@ -9,6 +9,6 @@ export function initDownloadBtns() {
                       a = Object.assign(document.createElement('a'), { href, download, style: 'display: none' })
                 document.body.append(a) ; a.click() ; a.remove() ; URL.revokeObjectURL(href)
             } catch (err) { open(url, '_blank') }
-        })
+        }
     )
 }
