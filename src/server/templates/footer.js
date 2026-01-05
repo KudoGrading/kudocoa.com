@@ -9,7 +9,7 @@ export function generate() {
                 <span class="footer-separator"></span>
                 <a href="${app.urls.github}" target="_blank" rel="noopener">GitHub</a>
                 <span class="footer-separator"></span>
-                <a href="mailto:support@kudocoa.com">Contact</a>
+                <a href="mailto:${app.emails.support}">Contact</a>
             </div>
         </footer>
     `
