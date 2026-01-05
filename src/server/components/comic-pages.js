@@ -7,8 +7,7 @@ export async function generate(srcURL) {
     try {
 
         console.log('Collecting all img URLs...')
-        const srcHTML = await (await fetch(srcURL)).text(),
-              imgMatches = srcHTML.matchAll(/<img[^>]+src="([^"]+)"[^>]*>/gi),
+        const imgMatches = (await (await fetch(srcURL)).text()).matchAll(/<img[^>]+src="([^"]+)"[^>]*>/gi),
               imgURLs = Array.from(imgMatches, match => match[1])
         if (imgURLs.length) console.log('Total images found:', imgURLs.length)
         else { console.log('No images found!') ; return '' }
