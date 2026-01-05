@@ -1,6 +1,6 @@
 {
   "name": "Kudo Grading + Authentication",
-  "fullName": "Kudo Grading & Authentication Services",
+  "longName": "Kudo Grading & Authentication Services",
   "emails": { "support": "support@kudocoa.com" },
   "urls": {
     "aiwebAssetHost": "https://cdn.jsdelivr.net/gh/adamlui/ai-web-extensions@c83eee7/assets",
