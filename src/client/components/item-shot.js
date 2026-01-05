@@ -14,8 +14,8 @@ export async function initItemShot({ certID, baseURLs }) {
               img = new Image()
         img.onload = () => {
             certImgDiv.innerHTML = ''
-            const newImg = dom.create.elem('img', { src: imgURL, alt: 'Certificate Image' })
-            newImg.onclick = () => zoom.zoomImg({ imgURL, title: 'Item Image' })
+            const newImg = dom.create.elem('img', { src: imgURL, alt: 'Certificate Image',
+                onclick: () => zoom.zoomImg({ imgURL, title: 'Item Image' })})
             certImgDiv.append(newImg)
             setTimeout(() => zoom.trackMouseZoom(newImg), 0)
         }
