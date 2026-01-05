@@ -1,9 +1,9 @@
+import { zoomImg } from '../lib/zoom.js'
 import { initBackToTop } from '../shared/back-to-top.js'
 import { initDownloadBtns } from '../shared/download.js'
 import { initSearch } from '../shared/verify.js'
 import { initItemShot } from '../components/item-shot.js'
 import * as navArrows from '../components/nav-arrows.js'
-import { zoomImg } from '../components/zoom/index.js'
 
 export function initCertPage(config) {
     document.addEventListener('DOMContentLoaded', () => {
