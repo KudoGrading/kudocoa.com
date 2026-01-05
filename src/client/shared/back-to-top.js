@@ -1,8 +1,10 @@
-export function initBackToTop() {
-    const bttBtn = document.createElement('div')
-    bttBtn.className = 'back-to-top' ; bttBtn.title = 'Back to top' ; bttBtn.innerHTML = '<span>^</span>'
-    bttBtn.onclick = () => {
-        scrollToTop() ; bttBtn.classList.add('at-top') ; setTimeout(() => bttBtn.classList.remove('at-top'), 1000) }
+export async function initBackToTop() {
+    if (!window.dom) await import(
+        'https://cdn.jsdelivr.net/gh/adamlui/ai-web-extensions@1e84c2e/assets/js/lib/dom.js/dist/dom.min.js')
+    const bttBtn = dom.create.elem('div', { className: 'back-to-top', title: 'Back to top', innerHTML: '<span>^</span>',
+        onclick: () => {
+            scrollToTop() ; bttBtn.classList.add('at-top') ; setTimeout(() => bttBtn.classList.remove('at-top'), 1000) }
+     })
     document.body.append(bttBtn)
     addEventListener('scroll', () => {
         if (window.scrollY > 300) { bttBtn.classList.add('visible') ; bttBtn.classList.remove('at-top') }
@@ -10,10 +12,10 @@ export function initBackToTop() {
     })
     if (document.querySelector('.comic-pages, .vid-embed')) { // add back-to-top footer link
         const footerLinks = document.querySelector('.footer-links')
-        const separator = document.createElement('span') ; separator.className = 'footer-separator'
-        const bttLink = document.createElement('a') ; bttLink.textContent = 'Back to Top ↑'
-        bttLink.onclick = event => { event.preventDefault() ; scrollToTop() }
-        footerLinks.append(separator) ; footerLinks.append(bttLink)
+        const separator = dom.create.elem('span', { className: 'footer-separator' })
+        const bttLink = dom.create.elem('a', {
+            textContent: 'Back to Top ↑', onclick: event => { event.preventDefault() ; scrollToTop() }})
+        footerLinks.append(separator, bttLink)
     }
     function scrollToTop() {
         const duration = 500, startY = pageYOffset ; let startTime
