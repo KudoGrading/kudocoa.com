@@ -7,7 +7,7 @@ import * as noteBoxes from '../components/note-boxes.js'
 import * as verificationBadge from '../components/verification-badge.js'
 import * as vidEmbed from '../components/vid-embed.js'
 
-const app = await import('../../../data/app.json')
+const app = await import('../../../public/data/app.json')
 
 export async function generate({ certID, certData, devMode }) {
     app.urls.web = devMode ? 'http://127.0.0.1:8888' : app.urls.web

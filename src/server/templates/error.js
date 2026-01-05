@@ -2,7 +2,7 @@ import * as base from './base.js'
 import * as header from './header.js'
 import * as footer from './footer.js'
 
-const app = await import('../../../data/app.json')
+const app = await import('../../../public/data/app.json')
 
 export function generate({ certID, errMsg = 'Error', status = 404, devMode } = {}) {
     app.urls.web = devMode ? 'http://127.0.0.1:8888' : app.urls.web

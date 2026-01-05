@@ -3,7 +3,7 @@ import * as homepage from './server/templates/home.js'
 import * as certPage from './server/templates/cert.js'
 import * as errPage from './server/templates/error.js'
 
-const mimeTypes = await import('../data/mime-types.json')
+const mimeTypes = await import('../public/data/mime-types.json')
 
 export default {
     async fetch(req, env) {

@@ -1,10 +1,5 @@
-console.log('back-to-top.js client script running...')
-//const app = await import('../../../data/app.json')
-const app = await (await fetch('../../../data/app.json')).json()
-console.log(app)
-
-
 export async function initBackToTop() {
+    const app = await (await fetch('/assets/data/app.json')).json()
     if (!window.dom) await import(`${app.urls.aiwebAssetHost}/js/lib/dom.js/dist/dom.min.js`)
 
     // Add back-to-top corner button
