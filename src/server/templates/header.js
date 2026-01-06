@@ -7,7 +7,7 @@ export function generate(certID = '') {
 
         <div class="search-bar">
             <input type="number" placeholder="Enter certificate number" value="${certID}">
-            <button class="search-btn">Verify Certificate</button>
+            <button>Verify Certificate</button>
         </div>
     `
 }
