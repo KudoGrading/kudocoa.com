@@ -20,7 +20,7 @@ export function generate({ certID, certData }) {
             displayVal = displayVal.replace(/[,&]/g, ' +') // separate names w/ pluses
             if (/(?:authenticat|grad)edBy$/i.test(key)) { // replace names w/ sig
                 const signerSlug = string.toHyphenCase(val),
-                      imgURL = `${app.urls.cdn}/certificates/assets/images/signatures/${signerSlug}/white.png`
+                      imgURL = `${app.urls.certAssetHost}/assets/images/signatures/${signerSlug}/white.png`
                 displayVal = imgEmbed.generate({ imgURL, alt: displayVal })
             }
 
@@ -28,7 +28,7 @@ export function generate({ certID, certData }) {
             displayVal = `
                 <div class="coa-type">
                     <div class="coa-img-container">
-                        <img src="${app.urls.cdn}/certificates/coas/${certID}/certificate.png" 
+                        <img src="${app.urls.certAssetHost}/coas/${certID}/certificate.png" 
                              alt="Certificate Image" class="coa-img" onerror="this.style.display='none'">
                     </div>
                     <div>${displayVal}</div>

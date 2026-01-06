@@ -10,7 +10,7 @@ export async function initItemShot() {
     let currentFormat = 0 ; tryNextFormat()
     function tryNextFormat() {
         if (currentFormat >= formats.length) return itemPlaceholder.textContent = 'No image available'
-        const img = new Image(), imgURL = `${app.urls.cdn}/certificates/coas/${certID}/item.${formats[currentFormat]}`
+        const img = new Image(), imgURL = `${app.urls.certAssetHost}/coas/${certID}/item.${formats[currentFormat]}`
         img.onload = () => {
             certImgDiv.replaceChildren()
             const newImg = dom.create.elem('img', { src: imgURL, alt: 'Certificate Image',

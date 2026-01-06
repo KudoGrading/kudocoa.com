@@ -11,8 +11,8 @@
   },
   "urls": {
     "aiwebAssetHost": "https://cdn.jsdelivr.net/gh/adamlui/ai-web-extensions@c83eee7/assets",
+    "certAssetHost": "https://cdn.jsdelivr.net/gh/KudoGrading/certificates@437d7a3",
     "assetHost": "https://kudocoa.com/assets",
-    "cdn": "https://cdn.jsdelivr.net/gh/KudoGrading",
     "comicAssetHost": "https://cdn.jsdelivr.net/gh/KudoComics/assets@fbc3867",
     "github": "https://github.com/KudoGrading",
     "web": "https://kudocoa.com"

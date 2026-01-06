@@ -7,13 +7,16 @@ import * as navArrows from '../../components/nav-arrows.js'
 import * as search from '../../components/search.js'
 
 export function initCertPage(config) {
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
+        const app = await (await fetch('/assets/data/app.json')).json()
         search.init({ input: document.querySelector('.search-bar input'), focus: false })
         navArrows.createAppend()
         initDownloadBtns()
         initItemShot()
         document.querySelector('.coa-img')?.addEventListener('click', () => zoomImg({
-            title: 'Certificate', imgURL: `${config.jsdURL}/certificates/coas/${config.certID}/certificate.png` }))
+            title: 'Certificate',
+            imgURL: `${app.urls.certAssetHost}/coas/${config.certID}/certificate.png`
+        }))
         initBackToTop()
     })
 }
