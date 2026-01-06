@@ -8,8 +8,7 @@ import * as search from '../../components/search.js'
 
 export function initCertPage(config) {
     document.addEventListener('DOMContentLoaded', () => {
-        const searchConfig = { input: document.getElementById('certNum'), focus: true }
-        search.init(searchConfig) ; addEventListener('pageshow', () => search.reset(searchConfig))
+        search.init({ input: document.getElementById('certNum'), focus: false })
         navArrows.createAppend()
         initDownloadBtns()
         initItemShot()

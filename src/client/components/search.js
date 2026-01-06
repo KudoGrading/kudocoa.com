@@ -9,6 +9,7 @@ export function init({ input, focus = true }) {
         btn.disabled = true ; btn.textContent = 'Retrieving...'
         location.href = `${location.origin}/${certNum}`
     }
+    addEventListener('pageshow', () => reset({ input, focus }))
 }
 
 export function reset({ input, focus }) { // and button label
