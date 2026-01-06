@@ -32,16 +32,16 @@ export default {
 
         // Validate cert #
         const certInput = url.pathname.split('/')[1]
-        if (/\D/.test(certInput))
+        if (/\D/.test(certInput)) // 400
             return new Response(minify(errPage.generate({
                 certID: certInput, errMsg: 'Invalid certificate ID (numbers only!)', status: 400, devMode })), {
                     headers: htmlHeaders, status: 400 })
         const certID = certInput.padStart(10, '0')
-        if (certID.length > 10)
+        if (certID.length > 10) // 400
             return new Response(minify(errPage.generate({
                 certID, errMsg: 'Certificate ID too long (max 10 digits!)', status: 400, devMode })), {
                     headers: htmlHeaders, status: 400 })
-        if (certInput != certID) // redir e.g. /1 to /0000000001
+        if (certInput != certID) // 301 redir e.g. /1 to /0000000001
             return Response.redirect(`${baseURL}/${certID}`, 301)
 
         // Render cert page
