@@ -32,5 +32,6 @@ export function generate(certData) {
         <div class="verif-badge">
             <span class="checkmarks">${checkmarks}</span>
             <span class="status-text">${badgeText}</span>
-        </div>`
+        </div>
+    `
 }
