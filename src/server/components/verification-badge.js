@@ -1,3 +1,7 @@
+import verificationBadgeCSS from '../styles/css/verification-badge.min.css'
+
+export const css = verificationBadgeCSS
+
 export function generate(certData) {
 
     // Count verifications

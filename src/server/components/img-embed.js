@@ -1,3 +1,7 @@
+import imgEmbedCSS from '../styles/css/img-embed.min.css'
+
+export const css = imgEmbedCSS
+
 export function generate({ imgURL, alt = '' }) {
     return `
         <div class="img-embed">

@@ -8,9 +8,7 @@ import * as verificationBadge from '../components/verification-badge.js'
 import * as vidEmbed from '../components/vid-embed.js'
 import bttCSS from '../styles/css/back-to-top.min.css'
 import certCSS from '../styles/css/cert.min.css'
-import comicPagesCSS from '../styles/css/comic-pages.min.css'
 import navArrowsCSS from '../styles/css/nav-arrows.min.css'
-import vidEmbedCSS from '../styles/css/vid-embed.min.css'
 
 const app = await import('../../../public/data/app.json')
 
@@ -59,6 +57,7 @@ export async function generate({ certID, certData, devMode, debugMode }) {
     `
     return base.generate({
         title, description, bodyContent, debugMode,
-        css: bttCSS + certCSS + comicPagesCSS + navArrowsCSS + vidEmbedCSS
+        css: bttCSS + certCSS + certDataRows.css + comicPages.css + navArrowsCSS + noteBoxes.css + verificationBadge.css
+            + vidEmbed.css
     })
 }

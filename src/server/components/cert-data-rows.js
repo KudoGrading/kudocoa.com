@@ -1,7 +1,10 @@
 import * as string from '../lib/string.js'
 import * as imgEmbed from './img-embed.js'
+import certDataRowsCSS from '../styles/css/cert-data-rows.min.css'
 
 const app = await import('../../../public/data/app.json')
+
+export const css = certDataRowsCSS
 
 export function generate({ certID, certData }) {
     const dataRows = []
@@ -35,6 +38,7 @@ export function generate({ certID, certData }) {
                     </div>
                     <div>${displayVal}</div>
                 </div>
+                <style>${imgEmbed.css}</style>
             `
 
         dataRows.push(`

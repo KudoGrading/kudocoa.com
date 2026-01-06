@@ -1,0 +1,12 @@
+.verification-badge {
+    background: #fff ; color: #000 ; padding: 0.8rem 2rem ; border-radius: 30px ; font-weight: bold ;
+    font-size: 1.3rem ; text-transform: uppercase ; display: flex ; align-items: center ; gap: 0.8rem ;
+    white-space: nowrap
+}
+.checkmarks { font-size: 1.88rem ; letter-spacing: -0.2em ; margin-right: 0.2rem }
+.status-text { white-space: nowrap }
+
+@media (max-width: 768px) {
+    .verification-badge { padding: 0.6rem 1.5rem ; font-size: 1.1rem }
+    .checkmarks { font-size: 1.5rem }
+}

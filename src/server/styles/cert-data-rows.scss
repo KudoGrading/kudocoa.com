@@ -1,0 +1,23 @@
+.detail-row {
+    display: flex ; align-items: center ; margin-bottom: 1.5rem ; border-bottom: 1px solid #333 ;
+    padding-bottom: 1rem
+}
+.detail-row:last-child { border-bottom: none }
+.detail-label {
+    width: 300px ; min-width: 200px ; color: #aaa ; font-size: 1.1rem ; text-transform: uppercase ;
+    letter-spacing: 1px ; font-weight: 600
+}
+.detail-val {
+    flex: 1 ; font-size: 1.3rem ; font-weight: bold ; text-transform: uppercase ; overflow-wrap: break-word }
+.detail-val img[src*="/publishers/"] { margin: -15px 0 -11px } /* tighten publisher logo y-spacing */
+.detail-val img[src*="/signatures/"] { opacity: 0.8 ; margin-top: 12px ; width: 163px ; height: auto }
+.coa-type { display: flex ; flex-direction: column ; gap: 0.5rem ; align-items: flex-start }
+.coa-img-container { margin-top: 1rem ; cursor: zoom-in }
+.coa-img { max-width: 150px ; height: auto ; border: 1px solid #fff ; padding: 10px }
+
+@media (max-width: 768px) {
+    .detail-row { flex-direction: column ; gap: 0.5rem ; align-items: flex-start }
+    .detail-label, .detail-val { width: 100% ; font-size: 1.1rem }
+    .coa-type { flex-direction: column ; align-items: flex-start }
+    .coa-img { order: -1 }
+}

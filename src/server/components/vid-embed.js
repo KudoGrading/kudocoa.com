@@ -1,3 +1,7 @@
+import vidEmbedCSS from '../styles/css/vid-embed.min.css'
+
+export const css = vidEmbedCSS
+
 export function generate({ vidURL, vidURLs = [] }) {
     const url = vidURL || vidURLs[Math.floor(Math.random() * vidURLs.length)]
     if (!url || !/youtube\.com|youtu\.be/.test(url)) return ''

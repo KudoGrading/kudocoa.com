@@ -1,4 +1,7 @@
 import { camelToTitleCase } from '../lib/string.js'
+import noteBoxesCSS from '../styles/css/note-boxes.min.css'
+
+export const css = noteBoxesCSS
 
 export function generate(certData) {
     const notes = []
