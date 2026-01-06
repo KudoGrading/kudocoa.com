@@ -9,6 +9,7 @@
     "build": "npm run build:css && npm run build:js",
     "build:css": "scss-to-css src/server/styles public/css --clone-folders",
     "build:js": "minify-js src/client public/js --clone-folders",
+    "debug": "node utils/dev/debug.js --debug",
     "dev": "npm run build && npm run dev:nb",
     "dev:nb": "wrangler dev --remote --ip localhost --port 8888",
     "deploy": "npm run build && wrangler deploy",
@@ -26,6 +27,7 @@
     "eslint-plugin-regexp": "^2.10.0",
     "eslint-plugin-yml": "^1.19.1",
     "husky": "^9.1.7",
+    "open": "^11.0.0",
     "wrangler": "^4.54.0"
   }
 }
