@@ -1,4 +1,5 @@
-export function createAppend({ certID, baseURL }) {
+export function createAppend({ certID }) {
+    const baseURL = location.origin
     const certNum = parseInt(certID)
     const prevCertNum = certNum > 1 ? String(certNum -1).padStart(10, '0') : null
     const nextCertNum = String(certNum +1).padStart(10, '0')

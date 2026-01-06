@@ -1,4 +1,4 @@
-export function init({ input, baseURL, focus = true }) {
+export function init({ input, focus = true }) {
     const btn = input.nextElementSibling ; btn.onclick = () => verify()
     input.addEventListener('keydown', ({ key }) => key == 'Enter' && verify())
     if (focus) input.focus()
@@ -7,7 +7,7 @@ export function init({ input, baseURL, focus = true }) {
         if (!certNum) return alert('Please enter a certificate number')
         if (/\D/.test(certNum)) return alert('Certificate number must contain only digits')
         btn.disabled = true ; btn.textContent = 'Retrieving...'
-        location.href = `${baseURL}/${certNum}`
+        location.href = `${location.origin}/${certNum}`
     }
 }
 

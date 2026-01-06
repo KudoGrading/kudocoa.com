@@ -1,9 +1,10 @@
 import * as search from '../components/search.js'
 
-export function initHomepage(baseURL) {
+export function initHomepage() {
     document.addEventListener('DOMContentLoaded', () => {
-        const input = document.getElementById('certNum')
-        search.init({ input, baseURL })
-        addEventListener('pageshow', () => search.reset({ input }))
+        const input = document.getElementById('certNum'),
+              searchConfig = { input, focus: true }
+        search.init(searchConfig)
+        addEventListener('pageshow', () => search.reset(searchConfig))
     })
 }
