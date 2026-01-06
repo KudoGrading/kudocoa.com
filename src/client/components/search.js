@@ -11,7 +11,7 @@ export function init({ input, focus = true }) {
     }
 }
 
-export function reset({ input }) {
+export function reset({ input }) { // and button label
     const btn = input.nextElementSibling ; btn.disabled = false ; btn.textContent = 'Verify Certificate'
     input[location.pathname == '/' ? 'focus' : 'blur']()
 }
