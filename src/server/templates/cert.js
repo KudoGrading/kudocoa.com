@@ -10,8 +10,7 @@ import * as vidEmbed from '../components/vid-embed.js'
 const app = await import('../../../public/data/app.json')
 
 export async function generate({ certID, certData, devMode }) {
-    app.urls.web = devMode ? 'http://localhost:8888' : app.urls.web
-    app.urls.assetHost.app = devMode ? app.urls.web + '/assets' : app.urls.assetHost.app
+    app.urls.assetHost.app = devMode ? 'http://localhost:8888/assets' : app.urls.assetHost.app
     certData = typeof certData == 'string' ? JSON.parse(certData) : certData
     const vidURL = certData.trailerURL || certData.videoURL || certData.vidURL || certData.youtubeURL || certData.ytURL
     const { vidURLs } = certData

@@ -5,8 +5,7 @@ import * as footer from './footer.js'
 const app = await import('../../../public/data/app.json')
 
 export function generate(devMode) {
-    app.urls.web = devMode ? 'http://localhost:8888' : app.urls.web
-    app.urls.assetHost.app = devMode ? app.urls.web + '/assets' : app.urls.assetHost.app
+    app.urls.assetHost.app = devMode ? 'http://localhost:8888/assets' : app.urls.assetHost.app
     const title = app.names.medium
     const description = `Verify certificate authenticity with ${app.names.long}`
     const bodyContent = `
@@ -14,7 +13,7 @@ export function generate(devMode) {
         ${footer.generate()}
         <script type="module">
             import { initHomepage } from '${app.urls.assetHost.app}/js/pages/home.min.js'
-            initHomepage('${app.urls.web}')
+            initHomepage()
         </script>
     `
     return base.generate({ title, description, bodyContent, bodyClass: 'homepage' })

@@ -5,8 +5,7 @@ import * as footer from './footer.js'
 const app = await import('../../../public/data/app.json')
 
 export function generate({ certID, errMsg = 'Error', status = 404, devMode } = {}) {
-    app.urls.web = devMode ? 'http://localhost:8888' : app.urls.web
-    app.urls.assetHost.app = devMode ? app.urls.web + '/assets' : app.urls.assetHost.app
+    app.urls.assetHost.app = devMode ? 'http://localhost:8888/assets' : app.urls.assetHost.app
     const title = `${
         certID ? `${app.names.short} #${certID} / Certificate Not Found` : 'System Error' } / ${app.names.medium}`
     const description = certID ? `Certificate # ${certID} not found` : 'System error occurred'
