@@ -1,7 +1,7 @@
 import * as base from './base.js'
 import * as header from './header.js'
 import * as footer from './footer.js'
-import errCSS from '../styles/css/error.min.css'
+import errCSS from '../../../public/css/pages/error.min.css'
 
 const app = await import('../../../public/data/app.json')
 

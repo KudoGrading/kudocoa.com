@@ -16,7 +16,7 @@ export default {
             return Response.redirect(`${baseURL}/`, 302)
 
         else if (url.pathname.startsWith('/assets/')) { // serve public/ asset
-            const assetPath = url.pathname.replace('/assets', '').replace(/(?<!\.min)\.js$/i, '.min.js'),
+            const assetPath = url.pathname.replace('/assets', ''),
                   resp = await env.ASSETS.fetch(new Request(new URL(assetPath, req.url), req)),
                   fileExt = url.pathname.split('.').pop().toLowerCase(),
                   contentType = (await import('../public/data/mime-types.json'))[fileExt] || 'application/octet-stream'

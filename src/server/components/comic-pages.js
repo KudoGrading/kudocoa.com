@@ -1,5 +1,5 @@
 import { createLogger } from '../lib/log.js'
-import comicPagesCSS from '../styles/css/comic-pages.min.css'
+import comicPagesCSS from '../../../public/css/components/server/comic-pages.min.css'
 
 export const css = comicPagesCSS
 

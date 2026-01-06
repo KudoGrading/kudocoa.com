@@ -1,5 +1,5 @@
 import { camelToTitleCase } from '../lib/string.js'
-import noteBoxesCSS from '../styles/css/note-boxes.min.css'
+import noteBoxesCSS from '../../../public/css/components/server/note-boxes.min.css'
 
 export const css = noteBoxesCSS
 

@@ -1,4 +1,4 @@
-import imgEmbedCSS from '../styles/css/img-embed.min.css'
+import imgEmbedCSS from '../../../public/css/components/server/img-embed.min.css'
 
 export const css = imgEmbedCSS
 

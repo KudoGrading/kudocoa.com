@@ -6,9 +6,9 @@ import * as comicPages from '../components/comic-pages.js'
 import * as noteBoxes from '../components/note-boxes.js'
 import * as verifBadge from '../components/verif-badge.js'
 import * as vidEmbed from '../components/vid-embed.js'
-import bttCSS from '../styles/css/back-to-top.min.css'
-import certCSS from '../styles/css/cert.min.css'
-import navArrowsCSS from '../styles/css/nav-arrows.min.css'
+import bttCSS from '../../../public/css/components/client/back-to-top.min.css'
+import certCSS from '../../../public/css/pages/cert.min.css'
+import navArrowsCSS from '../../../public/css/components/client/nav-arrows.min.css'
 
 const app = await import('../../../public/data/app.json')
 

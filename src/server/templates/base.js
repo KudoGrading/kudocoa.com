@@ -1,4 +1,4 @@
-import globalCSS from '../styles/css/global.min.css'
+import globalCSS from '../../../public/css/global.min.css'
 
 export function generate({ title = 'Untitled page', description = '', bodyContent = '', bodyClass, css = '' } = {}) {
     return `

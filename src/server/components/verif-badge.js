@@ -1,4 +1,4 @@
-import verifBadgeCSS from '../styles/css/verif-badge.min.css'
+import verifBadgeCSS from '../../../public/css/components/server/verif-badge.min.css'
 
 export const css = verifBadgeCSS
 

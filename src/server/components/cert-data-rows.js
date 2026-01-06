@@ -1,6 +1,6 @@
 import * as string from '../lib/string.js'
 import * as imgEmbed from './img-embed.js'
-import certDataRowsCSS from '../styles/css/cert-data-rows.min.css'
+import certDataRowsCSS from '../../../public/css/components/server/cert-data-rows.min.css'
 
 const app = await import('../../../public/data/app.json')
 

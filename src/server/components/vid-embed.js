@@ -1,4 +1,4 @@
-import vidEmbedCSS from '../styles/css/vid-embed.min.css'
+import vidEmbedCSS from '../../../public/css/components/server/vid-embed.min.css'
 
 export const css = vidEmbedCSS
 
