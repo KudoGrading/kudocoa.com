@@ -15,6 +15,7 @@ export default {
               htmlHeaders = { 'Content-Type': 'text/html' },
               devMode = env.ENVIRONMENT == 'development',
               baseURL = devMode ? 'http://localhost:8888' : url.origin
+        config.minifyHTML = !devMode
 
         if (/^\/assets\/?$/.test(url.pathname)) // redir assets index to homepage
             return Response.redirect(`${baseURL}/`, 302)
@@ -28,17 +29,17 @@ export default {
                 status: resp.status, headers: { 'Content-Type': contentType, ...Object.fromEntries(resp.headers) }})
 
         } else if (url.pathname == '/') // render homepage
-            return new Response(minify(homepage.generate(devMode)), { headers: htmlHeaders })
+            return new Response(processHTML(homepage.generate(devMode)), { headers: htmlHeaders })
 
         // Validate cert #
         const certInput = url.pathname.split('/')[1]
         if (/\D/.test(certInput)) // 400
-            return new Response(minify(errPage.generate({
+            return new Response(processHTML(errPage.generate({
                 certID: certInput, errMsg: 'Invalid certificate ID (numbers only!)', status: 400, devMode })), {
                     headers: htmlHeaders, status: 400 })
         const certID = certInput.padStart(10, '0')
         if (certID.length > 10) // 400
-            return new Response(minify(errPage.generate({
+            return new Response(processHTML(errPage.generate({
                 certID, errMsg: 'Certificate ID too long (max 10 digits!)', status: 400, devMode })), {
                     headers: htmlHeaders, status: 400 })
         if (certInput != certID) // 301 redir e.g. /1 to /0000000001
@@ -51,14 +52,16 @@ export default {
             const cacheHeaders = { // shorter for video pages to allow rotation
                 'Cache-Control': `public, max-age=${config[`${ hasVideo ? 'video' : 'static' }CacheTime`]}` }
             return !certData ?
-                new Response(minify(errPage.generate({ certID, errMsg: 'Not found', status: 404, devMode })), {
+                new Response(processHTML(errPage.generate({ certID, errMsg: 'Not found', status: 404, devMode })), {
                     headers: htmlHeaders, status: 404 })
-              : new Response(minify(await certPage.generate({ certID, certData, devMode })), {
+              : new Response(processHTML(await certPage.generate({ certID, certData, devMode })), {
                     headers: { ...htmlHeaders, ...cacheHeaders }})
         } catch (err) {
-            return new Response(minify(errPage.generate({
+            return new Response(processHTML(errPage.generate({
                 errMsg: 'System error: ' + err.message, status: 500, devMode })), {
                     headers: htmlHeaders, status: 500 })
         }
+
+        function processHTML(html) { return config.minifyHTML ? minify(html) : html }
     }
 }
