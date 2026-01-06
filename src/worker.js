@@ -1,4 +1,5 @@
 const config = {
+    minifyHTML: 'auto', // <true|false> or 'auto'
     staticCacheTime: 21600, // 6h
     videoCacheTime: 5 // sec
 }
@@ -9,7 +10,7 @@ export default {
               htmlHeaders = { 'Content-Type': 'text/html' },
               devMode = env.ENVIRONMENT == 'development',
               baseURL = devMode ? 'http://localhost:8888' : url.origin
-        config.minifyHTML = !devMode
+        config.minifyHTML = config.minifyHTML == 'auto' ? !devMode : config.minifyHTML
 
         if (/^\/assets\/?$/.test(url.pathname)) // redir assets index to homepage
             return Response.redirect(`${baseURL}/`, 302)
