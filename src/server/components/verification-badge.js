@@ -1,4 +1,4 @@
-import verifBadgeCSS from '../styles/css/verification-badge.min.css'
+import verifBadgeCSS from '../styles/css/verif-badge.min.css'
 
 export const css = verifBadgeCSS
 
@@ -29,7 +29,7 @@ export function generate(certData) {
     const checkmarks = '✓'.repeat(Math.min(cnts.check, 10))
 
     return `
-        <div class="verification-badge">
+        <div class="verif-badge">
             <span class="checkmarks">${checkmarks}</span>
             <span class="status-text">${badgeText}</span>
         </div>`
