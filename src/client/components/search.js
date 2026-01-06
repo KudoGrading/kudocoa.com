@@ -1,5 +1,5 @@
 export function init({ input, focus = true }) {
-    const btn = input.nextElementSibling ; btn.onclick = () => verify()
+    const btn = input.nextElementSibling ; btn.onclick = verify
     input.addEventListener('keydown', ({ key }) => key == 'Enter' && verify())
     if (focus) input.focus()
     function verify() {
