@@ -1,7 +1,6 @@
 const config = {
-    minifyHTML: 'auto', // <true|false> or 'auto'
-    staticCacheTime: 21600, // 6h
-    videoCacheTime: 5 // sec
+    cacheDuration: 21600, // 6h
+    minifyHTML: 'auto' // <true|false> or 'auto'
 }
 
 export default {
@@ -51,9 +50,11 @@ export default {
                     certID, errMsg: 'Not found', status: 404, devMode })), {
                         headers: htmlHeaders, status: 404 })
             const certPage = await import('./server/templates/cert.js')
-            const hasVideo = /(?:trailer|vide?o?|youtube|yt)URLs?/.test(JSON.stringify(certData))
-            const cacheHeaders = { // shorter for video pages to allow rotation
-                'Cache-Control': `public, max-age=${config[`${ hasVideo ? 'video' : 'static' }CacheTime`]}` }
+            const hasVideo = /\\"(?:trailer|vide?o?|youtube|yt)URLs\\"/.test(JSON.stringify(certData))
+            const cacheHeaders = {
+                'Cache-Control': hasVideo ? 'no-store, must-revalidate' // shorter for video pages to allow rotation
+                                          : `public, max-age=${config.cacheDuration}`
+            }
             return new Response(await processHTML(await certPage.generate({
                 certID, certData, devMode })), { headers: { ...htmlHeaders, ...cacheHeaders }})
         } catch (err) {
