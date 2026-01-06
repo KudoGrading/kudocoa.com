@@ -53,12 +53,11 @@ export default {
             const hasVideo = /(?:trailer|vide?o?|youtube|yt)URLs?/.test(JSON.stringify(certData))
             const cacheHeaders = { // shorter for video pages to allow rotation
                 'Cache-Control': `public, max-age=${config[`${ hasVideo ? 'video' : 'static' }CacheTime`]}` }
-            return new Response(await processHTML(
-                certPage.generate({ certID, certData, devMode })), { headers: { ...htmlHeaders, ...cacheHeaders }})
+            return new Response(await processHTML(await certPage.generate({
+                certID, certData, devMode })), { headers: { ...htmlHeaders, ...cacheHeaders }})
         } catch (err) {
             return new Response(await processHTML(errPage.generate({
-                errMsg: 'System error: ' + err.message, status: 500, devMode })), {
-                    headers: htmlHeaders, status: 500 })
+                errMsg: 'System error: ' + err.message, status: 500, devMode })), { headers: htmlHeaders, status: 500 })
         }
 
         async function processHTML(html) {
