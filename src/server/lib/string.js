@@ -3,7 +3,8 @@ import { createLogger } from '../lib/log.js'
 export function camelToTitleCase(str) { // e.g. 'gradedAndAuthenticatedBy' => 'Graded / Authenticated By'
     return str.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()).replace(/\bAnd\b/gi, '/') }
 
-export function formatDate(dateStr, { format = 'monthDayYear', caseStyle = 'upper', debugMode } = {}) { // e.g. '2026-1' => 'JANUARY 2026'
+export function formatDate(dateStr, { format = 'monthDayYear', caseStyle = 'upper', debugMode = false } = {}) {
+    // e.g. '2026-1' => 'JANUARY 2026' and '1999-3-3' => 'MARCH 3, 1999'
     const log = createLogger({ prefix: 'string.formatDate()', debugMode })
     if (!dateStr) return log.error(`'dateStr' option required!`)
     try {
