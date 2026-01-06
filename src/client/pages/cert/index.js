@@ -14,7 +14,7 @@ export function initCertPage(config) {
         addEventListener('pageshow', () => search.reset(searchConfig))
         navArrows.createAppend()
         initDownloadBtns()
-        initItemShot(config)
+        initItemShot()
         document.querySelector('.coa-img')?.addEventListener('click', () =>
             zoomImg({ title: 'Certificate',
                 imgURL: `${config.jsdURL}/certificates/coas/${config.certID}/certificate.png` })
