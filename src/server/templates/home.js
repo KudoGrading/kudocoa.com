@@ -17,5 +17,5 @@ export function generate(devMode) {
             initHomepage()
         </script>
     `
-    return base.generate({ title, description, bodyContent, bodyClass: 'homepage', homeCSS })
+    return base.generate({ title, description, bodyContent, bodyClass: 'homepage', css: homeCSS })
 }
