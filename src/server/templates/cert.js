@@ -49,7 +49,7 @@ export async function generate({ certID, certData, devMode }) {
         ${ footer.generate() }
         <script type="module">
             import { initCertPage } from '${app.urls.assetHost.app}/js/pages/cert/index.min.js'
-            initCertPage(${JSON.stringify({ certID, jsdURL: app.urls.assetHost.cert })})
+            initCertPage()
         </script>
     `
     return base.generate({ title, description, bodyContent })

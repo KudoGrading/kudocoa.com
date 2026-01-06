@@ -6,8 +6,9 @@ import { initBackToTop } from '../../components/back-to-top.js'
 import * as navArrows from '../../components/nav-arrows.js'
 import * as search from '../../components/search.js'
 
-export function initCertPage(config) {
+export function initCertPage() {
     document.addEventListener('DOMContentLoaded', async () => {
+        const certID = /^\d{10}$/.exec(location.pathname.slice(1))?.[0] ; if (!certID) return
         const app = await (await fetch('/assets/data/app.json')).json()
         search.init({ input: document.querySelector('.search-bar input'), focus: false })
         navArrows.createAppend()
@@ -15,7 +16,7 @@ export function initCertPage(config) {
         initItemShot()
         document.querySelector('.coa-img')?.addEventListener('click', () => zoomImg({
             title: 'Certificate',
-            imgURL: `${app.urls.assetHost.cert}/coas/${config.certID}/certificate.png`
+            imgURL: `${app.urls.assetHost.cert}/coas/${certID}/certificate.png`
         }))
         initBackToTop()
     })
