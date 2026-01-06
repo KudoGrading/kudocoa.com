@@ -1,4 +1,3 @@
-
 import { initDebugMode } from '../../debug-mode.js'
 import { initDownloadBtns } from './download-btns.js'
 import { initItemShot } from './item-shot.js'
@@ -17,9 +16,7 @@ export function initCertPage() {
         initDownloadBtns()
         initItemShot()
         document.querySelector('.coa-img')?.addEventListener('click', () => zoomImg({
-            title: 'Certificate',
-            imgURL: `${app.urls.assetHost.cert}/coas/${certID}/certificate.png`
-        }))
+            title: 'Certificate', imgURL: `${app.urls.assetHost.cert}/coas/${certID}/certificate.png` }))
         initBackToTop()
     })
 }
