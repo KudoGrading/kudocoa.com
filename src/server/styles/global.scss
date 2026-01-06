@@ -120,17 +120,18 @@ footer {
     justify-content: center ; color: #888 ; font-size: 1.5rem ; padding: 2rem
 }
 .img-embed { margin: -15px 0 -11px }
-.vid-placeholder {
-    width: 100% ; height: 450px ; border: 3px dashed #fff ; display: flex ; align-items: center ;
-    justify-content: center ; color: #888 ; font-size: 1.5rem ; background: #111
-}
 .vid-embed { margin-top: 8.5rem ; display: flex ; flex-direction: column ; align-items: center ; width: 100% }
 .vid-container {
-    width: 100% ; margin-bottom: 2rem ; text-align: center ; display: flex ; flex-direction: column ;
+    width: 100% ; padding-bottom: 42% ; text-align: center ; position: relative ; flex-direction: column ;
     align-items: center
+}
+.vid-placeholder {
+    width: 100% ; height: 550px ; border: 3px dashed #fff ; display: flex ; align-items: center ;
+    justify-content: center ; color: #888 ; font-size: 1.5rem ; background: #111 ; z-index: 500
 }
 .vid-container iframe {
     width: 100% ; height: 555px ; border: none ; max-width: 100% ; display: block ; margin: 0 auto }
+.vid-placeholder, .vid-container iframe { position: absolute ; top: 0 ; left: 0 }
 .comic-pages {
     margin-top: 6.5rem ; display: flex ; flex-direction: column ; align-items: center ; text-transform: uppercase }
 .comic-pages-title {
