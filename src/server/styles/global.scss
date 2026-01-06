@@ -73,7 +73,7 @@ body {
 .img-name { font-size: 1.3rem ; font-weight: bold ; text-transform: uppercase ; overflow-wrap: break-word }
 .nav-arrows { 
     position: fixed ; top: 50% ; left: 0 ; width: 100% ; transform: translateY(-50%) ; z-index: 1000 ; display: flex ;
-    justify-content: space-between ; padding: 0 20px ; pointer-events: none 
+    justify-content: space-between ; padding: 0 20px ; pointer-events: none ; box-sizing: border-box
 }
 .nav-arrow {
     transform: scaleY(1.5) ; color: #fff ; border: none ; width: 60px ; height: 160px ; display: flex ;
