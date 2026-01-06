@@ -14,7 +14,7 @@ export default {
         const url = new URL(req.url),
               htmlHeaders = { 'Content-Type': 'text/html' },
               devMode = env.ENVIRONMENT == 'development',
-              baseURL = `http${ devMode ? '://localhost:8888' : 's://' + url.hostname }`
+              baseURL = devMode ? 'http://localhost:8888' : url.origin
 
         if (/^\/assets\/?$/.test(url.pathname)) // redir assets index to homepage
             return Response.redirect(`${baseURL}/`, 302)
