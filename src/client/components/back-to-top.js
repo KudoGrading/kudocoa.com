@@ -14,7 +14,7 @@ export async function initBackToTop() {
         else bttBtn.classList.remove('visible')
     })
 
-    if (document.querySelector('.comic-pages, .vid-embed')) // add back-to-top footer link
+    if (document.querySelector('.comic-pages')) // add back-to-top footer link
         document.querySelector('.footer-links')?.append(
             dom.create.elem('span', { className: 'footer-separator' }),
             dom.create.elem('a', { textContent: 'Back to Top ↑', onclick: scrollToTop })
