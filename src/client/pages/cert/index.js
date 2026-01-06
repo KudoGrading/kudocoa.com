@@ -12,7 +12,7 @@ export function initCertPage(config) {
               searchConfig = { input, focus: false }
         search.init(searchConfig)
         addEventListener('pageshow', () => search.reset(searchConfig))
-        navArrows.createAppend(config)
+        navArrows.createAppend()
         initDownloadBtns()
         initItemShot(config)
         document.querySelector('.coa-img')?.addEventListener('click', () =>
