@@ -4,7 +4,7 @@ import * as footer from './footer.js'
 import * as certDataRows from '../components/cert-data-rows.js'
 import * as comicPages from '../components/comic-pages.js'
 import * as noteBoxes from '../components/note-boxes.js'
-import * as verificationBadge from '../components/verification-badge.js'
+import * as verifBadge from '../components/verification-badge.js'
 import * as vidEmbed from '../components/vid-embed.js'
 import bttCSS from '../styles/css/back-to-top.min.css'
 import certCSS from '../styles/css/cert.min.css'
@@ -39,7 +39,7 @@ export async function generate({ certID, certData, devMode, debugMode }) {
                             PDF</button>
                     </div>
                 </div>
-                ${verificationBadge.generate(certData)}
+                ${verifBadge.generate(certData)}
             </div>
         </div>
         <div class="cert-body">
@@ -57,7 +57,8 @@ export async function generate({ certID, certData, devMode, debugMode }) {
     `
     return base.generate({
         title, description, bodyContent, debugMode,
-        css: bttCSS + certCSS + certDataRows.css + comicPages.css + navArrowsCSS + noteBoxes.css + verificationBadge.css
-            + vidEmbed.css
+        css:
+            bttCSS + certCSS + navArrowsCSS // client components
+          + certDataRows.css + comicPages.css + noteBoxes.css + verifBadge.css + vidEmbed.css // server components
     })
 }

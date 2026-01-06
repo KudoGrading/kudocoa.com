@@ -1,6 +1,6 @@
-import verificationBadgeCSS from '../styles/css/verification-badge.min.css'
+import verifBadgeCSS from '../styles/css/verification-badge.min.css'
 
-export const css = verificationBadgeCSS
+export const css = verifBadgeCSS
 
 export function generate(certData) {
 
