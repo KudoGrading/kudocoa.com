@@ -9,7 +9,7 @@ import * as vidEmbed from '../components/vid-embed.js'
 
 const app = await import('../../../public/data/app.json')
 
-export async function generate({ certID, certData, devMode }) {
+export async function generate({ certID, certData, devMode, debugMode }) {
     app.urls.assetHost.app = devMode ? 'http://localhost:8888/assets' : app.urls.assetHost.app
     certData = typeof certData == 'string' ? JSON.parse(certData) : certData
     const vidURL = certData.trailerURL || certData.videoURL || certData.vidURL || certData.youtubeURL || certData.ytURL
@@ -45,12 +45,12 @@ export async function generate({ certID, certData, devMode }) {
         </div>
         ${ noteBoxes.generate(certData) }
         ${ vidEmbedOptions ? vidEmbed.generate(vidEmbedOptions) : '' }
-        ${ certData.interiorURL ? await comicPages.generate(certData.interiorURL) : '' }
+        ${ certData.interiorURL ? await comicPages.generate({ srcURL: certData.interiorURL, debugMode }) : '' }
         ${ footer.generate() }
         <script type="module">
             import { initCertPage } from '${app.urls.assetHost.app}/js/pages/cert/index.min.js'
             initCertPage()
         </script>
     `
-    return base.generate({ title, description, bodyContent })
+    return base.generate({ title, description, bodyContent, debugMode })
 }

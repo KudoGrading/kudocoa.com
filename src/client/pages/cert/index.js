@@ -1,4 +1,5 @@
 
+import { initDebugMode } from '../../debug-mode.js'
 import { initDownloadBtns } from './download-btns.js'
 import { initItemShot } from './item-shot.js'
 import { zoomImg } from './zoom.js'
@@ -8,6 +9,7 @@ import * as search from '../../components/search.js'
 
 export function initCertPage() {
     document.addEventListener('DOMContentLoaded', async () => {
+        initDebugMode()
         const certID = /^\d{10}$/.exec(location.pathname.slice(1))?.[0] ; if (!certID) return
         const app = await (await fetch('/assets/data/app.json')).json()
         search.init({ input: document.querySelector('.search-bar input'), autofocus: false })

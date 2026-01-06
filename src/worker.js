@@ -8,6 +8,7 @@ export default {
         const url = new URL(req.url),
               htmlHeaders = { 'Content-Type': 'text/html' },
               devMode = env.ENVIRONMENT == 'development',
+              debugMode = url.searchParams.has('debug'),
               baseURL = devMode ? 'http://localhost:8888' : url.origin
         config.minifyHTML = config.minifyHTML == 'auto' ? !devMode : !!config.minifyHTML
 
@@ -30,12 +31,12 @@ export default {
         // Validate cert #
         const certInput = url.pathname.split('/')[1],
               errPage = await import('./server/templates/error.js')
-        if (/\D/.test(certInput)) // 400
+        if (/\D/.test(certInput)) // 400 error
             return new Response(await processHTML(errPage.generate({
                 certID: certInput, errMsg: 'Invalid certificate ID (numbers only!)', status: 400, devMode })), {
                     headers: htmlHeaders, status: 400 })
         const certID = certInput.padStart(10, '0')
-        if (certID.length > 10) // 400
+        if (certID.length > 10) // 400 error
             return new Response(await processHTML(errPage.generate({
                 certID, errMsg: 'Certificate ID too long (max 10 digits!)', status: 400, devMode })), {
                     headers: htmlHeaders, status: 400 })
@@ -56,8 +57,8 @@ export default {
                                           : `public, max-age=${config.cacheDuration}`
             }
             return new Response(await processHTML(await certPage.generate({
-                certID, certData, devMode })), { headers: { ...htmlHeaders, ...cacheHeaders }})
-        } catch (err) {
+                certID, certData, devMode, debugMode })), { headers: { ...htmlHeaders, ...cacheHeaders }})
+        } catch (err) { // 500 error
             return new Response(await processHTML(errPage.generate({
                 errMsg: 'System error: ' + err.message, status: 500, devMode })), { headers: htmlHeaders, status: 500 })
         }
