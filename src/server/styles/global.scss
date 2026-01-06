@@ -24,7 +24,7 @@ body {
 .search-bar input::placeholder { color: #888 ; font-size: 1.5rem }
 .search-bar input {
     &::-webkit-inner-spin-button, &::-webkit-outer-spin-button { -webkit-appearance: none ; margin: 0 }
-    -moz-appearance: textfield ; appearance: textfield
+    -moz-appearance: textfield ; appearance: textfield ; box-sizing: border-box
 }
 .search-btn { cursor: pointer ; font-weight: bold ; border-width: 3px ; text-transform: uppercase }
 .search-btn:hover { background: #fff ; color: #000 }
