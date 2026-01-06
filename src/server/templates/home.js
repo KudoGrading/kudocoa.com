@@ -3,12 +3,14 @@ import * as header from './header.js'
 import * as footer from './footer.js'
 
 const app = await import('../../../public/data/app.json')
+import css from '../styles/css/home.min.css'
 
 export function generate(devMode) {
     app.urls.assetHost.app = devMode ? 'http://localhost:8888/assets' : app.urls.assetHost.app
     const title = app.names.medium
     const description = `Verify certificate authenticity with ${app.names.long}`
     const bodyContent = `
+        <style>${css}</style>
         ${header.generate()}
         ${footer.generate()}
         <script type="module">
