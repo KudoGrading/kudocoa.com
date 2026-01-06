@@ -19,7 +19,7 @@ export function formatDate(dateStr, { format = 'monthDayYear', caseStyle = 'uppe
             result = dateStr
         log.debug('result:', result)
         return caseStyle == 'upper' ? result.toUpperCase() : result
-    } catch (err) { log.error(err.msg) ; return dateStr }
+    } catch (err) { log.error(`Error formatting ${dateStr}:`, err.msg) ; return dateStr }
 }
 
 export function toHyphenCase(str) { return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') }
