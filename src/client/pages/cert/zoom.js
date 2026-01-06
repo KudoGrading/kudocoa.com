@@ -4,11 +4,11 @@ export function trackMouseZoom(img, { scale = 1.5 } = {}) {
         const container = document.createElement('div') ; container.className = 'zoom-container'
         img.style.cssText = `
             border: none ; padding: 0 ; box-shadow: none ; max-width: 100% ; max-height: 600px ; width: auto ;
-            height: auto ; display: block ; object-fit: contain ; background: #000
+            height: auto ; display: block ; object-fit: contain
         `
         container.style.cssText = `
             overflow: hidden ; position: relative ; display: inline-block ; line-height: 0 ;
-            border: 3px solid #fff ; padding: 10px ; box-shadow: 0 0 20px rgba(255,255,255,0.1) ; background: #000
+            border: 3px solid #fff ; padding: 10px ; box-shadow: 0 0 20px rgba(255,255,255,0.1)
         `
         img.parentNode.insertBefore(container, img) ; container.append(img)
     }
