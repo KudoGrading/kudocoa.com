@@ -1,0 +1,12 @@
+.comic-pages {
+    margin-top: 6.5rem ; display: flex ; flex-direction: column ; align-items: center ; text-transform: uppercase }
+.comic-pages-title {
+    font-size: 1.5rem ; font-weight: bold ; margin-bottom: 3.5rem ; text-transform: uppercase ; text-align: center ;
+    width: 100%
+}
+.comic-page {
+    max-width: 800px ; margin-bottom: 2rem ; text-align: center ; width: 100% ; display: flex ;
+    flex-direction: column ; align-items: center
+}
+.page-number { font-size: 0.9rem ; color: #aaa ; margin: 1rem 0 0.5rem ; text-transform: uppercase }
+.comic-page img { width: 100%; max-width: 100%; height: auto; display: block; margin: 0 auto }

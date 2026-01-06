@@ -1,6 +1,7 @@
 import * as base from './base.js'
 import * as header from './header.js'
 import * as footer from './footer.js'
+import errCSS from '../styles/css/error.min.css'
 
 const app = await import('../../../public/data/app.json')
 
@@ -21,5 +22,5 @@ export function generate({ certID, errMsg = 'Error', status = 404, devMode } = {
             initErrPage()
         </script>
     `
-    return base.generate({ title, description, bodyContent })
+    return base.generate({ title, description, bodyContent, css: errCSS })
 }
