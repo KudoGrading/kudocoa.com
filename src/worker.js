@@ -46,16 +46,14 @@ export default {
         // Render cert page
         try {
             const certData = await env.COAS_KV.get(certID)
-            if (!certData)
+            if (!certData) // 404 error
                 return new Response(await processHTML(errPage.generate({
                     certID, errMsg: 'Not found', status: 404, devMode })), {
                         headers: htmlHeaders, status: 404 })
             const certPage = await import('./server/templates/cert.js')
             const hasVideo = /\\"(?:trailer|vide?o?|youtube|yt)URLs\\"/.test(JSON.stringify(certData))
-            const cacheHeaders = {
-                'Cache-Control': hasVideo ? 'no-store, must-revalidate' // shorter for video pages to allow rotation
-                                          : `public, max-age=${config.cacheDuration}`
-            }
+            const cacheHeaders = { // shorter for video pages to allow rotation
+                'Cache-Control': hasVideo ? 'no-store, must-revalidate' : `public, max-age=${config.cacheDuration}` }
             return new Response(await processHTML(await certPage.generate({
                 certID, certData, devMode, debugMode })), { headers: { ...htmlHeaders, ...cacheHeaders }})
         } catch (err) { // 500 error
