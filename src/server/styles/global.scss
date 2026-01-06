@@ -35,6 +35,7 @@ footer {
 }
 .footer-links a:hover { text-decoration: underline }
 .footer-separator { height: 2.5rem ; width: 1px ; background: #fff ; transform: rotate(15deg) ; margin: 3px 1rem 0 }
+
 @media (max-width: 768px) {
     .hero-small { font-size: 1.2rem }
     .search-bar :where(input,  button) { font-size: 1.5rem ; padding: 1.2rem }

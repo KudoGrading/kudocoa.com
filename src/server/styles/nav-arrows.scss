@@ -12,5 +12,6 @@
 .nav-arrow:hover { opacity: 1 ; transform: scaleY(1.5) scale(1.25) ; transform-origin: center }
 .nav-arrow.right:hover { transform: scaleX(-1) scaleY(1.5) scale(1.25) }
 .nav-arrow.disabled { opacity: 0.2 ; cursor: default ; pointer-events: none }
+
 @media (max-width: 768px) { .nav-arrow { width: 50px ; height: 120px ; font-size: 45px }}
 @media (max-width: 480px) { .nav-arrow { width: 40px ; height: 100px ; font-size: 35px }}

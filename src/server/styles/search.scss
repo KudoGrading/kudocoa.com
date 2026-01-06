@@ -10,4 +10,5 @@
 }
 .search-bar button { cursor: pointer ; font-weight: bold ; border-width: 3px ; text-transform: uppercase }
 .search-bar button:hover { background: #fff ; color: #000 }
+
 @media (max-width: 768px) { .search-bar :where(input,  button) { font-size: 1.5rem ; padding: 1.2rem }}
