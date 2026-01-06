@@ -8,15 +8,17 @@ export function generate({ certID, certData }) {
     for (const [key, val] of Object.entries(certData)) {
         if (/(?:Notes|URLs?)$/.test(key)) continue
 
-        const label = string.camelToTitleCase(key)
-        let displayVal = /(?:^d|[a-z]D)ate(?:[A-Z]|$)/.test(key) ? string.formatDate(val) : val.toUpperCase()
+        const label = string.camelToTitleCase(key) ; let displayVal = val.toUpperCase()
 
-        if (key == 'publisher') { // replace publisher w/ logo
+        if (/(?:^d|[a-z]D)ate(?:[A-Z]|$)/.test(key)) // format date
+            string.formatDate(val)
+
+        else if (key == 'publisher') { // replace publisher w/ logo
             const publisherSlug = string.toHyphenCase(val),
                   imgURL = `${app.urls.assetHost.comic}/images/logos/publishers/${publisherSlug}/white.png`
             displayVal = imgEmbed.generate({ imgURL, alt: displayVal })
 
-        } else if (key.endsWith('By')) { // human attr
+        } else if (key.endsWith('By')) { // format human names
             displayVal = displayVal.replace(/[,&]/g, ' +') // separate names w/ pluses
             if (/(?:authenticat|grad)edBy$/i.test(key)) { // replace names w/ sig
                 const signerSlug = string.toHyphenCase(val),
