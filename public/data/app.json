@@ -13,7 +13,7 @@
     "aiwebAssetHost": "https://cdn.jsdelivr.net/gh/adamlui/ai-web-extensions@c83eee7/assets",
     "assetHost": "https://kudocoa.com/assets",
     "cdn": "https://cdn.jsdelivr.net/gh/KudoGrading",
-    "comicAssetHost": "https://cdn.jsdelivr.net/gh/KudoComics@fbc3867/assets",
+    "comicAssetHost": "https://cdn.jsdelivr.net/gh/KudoComics/assets@fbc3867",
     "github": "https://github.com/KudoGrading",
     "web": "https://kudocoa.com"
   }
