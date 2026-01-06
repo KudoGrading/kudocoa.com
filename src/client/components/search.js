@@ -1,7 +1,7 @@
-export function init({ input, focus = true }) {
+export function init({ input, autofocus = true }) {
     const btn = input.nextElementSibling ; btn.onclick = verify
     input.addEventListener('keydown', ({ key }) => key == 'Enter' && verify())
-    if (focus) input.focus()
+    if (autofocus) input.focus()
     function verify() {
         const certNum = input.value.trim()
         if (!certNum) return alert('Please enter a certificate number')
@@ -9,10 +9,10 @@ export function init({ input, focus = true }) {
         btn.disabled = true ; btn.textContent = 'Retrieving...'
         location.href = `${location.origin}/${certNum}`
     }
-    addEventListener('pageshow', () => reset({ input, focus }))
+    addEventListener('pageshow', () => reset({ input, autofocus }))
 }
 
-export function reset({ input, focus }) { // and button label
+export function reset({ input, autofocus }) { // and button label
     const btn = input.nextElementSibling ; btn.disabled = false ; btn.textContent = 'Verify Certificate'
-    input[(focus ?? location.pathname == '/') ? 'focus' : 'blur']()
+    input[(autofocus ?? location.pathname == '/') ? 'focus' : 'blur']()
 }
