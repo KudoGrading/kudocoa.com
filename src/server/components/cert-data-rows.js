@@ -6,7 +6,7 @@ const app = await import('../../../public/data/app.json')
 
 export const css = certDataRowsCSS
 
-export function generate({ certID, certData }) {
+export function generate({ certID, certData, debugMode }) {
     const dataRows = []
     for (const [key, val] of Object.entries(certData)) {
         if (/(?:Notes|URLs?)$/.test(key)) continue
@@ -14,7 +14,7 @@ export function generate({ certID, certData }) {
         const label = string.camelToTitleCase(key) ; let displayVal = val
 
         if (/(?:^d|[a-z]D)ate(?:[A-Z]|$)/.test(key)) // format date
-            string.formatDate(val)
+            displayVal = string.formatDate(val, { debugMode })
 
         else if (key == 'publisher') { // replace publisher w/ logo
             const publisherSlug = string.toHyphenCase(val),
