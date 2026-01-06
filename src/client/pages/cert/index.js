@@ -15,7 +15,7 @@ export function initCertPage(config) {
         initItemShot()
         document.querySelector('.coa-img')?.addEventListener('click', () => zoomImg({
             title: 'Certificate',
-            imgURL: `${app.urls.certAssetHost}/coas/${config.certID}/certificate.png`
+            imgURL: `${app.urls.assetHost.cert}/coas/${config.certID}/certificate.png`
         }))
         initBackToTop()
     })

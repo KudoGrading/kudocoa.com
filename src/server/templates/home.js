@@ -6,14 +6,14 @@ const app = await import('../../../public/data/app.json')
 
 export function generate(devMode) {
     app.urls.web = devMode ? 'http://localhost:8888' : app.urls.web
-    app.urls.assetHost = devMode ? app.urls.web + '/assets' : app.urls.assetHost
+    app.urls.assetHost.app = devMode ? app.urls.web + '/assets' : app.urls.assetHost.app
     const title = app.names.medium
     const description = `Verify certificate authenticity with ${app.names.long}`
     const bodyContent = `
         ${header.generate()}
         ${footer.generate()}
         <script type="module">
-            import { initHomepage } from '${app.urls.assetHost}/js/pages/home.min.js'
+            import { initHomepage } from '${app.urls.assetHost.app}/js/pages/home.min.js'
             initHomepage('${app.urls.web}')
         </script>
     `

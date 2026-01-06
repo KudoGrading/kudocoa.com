@@ -11,7 +11,7 @@ const app = await import('../../../public/data/app.json')
 
 export async function generate({ certID, certData, devMode }) {
     app.urls.web = devMode ? 'http://localhost:8888' : app.urls.web
-    app.urls.assetHost = devMode ? app.urls.web + '/assets' : app.urls.assetHost
+    app.urls.assetHost.app = devMode ? app.urls.web + '/assets' : app.urls.assetHost.app
     certData = typeof certData == 'string' ? JSON.parse(certData) : certData
     const vidURL = certData.trailerURL || certData.videoURL || certData.vidURL || certData.youtubeURL || certData.ytURL
     const { vidURLs } = certData
@@ -30,10 +30,10 @@ export async function generate({ certID, certData, devMode }) {
                     <div class="download-label">Download:</div>
                     <div class="download-btns">
                         <button class="download-btn" data-filename="kudo_coa_#${certID}.png"
-                                data-url="${app.urls.certAssetHost}/coas/${certID}/certificate.png">
+                                data-url="${app.urls.assetHost.cert}/coas/${certID}/certificate.png">
                             PNG</button>
                         <button class="download-btn" data-filename="kudo_coa_#${certID}.pdf"
-                                data-url="${app.urls.certAssetHost}/coas/${certID}/certificate.pdf">
+                                data-url="${app.urls.assetHost.cert}/coas/${certID}/certificate.pdf">
                             PDF</button>
                     </div>
                 </div>
@@ -49,8 +49,8 @@ export async function generate({ certID, certData, devMode }) {
         ${ certData.interiorURL ? await comicPages.generate(certData.interiorURL) : '' }
         ${ footer.generate() }
         <script type="module">
-            import { initCertPage } from '${app.urls.assetHost}/js/pages/cert/index.min.js'
-            initCertPage(${JSON.stringify({ certID, jsdURL: app.urls.certAssetHost })})
+            import { initCertPage } from '${app.urls.assetHost.app}/js/pages/cert/index.min.js'
+            initCertPage(${JSON.stringify({ certID, jsdURL: app.urls.assetHost.cert })})
         </script>
     `
     return base.generate({ title, description, bodyContent })

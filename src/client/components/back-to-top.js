@@ -1,6 +1,6 @@
 export async function initBackToTop() {
     const app = await (await fetch('/assets/data/app.json')).json()
-    if (!window.dom) await import(`${app.urls.aiwebAssetHost}/js/lib/dom.js/dist/dom.min.js`)
+    if (!window.dom) await import(`${app.urls.assetHost.aiweb}/js/lib/dom.js/dist/dom.min.js`)
 
     // Add back-to-top corner button
     const bttBtn = dom.create.elem('div', {

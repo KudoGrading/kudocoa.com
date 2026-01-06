@@ -10,10 +10,12 @@
     "support": "support@kudocoa.com"
   },
   "urls": {
-    "aiwebAssetHost": "https://cdn.jsdelivr.net/gh/adamlui/ai-web-extensions@c83eee7/assets",
-    "certAssetHost": "https://cdn.jsdelivr.net/gh/KudoGrading/certificates@437d7a3",
-    "assetHost": "https://kudocoa.com/assets",
-    "comicAssetHost": "https://cdn.jsdelivr.net/gh/KudoComics/assets@fbc3867",
+    "assetHost": {
+      "aiweb": "https://cdn.jsdelivr.net/gh/adamlui/ai-web-extensions@c83eee7/assets",
+      "app": "https://kudocoa.com/assets",
+      "cert": "https://cdn.jsdelivr.net/gh/KudoGrading/certificates@437d7a3",
+      "comic": "https://cdn.jsdelivr.net/gh/KudoComics/assets@fbc3867"
+    },
     "github": "https://github.com/KudoGrading",
     "web": "https://kudocoa.com"
   }
