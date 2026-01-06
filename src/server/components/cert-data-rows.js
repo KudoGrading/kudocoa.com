@@ -29,12 +29,12 @@ export function generate({ certID, certData }) {
                 displayVal = imgEmbed.generate({ imgURL, alt: displayVal })
             }
 
-        } else if (key == 'coaType' && /certificate/i.test(displayVal)) // render COAs
+        } else if (key == 'coaType' && /\bcertificate\b/i.test(displayVal)) // render COAs
             displayVal = `
                 <div class="coa-type">
                     <div class="coa-img-container">
                         <img src="${app.urls.assetHost.cert}/coas/${certID}/certificate.png" 
-                             alt="Certificate Image" class="coa-img" onerror="this.style.display='none'">
+                             alt="Kudo COA # ${certID}" class="coa-img" onerror="this.style.display='none'">
                     </div>
                     <div>${displayVal}</div>
                 </div>
