@@ -1,7 +1,7 @@
 import * as base from './base.js'
 import * as header from './header.js'
 import * as footer from './footer.js'
-import css from '../styles/css/home.min.css'
+import homeCSS from '../styles/css/home.min.css'
 
 const app = await import('../../../public/data/app.json')
 
@@ -17,5 +17,5 @@ export function generate(devMode) {
             initHomepage()
         </script>
     `
-    return base.generate({ title, description, bodyContent, bodyClass: 'homepage', css })
+    return base.generate({ title, description, bodyContent, bodyClass: 'homepage', homeCSS })
 }
