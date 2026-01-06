@@ -1,6 +1,6 @@
-import css from '../styles/css/global.min.css'
+import globalCSS from '../styles/css/global.min.css'
 
-export function generate({ title = 'Untitled page', description = '', bodyContent = '', bodyClass } = {}) {
+export function generate({ title = 'Untitled page', description = '', bodyContent = '', bodyClass, css = '' } = {}) {
     return `
         <!DOCTYPE html>
         <html lang="en">
@@ -15,7 +15,8 @@ export function generate({ title = 'Untitled page', description = '', bodyConten
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>${title}</title>
             <meta name="description" content="${description}">
-            <style>${css}</style>
+            <style>${globalCSS}</style>
+            ${ css ? `<style>${css}</style>` : '' }
             <link rel="icon" type="image/x-icon" href="https://kudoai.com/assets/images/icons/kudoai/favicon.ico">
         </head>
         <body${ bodyClass ? ` class="${bodyClass}"` : '' }>
