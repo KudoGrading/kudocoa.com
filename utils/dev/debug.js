@@ -13,12 +13,12 @@ else {
         if (err) { console.error('Build failed:', err.message) ; process.exit(1) }
         if (stdout) console.log(stdout)
         if (stderr) console.error('Build warnings:', stderr)
+        console.log(`\n${colors.bg}✓ Build complete!${colors.nc}`)
         startWrangler()
     })
 }
 
 function startWrangler() {
-    if (!config.noBuild) console.log(`\n${colors.bg}✓ Build complete!${colors.nc}`)
     console.log(`${colors.bw}Starting dev server w/ debug mode${ config.noBuild ? ' (no build)' : '' }...${colors.nc}`)
     const wrangler = exec('npx wrangler dev --remote --ip localhost --port 8888')
     wrangler.stdout.on('data', data => {
