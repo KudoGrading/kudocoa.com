@@ -59,7 +59,7 @@ export function zoomImg({ imgURL, title = '', fadeOutDuration = 0.12 }) {
     log.debug('Adding click listeners...')
     overlay.onclick = zoomedImg.onclick = closeModal
     function closeModal() {
-        document.body.style.overflow = ''
+        document.body.style.overflow = '' ; document.body.style.animation = 'revert-layer'
         document.removeEventListener('wheel', preventScroll)
         document.removeEventListener('touchmove', preventScroll)
         overlay.style.backgroundColor = 'rgba(0,0,0,0)'
@@ -71,7 +71,7 @@ export function zoomImg({ imgURL, title = '', fadeOutDuration = 0.12 }) {
     }
 
     log.debug('Preventing scroll...')
-    document.body.style.overflow = 'hidden'
+    document.body.style.overflow = 'hidden' ; document.body.style.animation = 'disabled'
     document.addEventListener('wheel', preventScroll, { passive: false })
     document.addEventListener('touchmove', preventScroll, { passive: false })
     function preventScroll(event) { event.preventDefault() }
