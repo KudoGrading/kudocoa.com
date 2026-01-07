@@ -1,4 +1,4 @@
-export function initDebugMode() { // to append ?debug to all inside links
+export function initDebugMode() { // append ?debug to all app links
     if (!location.search.includes('debug')) return
     console.log('[DEBUG MODE]')
     document.querySelectorAll('a[href]').forEach(link => {
