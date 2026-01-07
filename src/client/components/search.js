@@ -7,7 +7,7 @@ export function init({ input, autofocus = true }) {
         if (!certNum) return alert('Please enter a certificate number')
         if (/\D/.test(certNum)) return alert('Certificate number must contain only digits')
         btn.disabled = true ; btn.textContent = 'Retrieving...'
-        location.href = `${location.origin}/${certNum}${ location.search.includes('debug') ? '?debug' : '' }`
+        location.pathname = `/${certNum}`
     }
     addEventListener('pageshow', () => reset({ input, autofocus }))
 }
