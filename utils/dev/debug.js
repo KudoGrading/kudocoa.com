@@ -23,7 +23,7 @@ function startWrangler() {
     wrangler.stdout.on('data', data => {
         const output = data.toString() ; process.stdout.write(output)
         if (/Ready|http:\/\/localhost:8888/.test(output)) { // server ready
-            console.log(`\n${colors.bg}✓ Server ready! Opening browser with ?debug...${colors.nc}`)
+            console.log(`\n${colors.bg}✓ Server ready! Opening browser in ?debug mode...${colors.nc}`)
             setTimeout(() => open('http://localhost:8888?debug'), 500)
         }
     })
