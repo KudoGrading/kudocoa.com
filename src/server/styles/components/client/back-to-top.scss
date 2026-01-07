@@ -1,8 +1,8 @@
 .btt-btn {
-    position: fixed ; bottom: -13px ; right: 21px ; width: 70px ; height: 220px ; border: none ; cursor: pointer ;
+    position: sticky ; float: right ; bottom: 37px ; right: 50px ; width: 45px ; height: 111px ; border: none ;
     opacity: 0 ; transform: translateY(20px) scaleX(1.5) ; transition: all 0.3s ease ; z-index: 100 ; color: #fff ;
     text-decoration: none ; padding: 0 ; display: flex ; flex-direction: column ; align-items: center ;
-    justify-content: center ; clip-path: polygon(0% 0%, 100% 25%, 100% 75%, 0% 100%) ; gap: 0
+    justify-content: center ; clip-path: polygon(0% 0%, 100% 25%, 100% 75%, 0% 100%) ; gap: 0 ; cursor: pointer
 }
 .btt-btn::before, .btt-btn::after, .btt-btn span {
     content: "^" ; font-size: 50px ; line-height: 0.2 ; transform: scaleY(0.77) ; margin: 0 ; display: block ;
