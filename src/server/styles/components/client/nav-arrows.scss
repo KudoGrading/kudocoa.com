@@ -1,5 +1,5 @@
 .nav-arrows { 
-    position: fixed ; top: 50% ; left: 0 ; width: 100% ; transform: translateY(-50%) ; z-index: 1000 ; display: flex ;
+    position: sticky ; top: 50% ; left: 0 ; width: 100% ; transform: translateY(-50%) ; z-index: 1000 ; display: flex ;
     justify-content: space-between ; padding: 0 20px ; pointer-events: none ; box-sizing: border-box
 }
 .nav-arrow {

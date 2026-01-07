@@ -14,7 +14,7 @@ export function createAppend() {
             <a href="/${ nextCertNum + urlSuffix }" class="nav-arrow right" title="Next Certificate">&lt;</a>
         </div>
     `
-    document.body.insertAdjacentHTML('beforeend', navArrowsHTML)
+    document.body.insertAdjacentHTML('afterbegin', navArrowsHTML)
     document.addEventListener('keydown', ({ key }) => {
         if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) return
         if (key == 'ArrowLeft' && prevCertNum) location.href = `/${ prevCertNum + urlSuffix }`
