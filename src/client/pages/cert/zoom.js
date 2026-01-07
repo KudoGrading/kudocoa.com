@@ -57,8 +57,7 @@ export function zoomImg({ imgURL, title = '', fadeOutDuration = 0.12 }) {
     if (title) zoomedImg.title = title
 
     log.debug('Adding click listeners...')
-    overlay.onclick = zoomedImg.onclick = closeModal
-    function closeModal() {
+    overlay.onclick = zoomedImg.onclick = () => { // close modal + cleanup
         document.body.style.overflow = '' ; document.body.style.animation = 'revert-layer'
         document.removeEventListener('wheel', preventScroll)
         document.removeEventListener('touchmove', preventScroll)
