@@ -13,7 +13,7 @@ export default {
         config.minifyHTML = config.minifyHTML == 'auto' ? !devMode : !!config.minifyHTML
 
         if (/^\/assets\/?$/.test(url.pathname)) // redir assets index to homepage
-            return Response.redirect(`${baseURL}/`, 302)
+            return Response.redirect(`${baseURL}/${url.search}`, 302)
 
         else if (url.pathname.startsWith('/assets/')) { // serve public/ asset
             const assetPath = url.pathname.replace('/assets', ''),
@@ -41,7 +41,7 @@ export default {
                 certID, errMsg: 'Certificate ID too long (max 10 digits!)', status: 400, devMode })), {
                     headers: htmlHeaders, status: 400 })
         if (certInput != certID) // 301 redir e.g. /1 to /0000000001
-            return Response.redirect(`${baseURL}/${certID}`, 301)
+            return Response.redirect(`${baseURL}/${certID}${url.search}`, 301)
 
         // Render cert page
         try {
