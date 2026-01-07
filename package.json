@@ -9,7 +9,7 @@
     "lint:fix-all": "eslint . --fix",
     "build": "npm run build:css && npm run build:js",
     "build:css": "scss-to-css src/server/styles public/css --clone-folders",
-    "build:js": "minify-js src/client public/js --clone-folders",
+    "build:js": "minify-js src/client public/js --clone-folders && minify-js src/shared public/js --clone-folders",
     "debug": "node utils/dev/debug.js",
     "debug:nb": "node utils/dev/debug.js --nb",
     "dev": "npm run build && npm run dev:nb",

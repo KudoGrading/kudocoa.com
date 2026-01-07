@@ -1,4 +1,4 @@
-import { createLogger } from '../lib/log.js'
+import { createLogger } from '../../shared/lib/log.js'
 
 export function camelToTitleCase(str) { // e.g. 'gradedAndAuthenticatedBy' => 'Graded / Authenticated By'
     return str.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()).replace(/\bAnd\b/gi, '/') }

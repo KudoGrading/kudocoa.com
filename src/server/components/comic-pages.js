@@ -1,4 +1,4 @@
-import { createLogger } from '../lib/log.js'
+import { createLogger } from '../../shared/lib/log.js'
 import comicPagesCSS from '../../../public/css/components/server/comic-pages.min.css'
 
 export const css = comicPagesCSS

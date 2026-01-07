@@ -1,4 +1,4 @@
-import { createLogger } from '../../../server/lib/log.js'
+import { createLogger } from '../../../shared/lib/log.js'
 
 export function trackMouseZoom(img, { scale = 1.5 } = {}) {
     const debugMode = location.search.includes('debug'),
