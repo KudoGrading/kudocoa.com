@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "homepage": "https://kudocoa.com",
   "scripts": {
     "prepare": "husky",
