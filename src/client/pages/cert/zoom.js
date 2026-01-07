@@ -1,6 +1,13 @@
+import { createLogger } from '../../../server/lib/log.js'
+
 export function trackMouseZoom(img, { scale = 1.5 } = {}) {
-    if (!img.parentElement) return
+    const debugMode = location.search.includes('debug'),
+          log = createLogger({ prefix: 'trackMouseZoom()', debugMode })
+    if (!img.parentElement) return log.error('img.parentElement not found!')
+
     if (!img.parentElement.classList.contains('zoom-container')) {
+        log.debug('Creating zoom container...')
+
         const container = document.createElement('div') ; container.className = 'zoom-container'
         img.style.cssText = `
             border: none ; padding: 0 ; box-shadow: none ; max-width: 100% ; max-height: 600px ; width: auto ;
@@ -12,6 +19,8 @@ export function trackMouseZoom(img, { scale = 1.5 } = {}) {
         `
         img.parentNode.insertBefore(container, img) ; container.append(img)
     }
+
+    log.debug('Adding mouse listeners...')
     const container = img.parentElement
     container.onmousemove = event => {
         event.preventDefault()
@@ -23,11 +32,15 @@ export function trackMouseZoom(img, { scale = 1.5 } = {}) {
     }
     container.onmouseleave = () => Object.assign(img.style, {
         transform: 'scale(1)', transition: 'transform 0.2s cubic-bezier(0.2, 0.9, 0.3, 1.1)' })
+
+    log.debug('Successfully complete!')
 }
 
 export function zoomImg({ imgURL, title = '', fadeOutDuration = 0.12 }) {
+    const debugMode = location.search.includes('debug'),
+          log = createLogger({ prefix: 'zoomImg()', debugMode })
 
-    // Init overlay
+    log.debug('Initializing zoom overlay...')
     const overlay = document.createElement('div')
     Object.assign(overlay.style, {
         position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0)',
@@ -35,7 +48,7 @@ export function zoomImg({ imgURL, title = '', fadeOutDuration = 0.12 }) {
         transition: `background-color ${fadeOutDuration}s ease-out`
     })
 
-    // Init zoomed img
+    log.debug('Initializing zoomed image...')
     const zoomedImg = new Image() ; zoomedImg.src = imgURL
     Object.assign(zoomedImg.style, {
         maxWidth: '90%', maxHeight: '90%', objectFit: 'contain', opacity: 0, transform: 'scale(0.95) translateY(10px)',
@@ -43,7 +56,7 @@ export function zoomImg({ imgURL, title = '', fadeOutDuration = 0.12 }) {
     })
     if (title) zoomedImg.title = title
 
-    // Add click listeners
+    log.debug('Adding click listeners...')
     overlay.onclick = zoomedImg.onclick = closeModal
     function closeModal() {
         document.body.style.overflow = ''
@@ -57,13 +70,13 @@ export function zoomImg({ imgURL, title = '', fadeOutDuration = 0.12 }) {
         setTimeout(() => overlay.remove(), fadeOutDuration *1000)
     }
 
-    // Prevent scroll
+    log.debug('Preventing scroll...')
     document.body.style.overflow = 'hidden'
     document.addEventListener('wheel', preventScroll, { passive: false })
     document.addEventListener('touchmove', preventScroll, { passive: false })
     function preventScroll(event) { event.preventDefault() }
 
-    // Show modal
+    log.debug('Showing modal...')
     overlay.append(zoomedImg) ; document.body.append(overlay)
     setTimeout(() => {
         overlay.style.backgroundColor = 'rgba(0,0,0,0.9)'
