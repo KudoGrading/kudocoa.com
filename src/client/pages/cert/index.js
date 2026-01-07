@@ -12,11 +12,11 @@ export function initCertPage() {
         const certID = /^\d{10}$/.exec(location.pathname.slice(1))?.[0] ; if (!certID) return
         const app = await (await fetch('/assets/data/app.json')).json()
         search.init({ input: document.querySelector('.search-bar input'), autofocus: false })
-        navArrows.createAppend()
         initDownloadBtns()
         initItemShot()
         document.querySelector('.coa-img')?.addEventListener('click', () => zoomImg({
             title: 'Certificate', imgURL: `${app.urls.assetHost.cert}/coas/${certID}/certificate.png` }))
+        navArrows.createAppend()
         initBackToTop()
     })
 }
