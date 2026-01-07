@@ -13,10 +13,10 @@ export function initCertPage() {
         const app = await (await fetch('/assets/data/app.json')).json()
         search.init({ input: document.querySelector('.search-bar input'), autofocus: false })
         initItemShot()
-        initDownloadBtns()
         document.querySelector('.coa-img')?.addEventListener('click', () => zoomImg({
             title: 'Certificate', imgURL: `${app.urls.assetHost.cert}/coas/${certID}/certificate.png` }))
         navArrows.createAppend()
         initBackToTop()
+        initDownloadBtns()
     })
 }
