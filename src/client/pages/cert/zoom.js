@@ -1,8 +1,7 @@
 import { createLogger } from '../../../shared/lib/log.js'
 
 export function trackMouseZoom(img, { scale = 1.5 } = {}) {
-    const debugMode = location.search.includes('debug'),
-          log = createLogger({ prefix: 'trackMouseZoom()', debugMode })
+    const log = createLogger({ prefix: 'trackMouseZoom()', debugMode: location.search.includes('debug') })
     if (!img.parentElement) return log.error('img.parentElement not found!')
 
     if (!img.parentElement.classList.contains('zoom-container')) {
@@ -37,8 +36,7 @@ export function trackMouseZoom(img, { scale = 1.5 } = {}) {
 }
 
 export function zoomImg({ imgURL, title = '', fadeOutDuration = 0.12 }) {
-    const debugMode = location.search.includes('debug'),
-          log = createLogger({ prefix: 'zoomImg()', debugMode })
+    const log = createLogger({ prefix: 'zoomImg()', debugMode: location.search.includes('debug') })
 
     log.debug('Initializing zoom overlay...')
     const overlay = document.createElement('div')
