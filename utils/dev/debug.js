@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+// Starts dev server in ?debug mode.
+
 import { exec } from 'node:child_process'
 import open from 'open'
 
@@ -19,7 +21,7 @@ else {
 }
 
 function startWrangler() {
-    console.log(`${colors.bw}Starting dev server w/ debug mode${ config.noBuild ? ' (no build)' : '' }...${colors.nc}`)
+    console.log(`${colors.bw}Starting dev server in ?debug mode${ config.noBuild ? ' (no build)' : '' }...${colors.nc}`)
     const wrangler = exec('npx wrangler dev --remote --ip localhost --port 8888')
     wrangler.stdout.on('data', data => {
         const output = data.toString() ; process.stdout.write(output)
