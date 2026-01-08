@@ -17,7 +17,7 @@ export function initDownloadBtns() {
                 document.body.append(a) ; a.click() ; a.remove() ; URL.revokeObjectURL(href)
                 log.debug(`${filetype} download initiated!`)
             } catch (err) {
-                log.debug(`Failed to initiate ${btn} download!`)
+                log.debug(`Failed to initiate ${filetype} download!`)
                 open(url, '_blank')
             }
         }
