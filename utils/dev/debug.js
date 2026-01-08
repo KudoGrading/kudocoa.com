@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { exec } from 'child_process'
+import { exec } from 'node:child_process'
 import open from 'open'
 
 const config = { noBuild: process.argv.some(arg => /--(?:no-?build|nb)/.test(arg)) },
