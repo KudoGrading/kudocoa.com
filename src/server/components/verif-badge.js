@@ -7,7 +7,7 @@ export function generate(certData) {
     Object.entries(certData).forEach(([key, val]) => {
         if (typeof val != 'string') return
         val = val.toLowerCase().replaceAll('&', '+')
-        cnts.commasAndPluses = (val.match(/,|\+/g) || []).length
+        cnts.commasAndPluses = (val.match(/[,+]/g) || []).length
         if (/artwork|painted/i.test(key))  cnts.art += 1 + cnts.commasAndPluses
         if (/sign(?:ed|ature)/i.test(key)) cnts.sig += 1 + cnts.commasAndPluses
     })
