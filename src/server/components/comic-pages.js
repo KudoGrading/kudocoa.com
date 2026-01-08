@@ -24,7 +24,7 @@ export async function generate({ srcURL, debugMode = false }) {
                       domainParts = url.hostname.split('.'),
                       domain = domainParts.length >= 2 ? domainParts.slice(-2).join('.') : url.hostname
                 domainCnts[domain] = (domainCnts[domain] || 0) +1
-            } catch (err) {}
+            } catch (err) { log.debug(`Failed to process ${src}!`) }
         })
         for (const [domain, cnt] of Object.entries(domainCnts))
             log.debug(`Domain ${domain}: ${cnt} images`)
