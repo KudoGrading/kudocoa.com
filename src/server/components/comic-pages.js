@@ -42,7 +42,7 @@ export async function generate({ srcURL, debugMode = false }) {
                       domainParts = url.hostname.split('.'),
                       domain = domainParts.length >= 2 ? domainParts.slice(-2).join('.') : url.hostname
                 return domain == mostCommonDomain
-            } catch (err) { return false }
+            } catch (err) { log.debug(`Failed to extract ${src}!`) ; return false }
         }).slice(1) // skip 1st img (cover)
 
         log.debug(`${interiorPageURLs.length} page URLs extracted!`)
