@@ -1,6 +1,4 @@
-import verifBadgeCSS from '../../../public/css/components/server/verif-badge.min.css'
-
-export const css = verifBadgeCSS
+export { default as css } from '../../../public/css/components/server/verif-badge.min.css'
 
 export function generate(certData) {
 

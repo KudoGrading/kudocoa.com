@@ -1,10 +1,9 @@
 import * as string from '../lib/string.js'
 import * as imgEmbed from './img-embed.js'
-import certDataRowsCSS from '../../../public/css/components/server/cert-data-rows.min.css'
 
 const app = await import('../../../public/data/app.json')
 
-export const css = certDataRowsCSS
+export { default as css } from '../../../public/css/components/server/cert-data-rows.min.css'
 
 export function generate({ certID, certData, debugMode }) {
     const dataRows = []

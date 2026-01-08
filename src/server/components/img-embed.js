@@ -1,6 +1,4 @@
-import imgEmbedCSS from '../../../public/css/components/server/img-embed.min.css'
-
-export const css = imgEmbedCSS
+export { default as css } from '../../../public/css/components/server/img-embed.min.css'
 
 export function generate({ imgURL, alt = '' }) {
     return `

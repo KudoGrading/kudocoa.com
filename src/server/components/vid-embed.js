@@ -1,6 +1,4 @@
-import vidEmbedCSS from '../../../public/css/components/server/vid-embed.min.css'
-
-export const css = vidEmbedCSS
+export { default as css } from '../../../public/css/components/server/vid-embed.min.css'
 
 export function generate({ vidURL, vidURLs = [] }) {
     const url = vidURL || vidURLs[Math.floor(Math.random() * vidURLs.length)]

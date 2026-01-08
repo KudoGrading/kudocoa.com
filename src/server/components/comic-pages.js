@@ -1,7 +1,6 @@
 import { createLogger } from '../../shared/lib/log.js'
-import comicPagesCSS from '../../../public/css/components/server/comic-pages.min.css'
 
-export const css = comicPagesCSS
+export { default as css } from '../../../public/css/components/server/comic-pages.min.css'
 
 export async function generate({ srcURL, debugMode = false }) {
     const log = createLogger({ prefix: 'comicPages.generate()', debugMode }),
