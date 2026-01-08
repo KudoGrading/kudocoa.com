@@ -14,6 +14,8 @@
     "debug:nb": "node utils/dev/debug.js --nb",
     "dev": "npm run build && npm run dev:nb",
     "dev:nb": "wrangler dev --remote --ip localhost --port 8888",
+    "dev:local": "npm run build && npm run dev:local-nb",
+    "dev:local-nb": "wrangler dev --local --ip localhost --port 8888",
     "deploy": "npm run build && wrangler deploy",
     "deploy:nb": "wrangler deploy"
   },
