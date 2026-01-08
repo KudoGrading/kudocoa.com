@@ -6,7 +6,7 @@ export function generate(certData) {
     const cnts = { art: 0, sig: 0 }
     Object.entries(certData).forEach(([key, val]) => {
         if (typeof val != 'string') return
-        val = val.toLowerCase().replace(/&/g, '+')
+        val = val.toLowerCase().replaceAll('&', '+')
         cnts.commasAndPluses = (val.match(/,|\+/g) || []).length
         if (/artwork|painted/i.test(key))  cnts.art += 1 + cnts.commasAndPluses
         if (/sign(?:ed|ature)/i.test(key)) cnts.sig += 1 + cnts.commasAndPluses
