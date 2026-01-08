@@ -71,7 +71,6 @@ export function zoomImg({ imgURL, title = '', fadeOutDuration = 0.12 }) {
     document.body.style.overflow = 'hidden' ; document.body.style.animation = 'disabled'
     document.addEventListener('wheel', preventScroll, { passive: false })
     document.addEventListener('touchmove', preventScroll, { passive: false })
-    function preventScroll(event) { event.preventDefault() }
 
     log.debug('Showing modal...')
     overlay.append(zoomedImg) ; document.body.append(overlay)
@@ -81,3 +80,5 @@ export function zoomImg({ imgURL, title = '', fadeOutDuration = 0.12 }) {
         zoomedImg.style.transform = 'scale(1) translateY(0)'
     }, 10)
 }
+
+function preventScroll(event) { event.preventDefault() }
