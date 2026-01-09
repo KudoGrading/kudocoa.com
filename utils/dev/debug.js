@@ -7,8 +7,7 @@ import { spawn } from 'node:child_process'
 import open from 'open'
 
 const config = {
-    ip: 'localhost',
-    port: 8888,
+    env: { dev: { ip: 'localhost', port: 8888 }},
     noBuild: process.argv.some(arg => /--(?:no-?build|nb)/.test(arg))
 }
 const colors = { bw: '\x1b[1;97m', bg: '\x1b[1;92m', nc: '\x1b[0m' }
