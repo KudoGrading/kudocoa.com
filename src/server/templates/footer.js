@@ -1,7 +1,7 @@
 export function generate() {
     return `
         <footer>
-            <div>© ${ new Date().getFullYear() } ${app.names.long.toUpperCase()}</div>
+            <div>© ${ new Date().getFullYear() } ${app.names.long}</div>
             <div class="footer-links">
                 <a href="/">Home</a>
                 <span class="footer-separator"></span>
