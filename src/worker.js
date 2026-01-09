@@ -2,11 +2,7 @@ import * as headers from './server/lib/headers.js'
 import * as html from './server/lib/html.js'
 
 globalThis.app = await import('../public/data/app.json')
-globalThis.config = {
-    env: { dev: { ip: 'localhost', port: 8888 }},
-    cacheDuration: 0, // int (secs) or 'auto' (6h if non-video page, 0s otherwise)
-    minifyHTML: 'auto' // <true|false> or 'auto' (false if dev mode)
-}
+import { default as config } from '../app.config.mjs' ; app.config = config
 
 export default {
     async fetch(req, env) {
