@@ -13,12 +13,12 @@ import navArrowsCSS from '../../../public/css/components/client/nav-arrows.min.c
 
 const app = await import('../../../public/data/app.json')
 
-export async function generate({ certID, certData, devMode, debugMode }) {
+export async function generate({ certID, certData, config, devMode, debugMode }) {
     certData = typeof certData == 'string' ? JSON.parse(certData) : certData
 
     // Init URLs
     const { urls } = app
-    urls.assetHost.app = devMode ? 'http://localhost:8888/assets' : urls.assetHost.app
+    urls.assetHost.app = devMode ? `http://${config.ip}:${config.port}` : urls.assetHost.app
     urls.vid = certData.vidURLs
         || certData.trailerURL || certData.videoURL || certData.vidURL || certData.youtubeURL || certData.ytURL
     const vidEmbedConfig = Array.isArray(urls.vid) ? { vidURLs: urls.vid }
