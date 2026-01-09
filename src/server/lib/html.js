@@ -1,3 +1,8 @@
+export function process(html) { // based on config
+    const toMinify = app.config.minifyHTML == 'auto' ? !app.devMode : !!app.config.minifyHTML
+    return toMinify ? minify(html) : html
+}
+
 function minify(html) {
 
     // Extract scripts to preserve from minification
@@ -22,9 +27,4 @@ function minify(html) {
         finalHTML = finalHTML.replace(`<!-- SCRIPT_PLACEHOLDER_${idx} -->`, script))
 
     return finalHTML
-}
-
-export function process(html) { // based on config
-    const toMinify = app.config.minifyHTML == 'auto' ? !app.devMode : !!app.config.minifyHTML
-    return toMinify ? minify(html) : html
 }
