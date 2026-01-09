@@ -12,7 +12,6 @@ export default {
               devMode = env.ENVIRONMENT == 'development',
               debugMode = url.searchParams.has('debug'),
               baseURL = devMode ? `http://${config.ip}:${config.port}` : url.origin
-        config.minifyHTML = config.minifyHTML == 'auto' ? !devMode : !!config.minifyHTML
 
         if (/^\/assets\/?$/.test(url.pathname)) // redir assets index to homepage
             return Response.redirect(`${baseURL}/${url.search}`, 302)
@@ -66,6 +65,8 @@ export default {
         }
 
         async function processHTML(html) {
-            return config.minifyHTML ? (await import('./server/lib/html.js')).minify(html) : html }
+            const toMinify = config.minifyHTML == 'auto' ? !devMode : !!config.minifyHTML
+            return toMinify ? (await import('./server/lib/html.js')).minify(html) : html
+        }
     }
 }
