@@ -8,7 +8,6 @@ const config = {
 export default {
     async fetch(req, env) {
         const url = new URL(req.url),
-              headers = { html: { 'Content-Type': 'text/html' }},
               devMode = env.ENVIRONMENT == 'development',
               debugMode = url.searchParams.has('debug'),
               baseURL = devMode ? `http://${config.ip}:${config.port}` : url.origin
@@ -26,7 +25,8 @@ export default {
 
         } else if (url.pathname == '/') { // render homepage
             const homepage = await import('./server/templates/home.js')
-            return new Response(await processHTML(homepage.generate({ config, devMode })), { headers: headers.html })
+            return new Response(
+                await processHTML(homepage.generate({ config, devMode })), { headers: createHeaders({ type: 'html' })})
         }
 
         // Validate cert #
@@ -35,12 +35,12 @@ export default {
         if (/\D/.test(certInput)) // 400 error
             return new Response(await processHTML(errPage.generate({
                 certID: certInput, errMsg: 'Invalid certificate ID (numbers only!)', status: 400, config, devMode })), {
-                    headers: headers.html, status: 400 })
+                    headers: createHeaders({ type: 'html' }), status: 400 })
         const certID = certInput.padStart(10, '0')
         if (certID.length > 10) // 400 error
             return new Response(await processHTML(errPage.generate({
                 certID, errMsg: 'Certificate ID too long (max 10 digits!)', status: 400, config, devMode })), {
-                    headers: headers.html, status: 400 })
+                    headers: createHeaders({ type: 'html' }), status: 400 })
         if (certInput != certID) // 301 redir e.g. /1 to /0000000001
             return Response.redirect(`${baseURL}/${certID}${url.search}`, 301)
 
@@ -50,21 +50,27 @@ export default {
             if (!certData) // 404 error
                 return new Response(await processHTML(errPage.generate({
                     certID, errMsg: 'Not found', status: 404, config, devMode })), {
-                        headers: headers.html, status: 404 })
-            const certPage = await import('./server/templates/cert.js'),
-                  hasVideo = /\\"(?:trailer|vide?o?|youtube|yt)URLs\\"/.test(JSON.stringify(certData))
-            headers.cache = { 'Cache-Control':
-                (config.cacheDuration == 'auto' && hasVideo || config.cacheDuration == 0) ?
-                    'no-store, must-revalidate' : `public, max-age=${
-                        config.cacheDuration == 'auto' ? 21600 /* 6h */ : config.cacheDuration || 0 }`
-            }
+                        headers: createHeaders({ type: 'html' }), status: 404 })
+            const certPage = await import('./server/templates/cert.js')
             return new Response(await processHTML(await certPage.generate({
                 certID, certData, config, devMode, debugMode })), {
-                    headers: { ...headers.html, ...headers.cache }})
+                    headers: { ...createHeaders({ type: 'html' }), ...createHeaders({ type: 'cache', certData })}})
         } catch (err) { // 500 error
             return new Response(await processHTML(errPage.generate({
                 errMsg: `System error: ${err.message}`, status: 500, config, devMode })), {
-                    headers: headers.html, status: 500 })
+                    headers: createHeaders({ type: 'html' }), status: 500 })
+        }
+
+        function createHeaders({ type, certData }) {
+            if (type == 'html') return { 'Content-Type': 'text/html' }
+            else if (type == 'cache') {
+                const hasVideo = /\\"(?:trailer|vide?o?|youtube|yt)URLs\\"/.test(JSON.stringify(certData))
+                return { 'Cache-Control':
+                    (config.cacheDuration == 'auto' && hasVideo || config.cacheDuration == 0) ?
+                        'no-store, must-revalidate' : `public, max-age=${
+                            config.cacheDuration == 'auto' ? 21600 /* 6h */ : config.cacheDuration || 0 }`
+                }
+            } else return console.error(`createHeaders() 'type' arg must be <cache|html>`)
         }
 
         async function processHTML(html) {
