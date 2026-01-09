@@ -18,8 +18,8 @@ if (config.noBuild) startWrangler()
 else {
     console.log(`${colors.bw}Building assets...${colors.nc}`)
     const buildProcess = spawn('npm.cmd', ['run', 'build'], { shell: true })
-    buildProcess.stdout.on('data', data => process.stdout.write(data.toString()))
-    buildProcess.stderr.on('data', data => process.stderr.write(data.toString()))
+    buildProcess.stdout.on('data', data => process.stdout.write(data))
+    buildProcess.stderr.on('data', data => process.stderr.write(data))
     buildProcess.on('close', code => {
         if (code == 0) {
             console.log(`\n${colors.bg}✓ Build complete!${colors.nc}`)
@@ -35,15 +35,15 @@ function startWrangler() {
     console.log(`${colors.bw}Starting dev server in ?debug mode${ config.noBuild ? ' (no build)' : '' }...${colors.nc}`)
     const wrangler = spawn(
         'npx.cmd',
-        ['wrangler', 'dev', `--${ config.local ? 'local' : 'remote' }`, '--ip', dev.ip, '--port', dev.port.toString()],
+        ['wrangler', 'dev', `--${ config.local ? 'local' : 'remote' }`, '--ip', dev.ip, '--port', dev.port],
         { shell: true }
     )
     wrangler.stdout.on('data', data => {
-        process.stdout.write(data.toString())
+        process.stdout.write(data)
         if (new RegExp(`Ready|http://${dev.ip}:${dev.port}`).test(data)) { // server ready
             console.log(`\n${colors.bg}✓ Server ready! Opening browser in ?debug mode...${colors.nc}`)
             open(`http://${dev.ip}:${dev.port}?debug`)
         }
     })
-    wrangler.stderr.on('data', data => process.stderr.write(data.toString()))
+    wrangler.stderr.on('data', data => process.stderr.write(data))
 }
