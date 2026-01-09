@@ -53,8 +53,8 @@ export default {
                         headers: headers.html, status: 404 })
             const certPage = await import('./server/templates/cert.js'),
                   hasVideo = /\\"(?:trailer|vide?o?|youtube|yt)URLs\\"/.test(JSON.stringify(certData))
-            headers.cache = { 'Cache-Control': (
-                config.cacheDuration == 'auto' && hasVideo || config.cacheDuration == 0 ) ?
+            headers.cache = { 'Cache-Control':
+                (config.cacheDuration == 'auto' && hasVideo || config.cacheDuration == 0) ?
                     'no-store, must-revalidate' : `public, max-age=${
                         config.cacheDuration == 'auto' ? 21600 /* 6h */ : config.cacheDuration || 0 }`
             }
