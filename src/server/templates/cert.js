@@ -11,12 +11,11 @@ import bttCSS from '../../../public/css/components/client/back-to-top.min.css'
 import certCSS from '../../../public/css/pages/cert.min.css'
 import navArrowsCSS from '../../../public/css/components/client/nav-arrows.min.css'
 
-export async function generate({ certID, certData, devMode, debugMode }) {
+export async function generate({ certID, certData, debugMode }) {
     certData = typeof certData == 'string' ? JSON.parse(certData) : certData
 
     // Init URLs
     const { urls } = app
-    urls.assetHost.app = devMode ? `http://${config.ip}:${config.port}` : urls.assetHost.app
     urls.vid = certData.vidURLs
         || certData.trailerURL || certData.videoURL || certData.vidURL || certData.youtubeURL || certData.ytURL
     const vidEmbedConfig = Array.isArray(urls.vid) ? { vidURLs: urls.vid }
