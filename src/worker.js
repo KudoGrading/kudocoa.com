@@ -1,13 +1,13 @@
 import * as headers from './server/lib/headers.js'
 import * as html from './server/lib/html.js'
+import * as errPage from './server/templates/error.js'
 
 globalThis.app = await import('../public/data/app.json')
 import { default as config } from '../app.config.mjs' ; app.config = config
 
 export default {
     async fetch(req, env) {
-        const reqURL = new URL(req.url),
-              errPage = await import('./server/templates/error.js')
+        const reqURL = new URL(req.url)
         app.devMode = env.ENVIRONMENT == 'development'
         app.debugMode = reqURL.searchParams.has('debug')
         const baseURL = app.devMode ? `http://${config.env.dev.ip}:${config.env.dev.port}` : reqURL.origin
