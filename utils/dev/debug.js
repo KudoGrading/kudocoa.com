@@ -2,7 +2,7 @@
 
 // Starts dev server in ?debug mode.
 
-import { exec } from 'node:child_process'
+import { spawn } from 'node:child_process'
 import open from 'open'
 
 const config = {
@@ -15,18 +15,25 @@ const colors = { bw: '\x1b[1;97m', bg: '\x1b[1;92m', nc: '\x1b[0m' }
 if (config.noBuild) startWrangler()
 else {
     console.log(`${colors.bw}Building assets...${colors.nc}`)
-    exec('npm run build', (err, stdout, stderr) => {
-        if (err) { console.error('Build failed:', err.message) ; process.exit(1) }
-        if (stdout) console.log(stdout)
-        if (stderr) console.error('Build warnings:', stderr)
-        console.log(`\n${colors.bg}✓ Build complete!${colors.nc}`)
-        startWrangler()
+    const buildProcess = spawn('npm.cmd', ['run', 'build'], { shell: true })
+    buildProcess.stdout.on('data', data => process.stdout.write(data.toString()))
+    buildProcess.stderr.on('data', data => process.stderr.write(data.toString()))
+    buildProcess.on('close', code => {
+        if (code != 0) {
+            console.error('Build failed with exit code:', code)
+            process.exit(1)
+        } else {
+            console.log(`\n${colors.bg}✓ Build complete!${colors.nc}`)
+            startWrangler()
+        }
     })
 }
 
 function startWrangler() {
     console.log(`${colors.bw}Starting dev server in ?debug mode${ config.noBuild ? ' (no build)' : '' }...${colors.nc}`)
-    const wrangler = exec(`npx wrangler dev --remote --ip ${config.ip} --port ${config.port}`)
+    const wrangler = spawn(
+        'npx.cmd', ['wrangler', 'dev', '--remote', '--ip', config.ip, '--port', config.port.toString()], { shell: true }
+    )
     wrangler.stdout.on('data', data => {
         const output = data.toString() ; process.stdout.write(output)
         if (new RegExp(`Ready|http://${config.ip}:${config.port}`).test(output)) { // server ready
