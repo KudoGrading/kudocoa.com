@@ -20,15 +20,16 @@ export default {
             const assetPath = reqURL.pathname
                 .replace('/assets', '') // since env.ASSETS bound to public/ root
                 .replace(/(?<!\.min)\.js$/i, '.min.js') // re-write .js as .min.js
-            const resp = await env.ASSETS.fetch(new Request(new URL(assetPath, req.url), req))
-            if (resp.status == 404) // show error
+            const assetResp = await env.ASSETS.fetch(new Request(new URL(assetPath, req.url), req))
+            if (assetResp.status == 404) // show error
                 return new Response(
                     html.process(errPage.generate({
                         errMsg: `<strong>${reqURL.pathname.split('/').pop()}</strong> not found!`, status: 404 })),
                     { headers: headers.create({ type: 'html' }), status: 404 }
                 )
             else // serve asset
-                return new Response(resp.body, { status: resp.status, headers: { ...Object.fromEntries(resp.headers) }})
+                return new Response(
+                    assetResp.body, { status: assetResp.status, headers: { ...Object.fromEntries(assetResp.headers) }})
 
         } else if (/\.\w{1,5}$/.test(reqURL.pathname)) { // 404 error /file.ext not found
             return new Response(
