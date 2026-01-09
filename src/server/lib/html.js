@@ -23,3 +23,8 @@ export function minify(html) {
 
     return finalHTML
 }
+
+export function process({ html, devMode }) { // based on config
+    const toMinify = config.minifyHTML == 'auto' ? !devMode : !!config.minifyHTML
+    return toMinify ? minify(html) : html
+}
