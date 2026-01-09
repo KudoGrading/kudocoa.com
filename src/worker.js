@@ -17,7 +17,8 @@ export default {
             return Response.redirect(`${baseURL}/${reqURL.search}`, 302)
 
         else if (reqURL.pathname.startsWith('/assets/')) { // serve public/ asset
-            const assetPath = reqURL.pathname.replace('/assets', '')
+            const assetPath = reqURL.pathname
+                .replace('/assets', '') // since env.ASSETS bound to public/ root
                 .replace(/(?<!\.min)\.js$/i, '.min.js') // re-write .js as .min.js
             const resp = await env.ASSETS.fetch(new Request(new URL(assetPath, req.url), req))
             if (resp.status == 404) // show error
