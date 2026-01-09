@@ -4,8 +4,8 @@ import * as html from './server/lib/html.js'
 globalThis.config = {
     ip: 'localhost',
     port: 8888,
-    cacheDuration: 0, // int (secs) or 'auto'
-    minifyHTML: 'auto' // <true|false> or 'auto'
+    cacheDuration: 0, // int (secs) or 'auto' (6h if non-video page, 0s otherwise)
+    minifyHTML: 'auto' // <true|false> or 'auto' (true if dev mode, false otherwise)
 }
 
 export default {
