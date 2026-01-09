@@ -58,7 +58,7 @@ export default {
                 certID, certData, devMode, debugMode })), { headers: { ...htmlHeaders, ...cacheHeaders }})
         } catch (err) { // 500 error
             return new Response(await processHTML(errPage.generate({
-                errMsg: 'System error: ' + err.message, status: 500, devMode })), { headers: htmlHeaders, status: 500 })
+                errMsg: `System error: ${err.message}`, status: 500, devMode })), { headers: htmlHeaders, status: 500 })
         }
 
         async function processHTML(html) {
