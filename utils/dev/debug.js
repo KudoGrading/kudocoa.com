@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
-// Starts dev server in ?debug mode.
+// Starts dev server in ?debug mode
+
+// NOTE: Pass --<no-build|nb> to skip build JS/CSS resources
 
 import { spawn } from 'node:child_process'
 import open from 'open'
