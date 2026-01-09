@@ -7,7 +7,7 @@ export function generate(certData) {
     for (const [key, val] of Object.entries(certData)) {
         if (!/Notes$/i.test(key) || !val) continue
         let adj = camelToTitleCase(key.replace(/Notes$/, ''))
-        if (adj.endsWith('s')) adj = adj.slice(0, -1) + `'s`
+        if (adj.endsWith('s')) adj = `${adj.slice(0, -1)}'s`
         notes.push({ label: `${adj} Notes`, content: val })
     }
     return !notes.length ? '' : notes.map(note => `
