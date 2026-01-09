@@ -18,10 +18,11 @@ export async function generate({ certID, certData, devMode, debugMode }) {
     // Init URLs
     const { urls } = app
     urls.assetHost.app = devMode ? 'http://localhost:8888/assets' : urls.assetHost.app
-    const vidURL = certData.trailerURL || certData.videoURL || certData.vidURL || certData.youtubeURL || certData.ytURL
-    const { vidURLs } = certData
-    const vidEmbedConfig = vidURLs ? { vidURLs } : vidURL ? { vidURL } : null
-
+    urls.vid = certData.vidURLs
+        || certData.trailerURL || certData.videoURL || certData.vidURL || certData.youtubeURL || certData.ytURL
+    const vidEmbedConfig = Array.isArray(urls.vid) ? { vidURLs: urls.vid }
+                         : typeof urls.vid == 'string' ? { vidURL: urls.vid }
+                         : null
     // Init title
     const itemYearMatch = (certData.coverDate || certData.publishDate)?.match(/\d{4}/)
     const itemYear = itemYearMatch ? ` (${itemYearMatch[0]})` : ''
