@@ -39,8 +39,8 @@ function startWrangler() {
         { shell: true }
     )
     wrangler.stdout.on('data', data => {
-        const output = data.toString() ; process.stdout.write(output)
-        if (new RegExp(`Ready|http://${dev.ip}:${dev.port}`).test(output)) { // server ready
+        process.stdout.write(data.toString())
+        if (new RegExp(`Ready|http://${dev.ip}:${dev.port}`).test(data)) { // server ready
             console.log(`\n${colors.bg}✓ Server ready! Opening browser in ?debug mode...${colors.nc}`)
             open(`http://${dev.ip}:${dev.port}?debug`)
         }
