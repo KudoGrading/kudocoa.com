@@ -16,8 +16,9 @@ export default {
             return Response.redirect(`${baseURL}/${reqURL.search}`, 302)
 
         else if (reqURL.pathname.startsWith('/assets/')) { // serve public/ asset
-            const assetPath = reqURL.pathname.replace('/assets', '').replace(/(?<!\.min)\.js$/i, '.min.js'),
-                  resp = await env.ASSETS.fetch(new Request(new URL(assetPath, req.url), req))
+            const assetPath = reqURL.pathname.replace('/assets', '')
+                .replace(/(?<!\.min)\.js$/i, '.min.js') // re-write .js as .min.js
+            const resp = await env.ASSETS.fetch(new Request(new URL(assetPath, req.url), req))
             return new Response(resp.body, { status: resp.status, headers: { ...Object.fromEntries(resp.headers) }})
 
         } else if (reqURL.pathname == '/') { // render homepage
