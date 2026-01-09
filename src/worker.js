@@ -12,7 +12,7 @@ export default {
         const baseURL = app.devMode ? `http://${config.env.dev.ip}:${config.env.dev.port}` : reqURL.origin
         app.urls.assetHost.app = app.devMode ? baseURL : app.urls.assetHost.app
 
-        if (/^\/assets\/?$/.test(reqURL.pathname)) // redir assets index to homepage
+        if (/^\/assets\/?$/.test(reqURL.pathname)) // 302 redir assets index to homepage
             return Response.redirect(`${baseURL}/${reqURL.search}`, 302)
 
         else if (reqURL.pathname.startsWith('/assets/')) { // serve public/ asset
