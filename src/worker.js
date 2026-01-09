@@ -6,7 +6,8 @@ import { default as config } from '../app.config.mjs' ; app.config = config
 
 export default {
     async fetch(req, env) {
-        const reqURL = new URL(req.url)
+        const reqURL = new URL(req.url),
+              errPage = await import('./server/templates/error.js')
         app.devMode = env.ENVIRONMENT == 'development'
         app.debugMode = reqURL.searchParams.has('debug')
         const baseURL = app.devMode ? `http://${config.env.dev.ip}:${config.env.dev.port}` : reqURL.origin
@@ -19,7 +20,20 @@ export default {
             const assetPath = reqURL.pathname.replace('/assets', '')
                 .replace(/(?<!\.min)\.js$/i, '.min.js') // re-write .js as .min.js
             const resp = await env.ASSETS.fetch(new Request(new URL(assetPath, req.url), req))
+            if (resp.status == 404)
+                return new Response(
+                    html.process(errPage.generate({
+                        errMsg: `<strong>${reqURL.pathname.split('/').pop()}</strong> not found!`, status: 404 })),
+                    { headers: headers.create({ type: 'html' }), status: 404 }
+                )
             return new Response(resp.body, { status: resp.status, headers: { ...Object.fromEntries(resp.headers) }})
+
+        } else if (/\.\w{1,5}$/.test(reqURL.pathname)) { // 404 file not found
+            return new Response(
+                html.process(errPage.generate({
+                    errMsg: `<strong>${reqURL.pathname.slice(1)}</strong> not found!`, status: 404 })),
+                { headers: headers.create({ type: 'html' }), status: 404 }
+            )
 
         } else if (reqURL.pathname == '/') { // render homepage
             const homepage = await import('./server/templates/home.js')
@@ -27,8 +41,7 @@ export default {
         }
 
         // Validate cert #
-        const certInput = reqURL.pathname.split('/')[1],
-              errPage = await import('./server/templates/error.js')
+        const certInput = reqURL.pathname.split('/')[1]
         if (/\D/.test(certInput)) // 400 error
             return new Response(
                 html.process(errPage.generate({
