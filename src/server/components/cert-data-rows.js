@@ -38,7 +38,6 @@ export function generate({ certID, certData }) {
                 </div>
                 <style>${imgEmbed.css}</style>
             `
-
         dataRows.push(`
             <div class="detail-row">
                 <div class="detail-label">${label}:</div>
