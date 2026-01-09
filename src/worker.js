@@ -66,7 +66,7 @@ export default {
             const certData = await env.COAS_KV.get(certID)
             if (!certData) // 404 error
                 return new Response(
-                    html.process(errPage.generate({ certID, errMsg: 'Not found', status: 404 })),
+                    html.process(errPage.generate({ certID, errMsg: 'Not found!', status: 404 })),
                     { headers: headers.create({ type: 'html' }), status: 404 }
                 )
             const certPage = await import('./server/templates/cert.js')
