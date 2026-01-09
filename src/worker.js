@@ -20,7 +20,7 @@ export default {
             const assetPath = reqURL.pathname.replace('/assets', '')
                 .replace(/(?<!\.min)\.js$/i, '.min.js') // re-write .js as .min.js
             const resp = await env.ASSETS.fetch(new Request(new URL(assetPath, req.url), req))
-            if (resp.status == 404)
+            if (resp.status == 404) // show error
                 return new Response(
                     html.process(errPage.generate({
                         errMsg: `<strong>${reqURL.pathname.split('/').pop()}</strong> not found!`, status: 404 })),
@@ -29,7 +29,7 @@ export default {
             else // serve asset
                 return new Response(resp.body, { status: resp.status, headers: { ...Object.fromEntries(resp.headers) }})
 
-        } else if (/\.\w{1,5}$/.test(reqURL.pathname)) { // 404 /file.ext not found
+        } else if (/\.\w{1,5}$/.test(reqURL.pathname)) { // 404 error /file.ext not found
             return new Response(
                 html.process(errPage.generate({
                     errMsg: `<strong>${reqURL.pathname.slice(1)}</strong> not found!`, status: 404 })),
