@@ -11,30 +11,30 @@ globalThis.config = {
 
 export default {
     async fetch(req, env) {
-        const url = new URL(req.url)
+        const reqURL = new URL(req.url)
         app.devMode = env.ENVIRONMENT == 'development'
-        app.debugMode = url.searchParams.has('debug')
-        const baseURL = app.devMode ? `http://${config.ip}:${config.port}` : url.origin
+        app.debugMode = reqURL.searchParams.has('debug')
+        const baseURL = app.devMode ? `http://${config.ip}:${config.port}` : reqURL.origin
         app.urls.assetHost.app = app.devMode ? baseURL : app.urls.assetHost.app
 
-        if (/^\/assets\/?$/.test(url.pathname)) // redir assets index to homepage
-            return Response.redirect(`${baseURL}/${url.search}`, 302)
+        if (/^\/assets\/?$/.test(reqURL.pathname)) // redir assets index to homepage
+            return Response.redirect(`${baseURL}/${reqURL.search}`, 302)
 
-        else if (url.pathname.startsWith('/assets/')) { // serve public/ asset
-            const assetPath = url.pathname.replace('/assets', '').replace(/(?<!\.min)\.js$/i, '.min.js'),
+        else if (reqURL.pathname.startsWith('/assets/')) { // serve public/ asset
+            const assetPath = reqURL.pathname.replace('/assets', '').replace(/(?<!\.min)\.js$/i, '.min.js'),
                   resp = await env.ASSETS.fetch(new Request(new URL(assetPath, req.url), req)),
-                  fileExt = url.pathname.split('.').pop().toLowerCase(),
+                  fileExt = reqURL.pathname.split('.').pop().toLowerCase(),
                   contentType = (await import('../public/data/mime-types.json'))[fileExt] || 'application/octet-stream'
             return new Response(resp.body, {
                 status: resp.status, headers: { 'Content-Type': contentType, ...Object.fromEntries(resp.headers) }})
 
-        } else if (url.pathname == '/') { // render homepage
+        } else if (reqURL.pathname == '/') { // render homepage
             const homepage = await import('./server/templates/home.js')
             return new Response(html.process(homepage.generate()), { headers: headers.create({ type: 'html' })})
         }
 
         // Validate cert #
-        const certInput = url.pathname.split('/')[1],
+        const certInput = reqURL.pathname.split('/')[1],
               errPage = await import('./server/templates/error.js')
         if (/\D/.test(certInput)) // 400 error
             return new Response(
@@ -50,7 +50,7 @@ export default {
                 { headers: headers.create({ type: 'html' }), status: 400 }
             )
         if (certInput != certID) // 301 redir e.g. /1 to /0000000001
-            return Response.redirect(`${baseURL}/${certID}${url.search}`, 301)
+            return Response.redirect(`${baseURL}/${certID}${reqURL.search}`, 301)
 
         // Render cert page
         try {
