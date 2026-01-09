@@ -3,7 +3,7 @@ import * as imgEmbed from './img-embed.js'
 
 export { default as css } from '../../../public/css/components/server/cert-data-rows.min.css'
 
-export function generate({ certID, certData, debugMode }) {
+export function generate({ certID, certData }) {
     const dataRows = [], { urls } = app
     for (const [key, val] of Object.entries(certData)) {
         if (/(?:Notes|URLs?)$/.test(key)) continue
@@ -11,7 +11,7 @@ export function generate({ certID, certData, debugMode }) {
         const label = string.camelToTitleCase(key) ; let displayVal = val
 
         if (/(?:^d|[a-z]D)ate(?:[A-Z]|$)/.test(key)) // format date
-            displayVal = string.formatDate(val, { debugMode })
+            displayVal = string.formatDate(val)
 
         else if (key == 'publisher') { // replace publisher w/ logo
             const publisherSlug = string.toHyphenCase(val),

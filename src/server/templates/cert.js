@@ -11,7 +11,7 @@ import bttCSS from '../../../public/css/components/client/back-to-top.min.css'
 import certCSS from '../../../public/css/pages/cert.min.css'
 import navArrowsCSS from '../../../public/css/components/client/nav-arrows.min.css'
 
-export async function generate({ certID, certData, debugMode }) {
+export async function generate({ certID, certData }) {
     certData = typeof certData == 'string' ? JSON.parse(certData) : certData
 
     // Init URLs
@@ -49,11 +49,11 @@ export async function generate({ certID, certData, debugMode }) {
         </div>
         <div class="cert-body">
             <div class="item-shot" id="certImg"><div class="item-placeholder">Loading image...</div></div>
-            <div class="cert-details">${certDataRows.generate({ certID, certData, debugMode })}</div>
+            <div class="cert-details">${certDataRows.generate({ certID, certData })}</div>
         </div>
         ${ noteBoxes.generate(certData) }
         ${ vidEmbedConfig ? vidEmbed.generate(vidEmbedConfig) : '' }
-        ${ certData.interiorURL ? await comicPages.generate({ srcURL: certData.interiorURL, debugMode }) : '' }
+        ${ certData.interiorURL ? await comicPages.generate(certData.interiorURL) : '' }
         ${ footer.generate() }
         <script type="module">
             import { initCertPage } from '${urls.assetHost.app}/js/pages/cert/index.min.js'
@@ -61,7 +61,7 @@ export async function generate({ certID, certData, debugMode }) {
         </script>
     `
     return base.generate({
-        title, description, bodyContent, debugMode,
+        title, description, bodyContent,
         css:
             bttCSS + certCSS + navArrowsCSS // client components
           + certDataRows.css + comicPages.css + noteBoxes.css + verifBadge.css + vidEmbed.css // server components

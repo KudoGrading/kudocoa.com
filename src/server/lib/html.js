@@ -24,7 +24,7 @@ function minify(html) {
     return finalHTML
 }
 
-export function process({ html, devMode }) { // based on config + devMode
-    const toMinify = config.minifyHTML == 'auto' ? !devMode : !!config.minifyHTML
+export function process(html) { // based on config
+    const toMinify = config.minifyHTML == 'auto' ? !config.devMode : !!config.minifyHTML
     return toMinify ? minify(html) : html
 }

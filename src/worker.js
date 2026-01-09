@@ -11,11 +11,11 @@ globalThis.config = {
 
 export default {
     async fetch(req, env) {
-        const url = new URL(req.url),
-              devMode = env.ENVIRONMENT == 'development',
-              debugMode = url.searchParams.has('debug'),
-              baseURL = devMode ? `http://${config.ip}:${config.port}` : url.origin
-        app.urls.assetHost.app = devMode ? `http://${config.ip}:${config.port}` : app.urls.assetHost.app
+        const url = new URL(req.url)
+        config.devMode = env.ENVIRONMENT == 'development'
+        config.debugMode = url.searchParams.has('debug')
+        const baseURL = config.devMode ? `http://${config.ip}:${config.port}` : url.origin
+        app.urls.assetHost.app = config.devMode ? `http://${config.ip}:${config.port}` : app.urls.assetHost.app
 
         if (/^\/assets\/?$/.test(url.pathname)) // redir assets index to homepage
             return Response.redirect(`${baseURL}/${url.search}`, 302)
@@ -30,10 +30,7 @@ export default {
 
         } else if (url.pathname == '/') { // render homepage
             const homepage = await import('./server/templates/home.js')
-            return new Response(
-                html.process({ devMode, html: homepage.generate() }),
-                { headers: headers.create({ type: 'html' })}
-            )
+            return new Response(html.process(homepage.generate()), { headers: headers.create({ type: 'html' })})
         }
 
         // Validate cert #
@@ -41,15 +38,15 @@ export default {
               errPage = await import('./server/templates/error.js')
         if (/\D/.test(certInput)) // 400 error
             return new Response(
-                html.process({ devMode, html: errPage.generate({
-                    certID: certInput, errMsg: 'Invalid certificate ID (numbers only!)', status: 400 })}),
+                html.process(errPage.generate({
+                    certID: certInput, errMsg: 'Invalid certificate ID (numbers only!)', status: 400 })),
                 { headers: headers.create({ type: 'html' }), status: 400 }
             )
         const certID = certInput.padStart(10, '0')
         if (certID.length > 10) // 400 error
             return new Response(
-                html.process({ devMode, html: errPage.generate({
-                    certID, errMsg: 'Certificate ID too long (max 10 digits!)', status: 400 })}),
+                html.process(errPage.generate({
+                    certID, errMsg: 'Certificate ID too long (max 10 digits!)', status: 400 })),
                 { headers: headers.create({ type: 'html' }), status: 400 }
             )
         if (certInput != certID) // 301 redir e.g. /1 to /0000000001
@@ -60,18 +57,17 @@ export default {
             const certData = await env.COAS_KV.get(certID)
             if (!certData) // 404 error
                 return new Response(
-                    html.process({ devMode, html: errPage.generate({ certID, errMsg: 'Not found', status: 404 })}),
+                    html.process(errPage.generate({ certID, errMsg: 'Not found', status: 404 })),
                     { headers: headers.create({ type: 'html' }), status: 404 }
                 )
             const certPage = await import('./server/templates/cert.js')
             return new Response(
-                html.process({ devMode, html: await certPage.generate({ certID, certData, debugMode })}),
+                html.process(await certPage.generate({ certID, certData })),
                 { headers: { ...headers.create({ type: 'html' }), ...headers.create({ type: 'cache', certData })}}
             )
         } catch (err) { // 500 error
             return new Response(
-                html.process({ devMode, html: errPage.generate({
-                    errMsg: `System error: ${err.message}`, status: 500 })}),
+                html.process(errPage.generate({ errMsg: `System error: ${err.message}`, status: 500 })),
                 { headers: headers.create({ type: 'html' }), status: 500 }
             )
         }
