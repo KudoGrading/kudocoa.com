@@ -8,7 +8,8 @@ export function generate({ certID, certData }) {
     for (const [key, val] of Object.entries(certData)) {
         if (/(?:Notes|URLs?)$/.test(key)) continue
 
-        const label = string.camelToTitleCase(key) ; let displayVal = val
+        const label = string.camelToTitleCase(key)
+        let displayVal = val
 
         if (/(?:^d|[a-z]D)ate(?:[A-Z]|$)/.test(key)) // format date
             displayVal = string.formatDate(val)
