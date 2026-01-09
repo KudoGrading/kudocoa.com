@@ -17,11 +17,8 @@ export default {
 
         else if (reqURL.pathname.startsWith('/assets/')) { // serve public/ asset
             const assetPath = reqURL.pathname.replace('/assets', '').replace(/(?<!\.min)\.js$/i, '.min.js'),
-                  resp = await env.ASSETS.fetch(new Request(new URL(assetPath, req.url), req)),
-                  fileExt = reqURL.pathname.split('.').pop().toLowerCase(),
-                  contentType = (await import('../public/data/mime-types.json'))[fileExt] || 'application/octet-stream'
-            return new Response(resp.body, {
-                status: resp.status, headers: { 'Content-Type': contentType, ...Object.fromEntries(resp.headers) }})
+                  resp = await env.ASSETS.fetch(new Request(new URL(assetPath, req.url), req))
+            return new Response(resp.body, { status: resp.status, headers: { ...Object.fromEntries(resp.headers) }})
 
         } else if (reqURL.pathname == '/') { // render homepage
             const homepage = await import('./server/templates/home.js')
