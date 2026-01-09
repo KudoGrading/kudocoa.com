@@ -1,4 +1,6 @@
 const config = {
+    ip: 'localhost',
+    port: 8888,
     cacheDuration: 21600, // 6h
     minifyHTML: 'auto' // <true|false> or 'auto'
 }
@@ -9,7 +11,7 @@ export default {
               headers = { html: { 'Content-Type': 'text/html' }},
               devMode = env.ENVIRONMENT == 'development',
               debugMode = url.searchParams.has('debug'),
-              baseURL = devMode ? 'http://localhost:8888' : url.origin
+              baseURL = devMode ? `http://${config.ip}:${config.port}` : url.origin
         config.minifyHTML = config.minifyHTML == 'auto' ? !devMode : !!config.minifyHTML
 
         if (/^\/assets\/?$/.test(url.pathname)) // redir assets index to homepage
