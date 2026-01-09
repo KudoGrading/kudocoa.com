@@ -2,7 +2,7 @@ import * as base from './base.js'
 import * as header from './header.js'
 import * as footer from './footer.js'
 
-import homeCSS from '../../../public/css/pages/home.min.css'
+import css from '../../../public/css/pages/home.min.css'
 
 export function generate() {
     const title = app.names.medium
@@ -15,5 +15,5 @@ export function generate() {
             initHomepage()
         </script>
     `
-    return base.generate({ title, description, bodyContent, bodyClass: 'homepage', css: homeCSS })
+    return base.generate({ title, description, bodyContent, bodyClass: 'homepage', css })
 }

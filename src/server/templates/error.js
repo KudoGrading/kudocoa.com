@@ -2,7 +2,7 @@ import * as base from './base.js'
 import * as header from './header.js'
 import * as footer from './footer.js'
 
-import errCSS from '../../../public/css/pages/error.min.css'
+import css from '../../../public/css/pages/error.min.css'
 
 export function generate({ certID, errMsg = 'Error', status = 404 } = {}) {
     const title = `${ certID ? `${app.names.short} #${certID} / Certificate Not Found` : 'System Error' }`
@@ -20,5 +20,5 @@ export function generate({ certID, errMsg = 'Error', status = 404 } = {}) {
             initErrPage()
         </script>
     `
-    return base.generate({ title, description, bodyContent, css: errCSS })
+    return base.generate({ title, description, bodyContent, css })
 }
