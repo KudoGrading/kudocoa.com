@@ -26,7 +26,8 @@ export default {
                         errMsg: `<strong>${reqURL.pathname.split('/').pop()}</strong> not found!`, status: 404 })),
                     { headers: headers.create({ type: 'html' }), status: 404 }
                 )
-            return new Response(resp.body, { status: resp.status, headers: { ...Object.fromEntries(resp.headers) }})
+            else // serve asset
+                return new Response(resp.body, { status: resp.status, headers: { ...Object.fromEntries(resp.headers) }})
 
         } else if (/\.\w{1,5}$/.test(reqURL.pathname)) { // 404 /file.ext not found
             return new Response(
