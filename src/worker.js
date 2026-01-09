@@ -25,20 +25,20 @@ export default {
                 .replace('/assets', '') // since env.ASSETS bound to public/ root
                 .replace(/(?<!\.min)\.js$/i, '.min.js') // re-write .js as .min.js
             const assetResp = await env.ASSETS.fetch(new Request(new URL(assetPath, req.url), req))
-            if (assetResp.status == 404) // show error
+            if (assetResp.status == 404) { // show error
+                const filename = reqURL.pathname.split('/').pop()
                 return new Response(
-                    html.process(errPage.generate({
-                        errMsg: `<strong>${reqURL.pathname.split('/').pop()}</strong> not found!`, status: 404 })),
+                    html.process(errPage.generate({ errMsg: `<strong>${filename}</strong> not found!`, status: 404 })),
                     { headers: headers.create({ type: 'html' }), status: 404 }
                 )
-            else // serve asset
+            } else // serve asset
                 return new Response(
                     assetResp.body, { status: assetResp.status, headers: { ...Object.fromEntries(assetResp.headers) }})
 
         } else if (/\.\w{1,5}$/.test(reqURL.pathname)) { // 404 error /file.ext not found
+            const filename = reqURL.pathname.slice(1)
             return new Response(
-                html.process(errPage.generate({
-                    errMsg: `<strong>${reqURL.pathname.slice(1)}</strong> not found!`, status: 404 })),
+                html.process(errPage.generate({ errMsg: `<strong>${filename}</strong> not found!`, status: 404 })),
                 { headers: headers.create({ type: 'html' }), status: 404 }
             )
         }
