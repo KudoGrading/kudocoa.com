@@ -51,8 +51,8 @@ export default {
                 return new Response(await processHTML(errPage.generate({
                     certID, errMsg: 'Not found', status: 404, config, devMode })), {
                         headers: headers.html, status: 404 })
-            const certPage = await import('./server/templates/cert.js')
-            const hasVideo = /\\"(?:trailer|vide?o?|youtube|yt)URLs\\"/.test(JSON.stringify(certData))
+            const certPage = await import('./server/templates/cert.js'),
+                  hasVideo = /\\"(?:trailer|vide?o?|youtube|yt)URLs\\"/.test(JSON.stringify(certData))
             headers.cache = {
                 'Cache-Control': (config.cacheDuration == 'auto' && hasVideo // to allow rotation
                                || config.cacheDuration == 0) ? 'no-store, must-revalidate'
