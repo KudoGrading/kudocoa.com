@@ -1,11 +1,7 @@
 .homepage { transform: scale(0.8) }
 .homepage .container { height: 95vh ; padding: 0 }
 .homepage .hero { margin-bottom: 2rem }
-.homepage .hero-big { font-size: 22rem }
-.homepage .hero-small { font-size: 2.88rem }
+.homepage .hero-big { font-size: 25vw }
+.homepage .hero-small { font-size: 3.65vw }
 .homepage .search-bar { margin: 4rem auto }
 .homepage footer { border-top: none ; padding-bottom: 7rem }
-
-/* Mobile devices */
-@media (max-width: 768px) { .homepage .container { padding-top: 5rem } .homepage .hero-big { font-size: 8rem }}
-@media (max-width: 480px) { .homepage .container { padding-top: 4rem }}
