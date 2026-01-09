@@ -13,7 +13,11 @@ export default {
         const baseURL = app.devMode ? `http://${config.env.dev.ip}:${config.env.dev.port}` : reqURL.origin
         app.urls.assetHost.app = app.devMode ? baseURL : app.urls.assetHost.app
 
-        if (/^\/assets\/?$/.test(reqURL.pathname)) // 302 redir assets index to homepage
+        if (reqURL.pathname == '/') { // render homepage
+            const homepage = await import('./server/templates/home.js')
+            return new Response(html.process(homepage.generate()), { headers: headers.create({ type: 'html' })})
+
+        } else if (/^\/assets\/?$/.test(reqURL.pathname)) // 302 redir assets index to homepage
             return Response.redirect(`${baseURL}/${reqURL.search}`, 302)
 
         else if (reqURL.pathname.startsWith('/assets/')) { // serve public/ asset
@@ -37,10 +41,6 @@ export default {
                     errMsg: `<strong>${reqURL.pathname.slice(1)}</strong> not found!`, status: 404 })),
                 { headers: headers.create({ type: 'html' }), status: 404 }
             )
-
-        } else if (reqURL.pathname == '/') { // render homepage
-            const homepage = await import('./server/templates/home.js')
-            return new Response(html.process(homepage.generate()), { headers: headers.create({ type: 'html' })})
         }
 
         // Validate cert #
