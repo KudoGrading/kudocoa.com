@@ -54,9 +54,9 @@ export default {
             const certPage = await import('./server/templates/cert.js'),
                   hasVideo = /\\"(?:trailer|vide?o?|youtube|yt)URLs\\"/.test(JSON.stringify(certData))
             headers.cache = {
-                'Cache-Control': (config.cacheDuration == 'auto' && hasVideo // to allow rotation
-                               || config.cacheDuration == 0) ? 'no-store, must-revalidate'
-                                                             : `public, max-age=${ config.cacheDuration || 0 }`
+                'Cache-Control': ( config.cacheDuration == 'auto' && hasVideo // to allow rotation
+                                || config.cacheDuration == 0 ) ? 'no-store, must-revalidate'
+                                                               : `public, max-age=${ config.cacheDuration || 0 }`
             }
             return new Response(await processHTML(await certPage.generate({
                 certID, certData, config, devMode, debugMode })), {
