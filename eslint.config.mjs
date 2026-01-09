@@ -14,7 +14,7 @@ export default [
         files: ['**/*.{js,mjs}'],
         languageOptions: {
             ecmaVersion: 'latest', sourceType: 'module',
-            globals: { ...globals.browser, ...globals.node, dom: 'readonly' }
+            globals: { ...globals.browser, ...globals.node, config: 'writable', dom: 'readonly' }
         },
         plugins: { 'import': importPlugin, 'js-styles': stylisticJS, regexp },
         rules: {
