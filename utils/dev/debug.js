@@ -7,8 +7,8 @@
 import { spawn } from 'node:child_process'
 import open from 'open'
 
+const { default: { env: { dev }}} = await import('../../app.config.mjs')
 const config = {
-    env: { dev: { ip: 'localhost', port: 8888 }},
     local: process.argv.some(arg => arg == '--local'),
     noBuild: process.argv.some(arg => /--(?:no-?build|nb)/.test(arg))
 }
@@ -35,17 +35,14 @@ function startWrangler() {
     console.log(`${colors.bw}Starting dev server in ?debug mode${ config.noBuild ? ' (no build)' : '' }...${colors.nc}`)
     const wrangler = spawn(
         'npx.cmd',
-        ['wrangler', 'dev', `--${ config.local ? 'local' : 'remote' }`,
-            '--ip', config.env.dev.ip,
-            '--port', config.env.dev.port.toString()
-        ],
+        ['wrangler', 'dev', `--${ config.local ? 'local' : 'remote' }`, '--ip', dev.ip, '--port', dev.port.toString()],
         { shell: true }
     )
     wrangler.stdout.on('data', data => {
         const output = data.toString() ; process.stdout.write(output)
-        if (new RegExp(`Ready|http://${config.env.dev.ip}:${config.env.dev.port}`).test(output)) { // server ready
+        if (new RegExp(`Ready|http://${dev.ip}:${dev.port}`).test(output)) { // server ready
             console.log(`\n${colors.bg}✓ Server ready! Opening browser in ?debug mode...${colors.nc}`)
-            open(`http://${config.env.dev.ip}:${config.env.dev.port}?debug`)
+            open(`http://${dev.ip}:${dev.port}?debug`)
         }
     })
     wrangler.stderr.on('data', data => process.stderr.write(data.toString()))
