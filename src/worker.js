@@ -1,7 +1,7 @@
 const config = {
     ip: 'localhost',
     port: 8888,
-    cacheDuration: 21600, // 6h
+    cacheDuration: 0, // int (secs) or 'auto'
     minifyHTML: 'auto' // <true|false> or 'auto'
 }
 
@@ -53,8 +53,11 @@ export default {
                         headers: headers.html, status: 404 })
             const certPage = await import('./server/templates/cert.js')
             const hasVideo = /\\"(?:trailer|vide?o?|youtube|yt)URLs\\"/.test(JSON.stringify(certData))
-            headers.cache = { // shorter for video pages to allow rotation
-                'Cache-Control': hasVideo ? 'no-store, must-revalidate' : `public, max-age=${config.cacheDuration}` }
+            headers.cache = {
+                'Cache-Control': (config.cacheDuration == 'auto' && hasVideo // to allow rotation
+                               || config.cacheDuration == 0) ? 'no-store, must-revalidate'
+                                                             : `public, max-age=${ config.cacheDuration || 0 }`
+            }
             return new Response(await processHTML(await certPage.generate({
                 certID, certData, config, devMode, debugMode })), {
                     headers: { ...headers.html, ...headers.cache }})
