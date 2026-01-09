@@ -33,13 +33,13 @@ else {
 function startWrangler() {
     console.log(`${colors.bw}Starting dev server in ?debug mode${ config.noBuild ? ' (no build)' : '' }...${colors.nc}`)
     const wrangler = spawn(
-        'npx.cmd', ['wrangler', 'dev', '--remote', '--ip', config.ip, '--port', config.port.toString()], { shell: true }
+        'npx.cmd', ['wrangler', 'dev', '--remote', '--ip', config.env.dev.ip, '--port', config.env.dev.port.toString()], { shell: true }
     )
     wrangler.stdout.on('data', data => {
         const output = data.toString() ; process.stdout.write(output)
-        if (new RegExp(`Ready|http://${config.ip}:${config.port}`).test(output)) { // server ready
+        if (new RegExp(`Ready|http://${config.env.dev.ip}:${config.env.dev.port}`).test(output)) { // server ready
             console.log(`\n${colors.bg}✓ Server ready! Opening browser in ?debug mode...${colors.nc}`)
-            open(`http://${config.ip}:${config.port}?debug`)
+            open(`http://${config.env.dev.ip}:${config.env.dev.port}?debug`)
         }
     })
     wrangler.stderr.on('data', data => process.stderr.write(data.toString()))

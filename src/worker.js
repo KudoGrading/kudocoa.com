@@ -3,8 +3,7 @@ import * as html from './server/lib/html.js'
 
 globalThis.app = await import('../public/data/app.json')
 globalThis.config = {
-    ip: 'localhost',
-    port: 8888,
+    env: { dev: { ip: 'localhost', port: 8888 }},
     cacheDuration: 0, // int (secs) or 'auto' (6h if non-video page, 0s otherwise)
     minifyHTML: 'auto' // <true|false> or 'auto' (false if dev mode)
 }
@@ -14,7 +13,7 @@ export default {
         const reqURL = new URL(req.url)
         app.devMode = env.ENVIRONMENT == 'development'
         app.debugMode = reqURL.searchParams.has('debug')
-        const baseURL = app.devMode ? `http://${config.ip}:${config.port}` : reqURL.origin
+        const baseURL = app.devMode ? `http://${config.env.dev.ip}:${config.env.dev.port}` : reqURL.origin
         app.urls.assetHost.app = app.devMode ? baseURL : app.urls.assetHost.app
 
         if (/^\/assets\/?$/.test(reqURL.pathname)) // redir assets index to homepage
