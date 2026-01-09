@@ -60,14 +60,12 @@ export default {
             const certData = await env.COAS_KV.get(certID)
             if (!certData) // 404 error
                 return new Response(
-                    html.process({ devMode, html: errPage.generate({
-                        certID, errMsg: 'Not found', status: 404 })}),
+                    html.process({ devMode, html: errPage.generate({ certID, errMsg: 'Not found', status: 404 })}),
                     { headers: headers.create({ type: 'html' }), status: 404 }
                 )
             const certPage = await import('./server/templates/cert.js')
             return new Response(
-                html.process({ devMode, html: await certPage.generate({
-                    certID, certData, debugMode })}),
+                html.process({ devMode, html: await certPage.generate({ certID, certData, debugMode })}),
                 { headers: { ...headers.create({ type: 'html' }), ...headers.create({ type: 'cache', certData })}}
             )
         } catch (err) { // 500 error
