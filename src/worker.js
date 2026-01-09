@@ -28,7 +28,7 @@ export default {
                 )
             return new Response(resp.body, { status: resp.status, headers: { ...Object.fromEntries(resp.headers) }})
 
-        } else if (/\.\w{1,5}$/.test(reqURL.pathname)) { // 404 file not found
+        } else if (/\.\w{1,5}$/.test(reqURL.pathname)) { // 404 /file.ext not found
             return new Response(
                 html.process(errPage.generate({
                     errMsg: `<strong>${reqURL.pathname.slice(1)}</strong> not found!`, status: 404 })),
