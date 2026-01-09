@@ -15,7 +15,7 @@ export default {
         app.devMode = env.ENVIRONMENT == 'development'
         app.debugMode = url.searchParams.has('debug')
         const baseURL = app.devMode ? `http://${config.ip}:${config.port}` : url.origin
-        app.urls.assetHost.app = app.devMode ? `http://${config.ip}:${config.port}` : app.urls.assetHost.app
+        app.urls.assetHost.app = app.devMode ? baseURL : app.urls.assetHost.app
 
         if (/^\/assets\/?$/.test(url.pathname)) // redir assets index to homepage
             return Response.redirect(`${baseURL}/${url.search}`, 302)
