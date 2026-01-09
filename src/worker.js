@@ -3,7 +3,7 @@ import * as html from './server/lib/html.js'
 import * as errPage from './server/templates/error.js'
 
 globalThis.app = await import('../public/data/app.json')
-import { config } from '../app.config.mjs' ; app.config = config
+import config from '../app.config.mjs' ; app.config = config
 
 export default {
     async fetch(req, env) {
