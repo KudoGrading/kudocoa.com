@@ -18,7 +18,7 @@ export async function generate({ certID, certData, devMode, debugMode }) {
     certData = typeof certData == 'string' ? JSON.parse(certData) : certData
     const vidURL = certData.trailerURL || certData.videoURL || certData.vidURL || certData.youtubeURL || certData.ytURL
     const { vidURLs } = certData
-    const vidEmbedOptions = vidURLs ? { vidURLs } : vidURL ? { vidURL } : null
+    const vidEmbedConfig = vidURLs ? { vidURLs } : vidURL ? { vidURL } : null
     const itemYearMatch = (certData.coverDate || certData.publishDate)?.match(/\d{4}/)
     const itemYear = itemYearMatch ? ` (${itemYearMatch[0]})` : ''
     const title = `${ certID ? `${app.names.short} #${certID} / ` : '' }${
@@ -48,7 +48,7 @@ export async function generate({ certID, certData, devMode, debugMode }) {
             <div class="cert-details">${certDataRows.generate({ certID, certData, debugMode })}</div>
         </div>
         ${ noteBoxes.generate(certData) }
-        ${ vidEmbedOptions ? vidEmbed.generate(vidEmbedOptions) : '' }
+        ${ vidEmbedConfig ? vidEmbed.generate(vidEmbedConfig) : '' }
         ${ certData.interiorURL ? await comicPages.generate({ srcURL: certData.interiorURL, debugMode }) : '' }
         ${ footer.generate() }
         <script type="module">
