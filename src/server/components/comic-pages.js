@@ -3,7 +3,7 @@ import { createLogger } from '../../shared/lib/log.js'
 export { default as css } from '../../../public/css/components/server/comic-pages.min.css'
 
 export async function generate(srcURL) {
-    const log = createLogger({ prefix: 'comicPages.generate()', debugMode: config.debugMode }),
+    const log = createLogger({ prefix: 'comicPages.generate()', debugMode: app.debugMode }),
           parsableSites = ['readallcomics.com']
     if (!srcURL || !parsableSites.some(site => srcURL.includes(site))) {
         log.error(`${srcURL} is not parsable!`) ; return '' }

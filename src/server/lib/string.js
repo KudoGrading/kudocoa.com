@@ -5,7 +5,7 @@ export function camelToTitleCase(str) { // e.g. 'gradedAndAuthenticatedBy' => 'G
 
 export function formatDate(dateStr, { format = 'monthDayYear', caseStyle = 'upper' } = {}) {
     // e.g. '2026-1' => 'JANUARY 2026' and '1999-3-3' => 'MARCH 3, 1999'
-    const log = createLogger({ prefix: 'string.formatDate()', debugMode: config.debugMode })
+    const log = createLogger({ prefix: 'string.formatDate()', debugMode: app.debugMode })
     if (!dateStr) return log.error(`'dateStr' option required!`)
     try {
         log.debug(`Formatting ${dateStr}...`)
