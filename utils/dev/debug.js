@@ -33,7 +33,9 @@ else {
 function startWrangler() {
     console.log(`${colors.bw}Starting dev server in ?debug mode${ config.noBuild ? ' (no build)' : '' }...${colors.nc}`)
     const wrangler = spawn(
-        'npx.cmd', ['wrangler', 'dev', '--remote', '--ip', config.env.dev.ip, '--port', config.env.dev.port.toString()], { shell: true }
+        'npx.cmd',
+        ['wrangler', 'dev', '--remote', '--ip', config.env.dev.ip, '--port', config.env.dev.port.toString()],
+        { shell: true }
     )
     wrangler.stdout.on('data', data => {
         const output = data.toString() ; process.stdout.write(output)
