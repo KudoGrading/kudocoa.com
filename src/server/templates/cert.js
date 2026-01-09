@@ -13,16 +13,21 @@ import navArrowsCSS from '../../../public/css/components/client/nav-arrows.min.c
 const app = await import('../../../public/data/app.json')
 
 export async function generate({ certID, certData, devMode, debugMode }) {
+    certData = typeof certData == 'string' ? JSON.parse(certData) : certData
+
+    // Init URLs
     const { urls } = app
     urls.assetHost.app = devMode ? 'http://localhost:8888/assets' : urls.assetHost.app
-    certData = typeof certData == 'string' ? JSON.parse(certData) : certData
     const vidURL = certData.trailerURL || certData.videoURL || certData.vidURL || certData.youtubeURL || certData.ytURL
     const { vidURLs } = certData
     const vidEmbedConfig = vidURLs ? { vidURLs } : vidURL ? { vidURL } : null
+
+    // Init title
     const itemYearMatch = (certData.coverDate || certData.publishDate)?.match(/\d{4}/)
     const itemYear = itemYearMatch ? ` (${itemYearMatch[0]})` : ''
     const title = `${ certID ? `${app.names.short} #${certID} / ` : '' }${
                       certData.item || '' }${itemYear} / ${app.names.medium}`
+
     const description = `Certificate # ${certID} verified by ${app.names.long}`
     const bodyContent = `
         ${header.generate(certID)}
