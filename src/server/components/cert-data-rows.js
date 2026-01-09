@@ -6,7 +6,7 @@ const app = await import('../../../public/data/app.json')
 export { default as css } from '../../../public/css/components/server/cert-data-rows.min.css'
 
 export function generate({ certID, certData, debugMode }) {
-    const dataRows = []
+    const dataRows = [], { urls } = app
     for (const [key, val] of Object.entries(certData)) {
         if (/(?:Notes|URLs?)$/.test(key)) continue
 
@@ -17,14 +17,14 @@ export function generate({ certID, certData, debugMode }) {
 
         else if (key == 'publisher') { // replace publisher w/ logo
             const publisherSlug = string.toHyphenCase(val),
-                  imgURL = `${app.urls.assetHost.comic}/images/logos/publishers/${publisherSlug}/white.png`
+                  imgURL = `${urls.assetHost.comic}/images/logos/publishers/${publisherSlug}/white.png`
             displayVal = imgEmbed.generate({ imgURL, alt: displayVal })
 
         } else if (key.endsWith('By')) { // format human names
             displayVal = displayVal.replace(/[,&]/g, ' +') // separate names w/ pluses
             if (/(?:authenticat|grad)edBy$/i.test(key)) { // replace names w/ sig
                 const signerSlug = string.toHyphenCase(val),
-                      imgURL = `${app.urls.assetHost.cert}/assets/images/signatures/${signerSlug}/white.png`
+                      imgURL = `${urls.assetHost.cert}/assets/images/signatures/${signerSlug}/white.png`
                 displayVal = imgEmbed.generate({ imgURL, alt: displayVal })
             }
 
@@ -32,7 +32,7 @@ export function generate({ certID, certData, debugMode }) {
             displayVal = `
                 <div class="coa-type">
                     <div class="coa-img-container">
-                        <img src="${app.urls.assetHost.cert}/coas/${certID}/certificate.png" 
+                        <img src="${urls.assetHost.cert}/coas/${certID}/certificate.png" 
                              alt="Kudo COA # ${certID}" class="coa-img" onerror="this.style.display='none'">
                     </div>
                     <div>${displayVal}</div>

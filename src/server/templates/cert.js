@@ -13,7 +13,8 @@ import navArrowsCSS from '../../../public/css/components/client/nav-arrows.min.c
 const app = await import('../../../public/data/app.json')
 
 export async function generate({ certID, certData, devMode, debugMode }) {
-    app.urls.assetHost.app = devMode ? 'http://localhost:8888/assets' : app.urls.assetHost.app
+    const { urls } = app
+    urls.assetHost.app = devMode ? 'http://localhost:8888/assets' : urls.assetHost.app
     certData = typeof certData == 'string' ? JSON.parse(certData) : certData
     const vidURL = certData.trailerURL || certData.videoURL || certData.vidURL || certData.youtubeURL || certData.ytURL
     const { vidURLs } = certData
@@ -32,10 +33,10 @@ export async function generate({ certID, certData, devMode, debugMode }) {
                     <div class="download-label">Download:</div>
                     <div class="download-btns">
                         <button class="download-btn" data-filename="kudo_coa_#${certID}.png"
-                                data-url="${app.urls.assetHost.cert}/coas/${certID}/certificate.png">
+                                data-url="${urls.assetHost.cert}/coas/${certID}/certificate.png">
                             PNG</button>
                         <button class="download-btn" data-filename="kudo_coa_#${certID}.pdf"
-                                data-url="${app.urls.assetHost.cert}/coas/${certID}/certificate.pdf">
+                                data-url="${urls.assetHost.cert}/coas/${certID}/certificate.pdf">
                             PDF</button>
                     </div>
                 </div>
@@ -51,7 +52,7 @@ export async function generate({ certID, certData, devMode, debugMode }) {
         ${ certData.interiorURL ? await comicPages.generate({ srcURL: certData.interiorURL, debugMode }) : '' }
         ${ footer.generate() }
         <script type="module">
-            import { initCertPage } from '${app.urls.assetHost.app}/js/pages/cert/index.min.js'
+            import { initCertPage } from '${urls.assetHost.app}/js/pages/cert/index.min.js'
             initCertPage()
         </script>
     `
