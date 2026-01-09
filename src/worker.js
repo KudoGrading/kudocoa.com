@@ -1,6 +1,7 @@
 import * as headers from './server/lib/headers.js'
 import * as html from './server/lib/html.js'
 
+globalThis.app = await import('../public/data/app.json')
 globalThis.config = {
     ip: 'localhost',
     port: 8888,

@@ -11,8 +11,6 @@ import bttCSS from '../../../public/css/components/client/back-to-top.min.css'
 import certCSS from '../../../public/css/pages/cert.min.css'
 import navArrowsCSS from '../../../public/css/components/client/nav-arrows.min.css'
 
-const app = await import('../../../public/data/app.json')
-
 export async function generate({ certID, certData, devMode, debugMode }) {
     certData = typeof certData == 'string' ? JSON.parse(certData) : certData
 

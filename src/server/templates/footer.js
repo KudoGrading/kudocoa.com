@@ -1,5 +1,3 @@
-const app = await import('../../../public/data/app.json')
-
 export function generate() {
     return `
         <footer>
