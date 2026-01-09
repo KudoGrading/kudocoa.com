@@ -4,7 +4,6 @@ export function generate(certID = '') {
             <div class="hero-big">KUDO</div>
             <div class="hero-small">GRADING + AUTHENTICATION</div>
         </div>
-
         <div class="search-bar">
             <input type="number" placeholder="Enter certificate number" value="${certID}">
             <button>Verify Certificate</button>
