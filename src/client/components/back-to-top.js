@@ -7,7 +7,7 @@ export async function initBackToTop() {
         className: 'btt-btn', title: 'Back to top', innerHTML: '<span>^</span>',
         onclick: () => {
             scrollToTop() ; bttBtn.classList.add('at-top') ; setTimeout(() => bttBtn.classList.remove('at-top'), 1000) }
-     })
+    })
     document.body.append(bttBtn)
     addEventListener('scroll', () => {
         if (window.scrollY > 300) { bttBtn.classList.add('visible') ; bttBtn.classList.remove('at-top') }
