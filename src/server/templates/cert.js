@@ -25,8 +25,8 @@ export async function generate({ certID, certData, devMode, debugMode }) {
     // Init title
     const itemYearMatch = (certData.coverDate || certData.publishDate)?.match(/\d{4}/)
     const itemYear = itemYearMatch ? ` (${itemYearMatch[0]})` : ''
-    const title = `${ certID ? `${app.names.short} #${certID} / ` : '' }${
-                      certData.item || '' }${itemYear} / ${app.names.medium}`
+    const title = `${ certID ? `${app.names.short} #${certID} / ` : '' }${ certData.item || '' }${itemYear}`
+                + ` / ${app.names.medium}`
 
     const description = `Certificate # ${certID} verified by ${app.names.long}`
     const bodyContent = `
