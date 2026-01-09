@@ -1,4 +1,4 @@
-export function minify(html) {
+function minify(html) {
 
     // Extract scripts to preserve from minification
     const scriptsToPreserve = [], scriptRegex = /<script\b[^>]*>[\s\S]+?<\/script>/gi
