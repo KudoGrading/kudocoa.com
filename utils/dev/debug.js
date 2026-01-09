@@ -7,7 +7,7 @@
 import { spawn } from 'node:child_process'
 import open from 'open'
 
-const { default: { env: { dev }}} = await import('../../app.config.mjs')
+const { config: { env: { dev }}} = await import('../../app.config.mjs')
 const config = {
     local: process.argv.some(arg => arg == '--local'),
     noBuild: process.argv.some(arg => /--(?:no-?build|nb)/.test(arg))
