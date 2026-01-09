@@ -19,12 +19,12 @@ else {
     buildProcess.stdout.on('data', data => process.stdout.write(data.toString()))
     buildProcess.stderr.on('data', data => process.stderr.write(data.toString()))
     buildProcess.on('close', code => {
-        if (code != 0) {
-            console.error('Build failed with exit code:', code)
-            process.exit(1)
-        } else {
+        if (code == 0) {
             console.log(`\n${colors.bg}✓ Build complete!${colors.nc}`)
             startWrangler()
+        } else {
+            console.error('Build failed with exit code:', code)
+            process.exit(1)
         }
     })
 }
