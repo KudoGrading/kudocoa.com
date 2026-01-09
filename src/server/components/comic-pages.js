@@ -6,7 +6,7 @@ export async function generate({ srcURL, debugMode = false }) {
     const log = createLogger({ prefix: 'comicPages.generate()', debugMode }),
           parsableSites = ['readallcomics.com']
     if (!srcURL || !parsableSites.some(site => srcURL.includes(site))) {
-        log.error(srcURL + ' is not parsable!') ; return '' }
+        log.error(`${srcURL} is not parsable!`) ; return '' }
 
     try {
 

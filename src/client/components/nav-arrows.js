@@ -7,17 +7,17 @@ export function createAppend() {
     const navArrowsHTML = `
         <div class="nav-arrows">
             ${ prevCertNum ?
-                `<a href="/${ prevCertNum + urlSuffix }"
+                `<a href="/${prevCertNum}${urlSuffix}"
                     class="nav-arrow left" title="Previous Certificate">&lt;</a>`
               : '<span class="nav-arrow left disabled" title="No Previous Certificate">&lt;</span>'
             }
-            <a href="/${ nextCertNum + urlSuffix }" class="nav-arrow right" title="Next Certificate">&lt;</a>
+            <a href="/${nextCertNum}${urlSuffix}" class="nav-arrow right" title="Next Certificate">&lt;</a>
         </div>
     `
     document.body.insertAdjacentHTML('afterbegin', navArrowsHTML)
     document.addEventListener('keydown', ({ key }) => {
         if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) return
-        if (key == 'ArrowLeft' && prevCertNum) location.href = `/${ prevCertNum + urlSuffix }`
-        else if (key == 'ArrowRight') location.href = `/${ nextCertNum + urlSuffix }`
+        if (key == 'ArrowLeft' && prevCertNum) location.href = `/${prevCertNum}${urlSuffix}`
+        else if (key == 'ArrowRight') location.href = `/${nextCertNum}${urlSuffix}`
     })
 }
