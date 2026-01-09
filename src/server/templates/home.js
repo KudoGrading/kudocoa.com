@@ -1,6 +1,7 @@
 import * as base from './base.js'
 import * as header from './header.js'
 import * as footer from './footer.js'
+
 import homeCSS from '../../../public/css/pages/home.min.css'
 
 const app = await import('../../../public/data/app.json')
