@@ -17,7 +17,7 @@ export function generate({ title = 'Untitled page', description = '', bodyConten
                 <meta name="description" content="${description}">
                 <style>${globalCSS}</style>
                 ${ css ? `<style>${css}</style>` : '' }
-                <link rel="icon" type="image/x-icon" href="https://kudoai.com/assets/images/icons/kudoai/favicon.ico">
+                <link rel="icon" type="image/x-icon" href="${app.urls.favicon}">
             </head>
             <body${ bodyClass ? ` class="${bodyClass}"` : '' }>
                 <div class="container">${bodyContent}</div>

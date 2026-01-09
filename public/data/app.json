@@ -16,6 +16,7 @@
       "cert": "https://cdn.jsdelivr.net/gh/KudoGrading/certificates@437d7a3",
       "comic": "https://cdn.jsdelivr.net/gh/KudoComics/assets@fbc3867"
     },
+    "favicon": "https://kudoai.com/assets/images/icons/kudoai/favicon.ico",
     "github": "https://github.com/KudoGrading",
     "web": "https://kudocoa.com"
   }
