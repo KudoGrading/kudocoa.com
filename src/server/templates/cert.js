@@ -13,7 +13,7 @@ import navArrowsCSS from '../../../public/css/components/client/nav-arrows.min.c
 
 const app = await import('../../../public/data/app.json')
 
-export async function generate({ certID, certData, config, devMode, debugMode }) {
+export async function generate({ certID, certData, devMode, debugMode }) {
     certData = typeof certData == 'string' ? JSON.parse(certData) : certData
 
     // Init URLs

@@ -6,7 +6,7 @@ import homeCSS from '../../../public/css/pages/home.min.css'
 
 const app = await import('../../../public/data/app.json')
 
-export function generate({ config, devMode }) {
+export function generate(devMode) {
     app.urls.assetHost.app = devMode ? `http://${config.ip}:${config.port}` : app.urls.assetHost.app
     const title = app.names.medium
     const description = `Verify certificate authenticity with ${app.names.long}`

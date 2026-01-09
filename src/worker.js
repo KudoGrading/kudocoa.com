@@ -29,7 +29,7 @@ export default {
         } else if (url.pathname == '/') { // render homepage
             const homepage = await import('./server/templates/home.js')
             return new Response(
-                html.process({ html: homepage.generate({ config, devMode }), devMode }),
+                html.process({ html: homepage.generate(devMode), devMode }),
                 { headers: headers.create({ type: 'html' })}
             )
         }
@@ -40,7 +40,7 @@ export default {
         if (/\D/.test(certInput)) // 400 error
             return new Response(
                 html.process({ html: errPage.generate({
-                    certID: certInput, errMsg: 'Invalid certificate ID (numbers only!)', status: 400, config, devMode
+                    certID: certInput, errMsg: 'Invalid certificate ID (numbers only!)', status: 400, devMode
                         })}, devMode),
                 { headers: headers.create({ type: 'html' }), status: 400 }
             )
@@ -48,7 +48,7 @@ export default {
         if (certID.length > 10) // 400 error
             return new Response(
                 html.process({ html: errPage.generate({
-                    certID, errMsg: 'Certificate ID too long (max 10 digits!)', status: 400, config, devMode
+                    certID, errMsg: 'Certificate ID too long (max 10 digits!)', status: 400, devMode
                         })}, devMode),
                 { headers: headers.create({ type: 'html' }), status: 400 }
             )
@@ -61,19 +61,19 @@ export default {
             if (!certData) // 404 error
                 return new Response(
                     html.process({ html: errPage.generate({
-                        certID, errMsg: 'Not found', status: 404, config, devMode })}, devMode),
+                        certID, errMsg: 'Not found', status: 404, devMode })}, devMode),
                     { headers: headers.create({ type: 'html' }), status: 404 }
                 )
             const certPage = await import('./server/templates/cert.js')
             return new Response(
                 html.process({ html: await certPage.generate({
-                    certID, certData, config, devMode, debugMode })}, devMode),
+                    certID, certData, devMode, debugMode })}, devMode),
                 { headers: { ...headers.create({ type: 'html' }), ...headers.create({ type: 'cache', certData })}}
             )
         } catch (err) { // 500 error
             return new Response(
                 html.process({ html: errPage.generate({
-                    errMsg: `System error: ${err.message}`, status: 500, config, devMode })}, devMode),
+                    errMsg: `System error: ${err.message}`, status: 500, devMode })}, devMode),
                 { headers: headers.create({ type: 'html' }), status: 500 }
             )
         }
