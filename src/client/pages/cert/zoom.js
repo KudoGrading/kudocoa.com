@@ -32,7 +32,7 @@ export function trackMouseZoom(img, { scale = 1.5 } = {}) {
     container.onmouseleave = () => Object.assign(img.style, {
         transform: 'scale(1)', transition: 'transform 0.2s cubic-bezier(0.2, 0.9, 0.3, 1.1)' })
 
-    log.debug('Successfully complete!')
+    log.debug('Successfully completed!')
 }
 
 export function zoomImg({ imgURL, title = '', fadeOutDuration = 0.12 }) {
