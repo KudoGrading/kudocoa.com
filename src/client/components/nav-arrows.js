@@ -1,8 +1,8 @@
 import { createLogger } from '../../shared/lib/log.js'
 
 export function createAppend() {
-    const certID = /^\d{10}$/.exec(location.pathname.slice(1))?.[0] ; if (!certID) return
     const log = createLogger({ prefix: 'navArrows.createAppend()', debugMode: location.search.includes('debug') })
+    const certID = /^\d{10}$/.exec(location.pathname.slice(1))?.[0] ; if (!certID) return log.error('certID not found!')
 
     log.debug('Initializing cert numbers...')
     const certNum = parseInt(certID),
