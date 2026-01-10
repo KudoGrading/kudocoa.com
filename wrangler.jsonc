@@ -11,7 +11,7 @@
     {
       "binding": "COAS_KV",
       "id": "e6a02eddd0a0446bb7f7ef8a74c88d31",
-      "preview_id": "e6a02eddd0a0446bb7f7ef8a74c88d31" // mirror prod KV in wrangler dev --remote mode
+      "remote": true
     }
   ]
 }

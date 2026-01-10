@@ -1,18 +1,14 @@
 #!/usr/bin/env node
 
 // Starts dev server in ?debug mode
-// NOTE: Pass --local to run w/o remote bindings
 // NOTE: Pass --<no-build|nb> to skip build JS/CSS
 
 import { spawn } from 'node:child_process'
 import open from 'open'
 
-const { default: { env: { dev }}} = await import('../../app.config.mjs')
-const config = {
-    local: process.argv.some(arg => arg == '--local'),
-    noBuild: process.argv.some(arg => /--(?:no-?build|nb)/.test(arg))
-}
-const colors = { bw: '\x1b[1;97m', bg: '\x1b[1;92m', nc: '\x1b[0m' }
+const { default: { env: { dev }}} = await import('../../app.config.mjs'),
+      config = { noBuild: process.argv.some(arg => /--(?:no-?build|nb)/.test(arg))},
+      colors = { bw: '\x1b[1;97m', bg: '\x1b[1;92m', nc: '\x1b[0m' }
 
 if (config.noBuild) startWrangler()
 else {
@@ -33,11 +29,7 @@ else {
 
 function startWrangler() {
     console.log(`${colors.bw}Starting dev server in ?debug mode${ config.noBuild ? ' (no build)' : '' }...${colors.nc}`)
-    const wrangler = spawn(
-        'npx.cmd',
-        ['wrangler', 'dev', `--${ config.local ? 'local' : 'remote' }`, '--ip', dev.ip, '--port', dev.port],
-        { shell: true }
-    )
+    const wrangler = spawn('npx.cmd', ['wrangler', 'dev', '--ip', dev.ip, '--port', dev.port], { shell: true })
     wrangler.stdout.on('data', data => {
         process.stdout.write(data)
         if (new RegExp(`Ready|http://${dev.ip}:${dev.port}`).test(data)) { // server ready
