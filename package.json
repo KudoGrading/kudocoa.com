@@ -12,7 +12,7 @@
     "lint:fix": "eslint . --fix --cache",
     "lint:fix-all": "eslint . --fix",
     "build": "npm run build:css && npm run build:js",
-    "build:css": "scss-to-css src/server/styles public/css --clone-folders",
+    "build:css": "scss-to-css src/server/styles public/css --clone-folders && scss-to-css src/client/components/styles public/css/components/client --clone-folders",
     "build:js": "minify-js src/client public/js --clone-folders && minify-js src/shared public/shared --clone-folders",
     "debug": "node utils/dev/debug",
     "debug:nb": "node utils/dev/debug --nb",
