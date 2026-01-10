@@ -35,7 +35,7 @@ export async function generate(srcURL) {
             if (cnt > maxCnt) { maxCnt = cnt ; mostCommonDomain = domain }
         log.debug(`Most common domain: ${mostCommonDomain} (${maxCnt} images)`)
 
-        log.debug('Extracing interior page URLs...')
+        log.debug('Extracting interior page URLs...')
         const interiorPageURLs = imgURLs.filter(src => {
             try {
                 const url = new URL(src),
