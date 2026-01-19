@@ -18,7 +18,7 @@
     "deploy:nb": "wrangler deploy"
   },
   "devDependencies": {
-    "@adamlui/minify.js": "^1.10.0",
+    "@adamlui/minify.js": "^2.0.0",
     "@adamlui/scss-to-css": "^1.12.0",
     "@eslint/css": "^0.14.1",
     "@eslint/json": "^0.14.0",
@@ -27,7 +27,7 @@
     "eslint": "^9.39.2",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-regexp": "^2.10.0",
-    "eslint-plugin-yml": "^1.19.1",
+    "eslint-plugin-yml": "^3.0.0",
     "husky": "^9.1.7",
     "open": "^11.0.0",
     "wrangler": "^4.59.2"
