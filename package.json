@@ -1,6 +1,9 @@
 {
+  "name": "kudocoa.com",
+  "description": "Website code for KudoCOA.com, served by Cloudflare Workers",
   "type": "module",
   "homepage": "https://kudocoa.com",
+  "main": "src/worker.js",
   "scripts": {
     "prepare": "husky",
     "dev": "npm run build && npm run dev:nb",
