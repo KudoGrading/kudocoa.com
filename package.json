@@ -3,6 +3,21 @@
   "description": "Website code for KudoCOA.com, served by Cloudflare Workers",
   "type": "module",
   "homepage": "https://kudocoa.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KudoGrading/kudocoa.com.git"
+  },
+  "keywords": [
+    "authentication",
+    "certificate",
+    "cloudflare",
+    "coa",
+    "serverless",
+    "verification",
+    "workers",
+    "wrangler"
+  ],
+  "license": "UNLICENSED",
   "main": "src/worker.js",
   "scripts": {
     "prepare": "husky",
