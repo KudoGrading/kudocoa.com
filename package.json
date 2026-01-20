@@ -11,7 +11,7 @@
     "lint:fix-all": "eslint . --fix",
     "build": "npm run build:css && npm run build:js",
     "build:css": "scss-to-css src/server/styles public/css --clone-folders && scss-to-css src/client/components/styles public/css/components/client --clone-folders",
-    "build:js": "minify-js src public/js --ignore=\"worker.js,server/\" --rewrite-imports",
+    "build:js": "minify-js src public/js --ignores=\"worker.js,server/\" --rewrite-imports",
     "debug": "node utils/dev/debug",
     "debug:nb": "node utils/dev/debug --nb",
     "deploy": "npm run build && wrangler deploy",
