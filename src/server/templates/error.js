@@ -16,7 +16,7 @@ export function generate({ certID, errMsg = 'Error', status = 404 } = {}) {
         </div>
         ${footer.generate()}
         <script type="module">
-            import { initErrPage } from '${app.urls.assetHost.app}/js/pages/error.min.js'
+            import { initErrPage } from '${app.urls.assetHost.app}/js/client/pages/error.min.js'
             initErrPage()
         </script>
     `

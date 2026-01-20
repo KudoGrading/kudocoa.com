@@ -11,7 +11,7 @@ export function generate() {
         ${header.generate()}
         ${footer.generate()}
         <script type="module">
-            import { initHomepage } from '${app.urls.assetHost.app}/js/pages/home.min.js'
+            import { initHomepage } from '${app.urls.assetHost.app}/js/client/pages/home.min.js'
             initHomepage()
         </script>
     `
