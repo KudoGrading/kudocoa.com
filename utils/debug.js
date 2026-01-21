@@ -6,7 +6,7 @@
 import { spawn } from 'node:child_process'
 import open from 'open'
 
-const { default: { env: { dev }}} = await import('../../app.config.mjs'),
+const { default: { env: { dev }}} = await import('../app.config.mjs'),
       config = { noBuild: process.argv.some(arg => /--(?:no-?build|nb)/.test(arg))},
       colors = { bw: '\x1b[1;97m', bg: '\x1b[1;92m', nc: '\x1b[0m' }
 
