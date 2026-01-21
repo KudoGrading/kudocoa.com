@@ -8,16 +8,6 @@
     "type": "git",
     "url": "git+https://github.com/KudoGrading/kudocoa.com.git"
   },
-  "keywords": [
-    "authentication",
-    "certificate",
-    "cloudflare",
-    "coa",
-    "serverless",
-    "verification",
-    "workers",
-    "wrangler"
-  ],
   "license": "UNLICENSED",
   "main": "src/worker.js",
   "scripts": {
