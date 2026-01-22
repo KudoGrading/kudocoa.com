@@ -55,10 +55,7 @@ export async function generate({ certID, certData }) {
         ${ vidEmbedConfig ? vidEmbed.generate(vidEmbedConfig) : '' }
         ${ certData.interiorURL ? await comicPages.generate(certData.interiorURL) : '' }
         ${ footer.generate() }
-        <script type="module">
-            import { initCertPage } from '${urls.assetHost.app}/js/client/pages/cert/index.min.js'
-            initCertPage()
-        </script>
+        <script type="module" src="${app.urls.assetHost.app}/js/client/pages/cert/index.min.js"></script>
     `
     return base.generate({
         title, description, bodyContent,

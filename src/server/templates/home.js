@@ -10,10 +10,7 @@ export function generate() {
     const bodyContent = `
         ${header.generate()}
         ${footer.generate()}
-        <script type="module">
-            import { initHomepage } from '${app.urls.assetHost.app}/js/client/pages/home.min.js'
-            initHomepage()
-        </script>
+        <script type="module" src="${app.urls.assetHost.app}/js/client/pages/home.min.js"></script>
     `
     return base.generate({ title, description, bodyContent, bodyClass: 'homepage', css })
 }
