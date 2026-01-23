@@ -1,7 +1,11 @@
 {
   "name": "kudocoa.com",
   "description": "Website code for KudoCOA.com, served by Cloudflare Workers",
-  "author": "Adam Lui <adam@kudocoa.com> (https://github.com/adamlui)",
+  "author": {
+    "name": "Adam Lui",
+    "email": "adam@kudocoa.com",
+    "url": "https://github.com/adamlui"
+  },
   "type": "module",
   "homepage": "https://kudocoa.com",
   "repository": {
