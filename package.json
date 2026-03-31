@@ -33,15 +33,15 @@
   "devDependencies": {
     "@adamlui/minify.js": "^2.5.1",
     "@adamlui/scss-to-css": "^2.4.1",
-    "@eslint/css": "^1.0.0",
+    "@eslint/css": "^1.1.0",
     "@eslint/json": "^1.2.0",
-    "@eslint/markdown": "^8.0.0",
+    "@eslint/markdown": "^8.0.1",
     "@stylistic/eslint-plugin": "^5.10.0",
     "eslint": "^9.39.4",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-regexp": "^3.1.0",
     "husky": "^9.1.7",
     "open": "^11.0.0",
-    "wrangler": "^4.78.0"
+    "wrangler": "^4.79.0"
   }
 }
